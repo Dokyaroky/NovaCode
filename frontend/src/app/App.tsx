@@ -9,6 +9,9 @@ import Learn from '@/pages/Learn'
 import Projects from '@/pages/Projects'
 import UiPreview from '@/pages/dev/UiPreview'
 import Profile from '@/pages/Profile'
+import StudyPod from '@/pages/StudyPod'
+import StudyPodMatching from '@/pages/StudyPodMatching'
+import StudyPodSession from '@/pages/StudyPodSession'
 import { SCREENS } from '@/app/screens'
 
 /* Screens built from Figma. Everything else still renders the Placeholder stub. */
@@ -21,6 +24,9 @@ const IMPLEMENTED: Record<string, ReactNode> = {
   '/explore': <Explore />,
   '/projects': <Projects />,
   '/profile': <Profile />,
+  '/studypod': <StudyPod />,
+  '/studypod/matching': <StudyPodMatching />,
+  '/studypod/session': <StudyPodSession />,
 }
 
 export default function App() {
