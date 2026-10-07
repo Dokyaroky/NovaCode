@@ -1,16 +1,21 @@
+import { useState } from 'react'
 import type { ReactNode } from 'react'
+import AppShell from '@/components/AppShell'
 import Avatar from '@/components/Avatar'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
 import CodeWindow from '@/components/CodeWindow'
 import IconTile from '@/components/IconTile'
+import Input from '@/components/Input'
 import ListItem from '@/components/ListItem'
 import NovaLogo from '@/components/NovaLogo'
 import NumberedList from '@/components/NumberedList'
+import OAuthButton from '@/components/OAuthButton'
 import ProgressBar from '@/components/ProgressBar'
 import SectionHeader from '@/components/SectionHeader'
 import StatRing from '@/components/StatRing'
 import StatusPill from '@/components/StatusPill'
+import Tabs from '@/components/Tabs'
 import UserCard from '@/components/UserCard'
 import {
   IconChevronRight,
@@ -54,6 +59,9 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
 
 /** Dev-only gallery of the design-system primitives. Delete once the pages are done. */
 export default function UiPreview() {
+  const [tab, setTab] = useState('signup')
+  const [email, setEmail] = useState('')
+
   return (
     <main className="flex min-h-full flex-col gap-10 bg-canvas p-8">
       <SectionHeader title="Design system" subtitle="Every primitive rendered with the Figma values.">
@@ -141,6 +149,50 @@ export default function UiPreview() {
           <span className="text-xs text-ink-soft">of 400 XP</span>
         </StatRing>
         <CodeWindow filename="quest.py" lines={CODE} />
+      </Block>
+
+      <Block title="Tabs · input · oauth (auth card)">
+        <div className="w-96 rounded-[32px] bg-surface px-10 pt-6 pb-10 shadow-card">
+          <Tabs
+            tabs={[
+              { id: 'signup', label: 'Sign Up' },
+              { id: 'login', label: 'Log In' },
+            ]}
+            value={tab}
+            onChange={setTab}
+          />
+          <div className="flex flex-col gap-6 pt-8">
+            <Input
+              label="Email"
+              type="email"
+              placeholder="alex@example.com"
+              autoComplete="email"
+              value={email}
+              onChange={setEmail}
+            />
+            <Button size="lg" className="w-full" icon={<IconChevronRight />}>
+              Create Account
+            </Button>
+            <div className="flex items-center gap-4">
+              <span className="h-px flex-1 bg-white/20" />
+              <span className="text-xs font-medium text-ink-soft">or continue with</span>
+              <span className="h-px flex-1 bg-white/20" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <OAuthButton label="GitHub" mark="GH" />
+              <OAuthButton label="Google" mark="G" markClassName="text-lg font-black" />
+            </div>
+          </div>
+        </div>
+      </Block>
+
+      <Block title="AppShell (sidebar · content · rail)">
+        <div className="w-full overflow-hidden rounded-card">
+          <AppShell rail={<Card className="p-6 text-sm text-ink-soft">Rail column · 360px</Card>}>
+            <h1 className="text-display text-ink">Welcome back, Nova</h1>
+            <p className="mt-2 text-sm text-ink-soft">Content column — the shell at work</p>
+          </AppShell>
+        </div>
       </Block>
     </main>
   )
