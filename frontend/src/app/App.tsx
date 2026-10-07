@@ -4,6 +4,7 @@ import Placeholder from '@/pages/Placeholder'
 import Auth from '@/pages/Auth'
 import Dashboard from '@/pages/Dashboard'
 import Explore from '@/pages/Explore'
+import Ide from '@/pages/Ide'
 import Landing from '@/pages/Landing'
 import Learn from '@/pages/Learn'
 import Projects from '@/pages/Projects'
@@ -27,6 +28,7 @@ const IMPLEMENTED: Record<string, ReactNode> = {
   '/studypod': <StudyPod />,
   '/studypod/matching': <StudyPodMatching />,
   '/studypod/session': <StudyPodSession />,
+  '/ide': <Ide />,
 }
 
 export default function App() {
