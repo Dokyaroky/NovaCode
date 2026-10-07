@@ -1,1 +1,86 @@
 @import "tailwindcss";
+
+/* NovaCode design tokens — extracted from the Figma file (key aekUYkoHP5mgIvP9G0jhv6).
+   Surfaces, text and accents come from the node fills; the "ring" elevations are how the
+   frames draw 1px borders (0 0 0 1px white-alpha), never a blur. */
+@theme {
+  /* Surfaces */
+  --color-canvas: #070b14;
+  --color-shell: #0f172a;
+  --color-surface: #1e293b;
+  --color-rail: #111b30;
+  --color-code: #111827;
+  --color-code-header: #27364b;
+  --color-muted: #334155;
+
+  /* Text */
+  --color-ink: #ffffff;
+  --color-ink-soft: #f8fafc;
+  --color-ink-violet: #c4b5fd;
+
+  /* Accents */
+  --color-brand: #f97316;
+  --color-accent: #8b5cf6;
+  --color-success: #10b981;
+  --color-info: #3b82f6;
+  --color-code-red: #fb7185;
+  --color-code-amber: #fbbf24;
+
+  /* Tints */
+  --color-brand-tint: rgba(249, 115, 22, 0.15);
+  --color-accent-tint: rgba(139, 92, 246, 0.15);
+  --color-accent-tint-strong: rgba(139, 92, 246, 0.2);
+  --color-success-tint: rgba(16, 185, 129, 0.15);
+
+  /* Fonts — SF Pro Display replaced by Inter (sizes and tracking kept) */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Type scale that differs from Tailwind's defaults */
+  --text-hero: 72px;
+  --text-hero--line-height: 70.567px;
+  --text-hero--letter-spacing: -3.24px;
+  --text-hero--font-weight: 900;
+
+  --text-display: 36px;
+  --text-display--line-height: 40px;
+  --text-display--letter-spacing: -1.08px;
+  --text-display--font-weight: 900;
+
+  --text-logo: 20px;
+  --text-logo--line-height: 28px;
+  --text-logo--letter-spacing: -0.5px;
+  --text-logo--font-weight: 700;
+
+  /* Radii */
+  --radius-tile: 12px;
+  --radius-card: 16px;
+  --radius-pill: 30px;
+
+  /* Elevation */
+  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.07);
+  --shadow-shell: 0 30px 100px 0 rgba(0, 0, 0, 0.48), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-button: 0 10px 7.5px 0 rgba(0, 0, 0, 0.1), 0 4px 3px 0 rgba(0, 0, 0, 0.1);
+  --shadow-logo: 0 0 14px 0 rgba(249, 115, 22, 0.25);
+
+  /* Shell geometry */
+  --spacing-sidenav: 288px;
+  --spacing-rail: 360px;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-canvas);
+    color: var(--color-ink-soft);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
