@@ -1,0 +1,13 @@
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/health', fn () => response()->json([
+    'status' => 'ok',
+    'app' => config('app.name'),
+    'time' => now()->toIso8601String(),
+]));
+
+Route::get('/user', fn (Request $request) => $request->user())
+    ->middleware('auth:sanctum');
