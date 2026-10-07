@@ -4,19 +4,38 @@ import NovaLogo from '@/components/NovaLogo'
 import SideNav from '@/components/SideNav'
 import type { ReactNode } from 'react'
 
+type RailWidth = 300 | 360
+
 interface AppShellProps {
   children: ReactNode
-  /** Optional 360px right column (Dashboard). */
+  /** Right column content. Width comes from `railWidth` (360 Dashboard, 300 Learn). */
   rail?: ReactNode
+  railWidth?: RailWidth
+  /** Padding of the content column; defaults to the app-shell 24px. */
+  mainClassName?: string
+  /** Padding/gap of the rail column; defaults to 24px padding with a 24px gap. */
+  railClassName?: string
   className?: string
 }
 
+const RAIL_GRID: Record<RailWidth, string> = {
+  300: 'lg:grid-cols-[288px_minmax(0,1fr)_300px]',
+  360: 'lg:grid-cols-[288px_minmax(0,1fr)_360px]',
+}
+
 /**
- * Application chrome from the design: 288px sidebar, fluid content, optional 360px rail.
- * At 1440px the content column lands on the designed 792px.
+ * Application chrome from the design: 288px sidebar, fluid content, optional rail column.
+ * At 1440px the content column lands on the designed width.
  * Below lg the sidebar becomes a drawer behind a compact top bar (mobile layout is ours).
  */
-export default function AppShell({ children, rail, className = '' }: AppShellProps) {
+export default function AppShell({
+  children,
+  rail,
+  railWidth = 360,
+  mainClassName = 'p-4 md:p-6',
+  railClassName = 'gap-6 p-6',
+  className = '',
+}: AppShellProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const { pathname } = useLocation()
 
@@ -26,8 +45,8 @@ export default function AppShell({ children, rail, className = '' }: AppShellPro
 
   return (
     <div
-      className={`grid min-h-screen grid-cols-1 bg-shell ${
-        rail ? 'lg:grid-cols-[288px_minmax(0,1fr)_360px]' : 'lg:grid-cols-[288px_minmax(0,1fr)]'
+      className={`grid min-h-screen grid-cols-1 bg-shell lg:h-screen lg:overflow-hidden ${
+        rail ? RAIL_GRID[railWidth] : 'lg:grid-cols-[288px_minmax(0,1fr)]'
       } ${className}`}
     >
       <SideNav className="hidden lg:flex" />
@@ -63,10 +82,14 @@ export default function AppShell({ children, rail, className = '' }: AppShellPro
         </div>
       )}
 
-      <main className="flex min-w-0 flex-col p-4 md:p-6">{children}</main>
+      <main className={`flex min-w-0 flex-col lg:overflow-y-auto ${mainClassName}`}>
+        {children}
+      </main>
 
       {rail && (
-        <aside className="flex min-w-0 flex-col gap-6 border-t border-white/10 bg-rail p-6 lg:border-t-0 lg:border-l">
+        <aside
+          className={`flex min-w-0 flex-col border-t border-white/10 bg-rail lg:overflow-y-auto lg:border-t-0 lg:border-l ${railClassName}`}
+        >
           {rail}
         </aside>
       )}
