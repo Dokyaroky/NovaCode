@@ -1,10 +1,11 @@
 import type { ReactNode } from 'react'
 
-type TileSize = 'md' | 'sm'
+type TileSize = 'md' | 'sm' | 'xs'
 
 const SIZES: Record<TileSize, string> = {
   md: 'size-12',
   sm: 'size-9',
+  xs: 'size-10',
 }
 
 /* Tints sit on the surface; the two solid tones are the letter tiles (course/subject

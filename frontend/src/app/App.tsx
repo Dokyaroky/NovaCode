@@ -3,8 +3,10 @@ import { Route, Routes } from 'react-router-dom'
 import Placeholder from '@/pages/Placeholder'
 import Auth from '@/pages/Auth'
 import Dashboard from '@/pages/Dashboard'
+import Explore from '@/pages/Explore'
 import Landing from '@/pages/Landing'
 import Learn from '@/pages/Learn'
+import Projects from '@/pages/Projects'
 import UiPreview from '@/pages/dev/UiPreview'
 import { SCREENS } from '@/app/screens'
 
@@ -15,6 +17,8 @@ const IMPLEMENTED: Record<string, ReactNode> = {
   '/signup': <Auth mode="signup" />,
   '/dashboard': <Dashboard />,
   '/learn': <Learn />,
+  '/explore': <Explore />,
+  '/projects': <Projects />,
 }
 
 export default function App() {

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-type ButtonVariant = 'primary' | 'secondary' | 'small' | 'ghost'
+type ButtonVariant = 'primary' | 'secondary' | 'small' | 'ghost' | 'outline'
 
 interface ButtonProps {
   children: ReactNode
@@ -22,6 +22,7 @@ const VARIANTS: Record<ButtonVariant, string> = {
   secondary: 'gap-3 rounded-pill bg-accent px-6 text-base text-white shadow-button',
   small: 'gap-3 rounded-full bg-accent px-5 text-base text-white',
   ghost: 'gap-2 text-base text-white',
+  outline: 'gap-3 rounded-pill border-[0.9px] border-white/40 px-6 text-base text-white hover:bg-white/5',
 }
 
 const HEIGHTS: Record<ButtonVariant, string> = {
@@ -29,6 +30,7 @@ const HEIGHTS: Record<ButtonVariant, string> = {
   secondary: 'h-12',
   small: 'h-11',
   ghost: 'h-6',
+  outline: 'h-12',
 }
 
 export default function Button({
