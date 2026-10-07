@@ -54,7 +54,7 @@ export default function StudyPod() {
 
   return (
     <AppShell>
-      <div className="relative flex flex-1 items-start justify-center overflow-hidden py-8">
+      <div className="relative flex flex-1 items-center justify-center overflow-hidden py-8">
         <div
           className="pointer-events-none absolute top-24 left-32 size-72 rounded-full bg-accent-tint blur-[100px]"
           aria-hidden="true"
