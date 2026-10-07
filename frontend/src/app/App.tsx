@@ -8,6 +8,7 @@ import Landing from '@/pages/Landing'
 import Learn from '@/pages/Learn'
 import Projects from '@/pages/Projects'
 import UiPreview from '@/pages/dev/UiPreview'
+import Profile from '@/pages/Profile'
 import { SCREENS } from '@/app/screens'
 
 /* Screens built from Figma. Everything else still renders the Placeholder stub. */
@@ -19,6 +20,7 @@ const IMPLEMENTED: Record<string, ReactNode> = {
   '/learn': <Learn />,
   '/explore': <Explore />,
   '/projects': <Projects />,
+  '/profile': <Profile />,
 }
 
 export default function App() {
