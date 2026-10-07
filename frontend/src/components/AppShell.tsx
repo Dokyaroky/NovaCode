@@ -82,13 +82,15 @@ export default function AppShell({
         </div>
       )}
 
-      <main className={`flex min-w-0 flex-col lg:overflow-y-auto ${mainClassName}`}>
+      <main
+        className={`no-scrollbar flex min-w-0 flex-col lg:overflow-y-auto ${mainClassName}`}
+      >
         {children}
       </main>
 
       {rail && (
         <aside
-          className={`flex min-w-0 flex-col border-t border-white/10 bg-rail lg:overflow-y-auto lg:border-t-0 lg:border-l ${railClassName}`}
+          className={`no-scrollbar flex min-w-0 flex-col border-t border-white/10 bg-rail lg:overflow-y-auto lg:border-t-0 lg:border-l ${railClassName}`}
         >
           {rail}
         </aside>

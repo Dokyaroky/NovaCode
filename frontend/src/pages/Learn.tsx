@@ -126,7 +126,7 @@ export default function Learn() {
         </div>
       </div>
 
-      <div className="mt-10 flex w-full justify-center overflow-x-auto">
+      <div className="no-scrollbar mt-10 flex min-h-[680px] w-full shrink-0 justify-center overflow-x-auto pb-6">
         <div
           className="relative shrink-0"
           style={{ width: TRACK_CANVAS.width, height: TRACK_CANVAS.height }}

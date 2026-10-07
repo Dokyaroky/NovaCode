@@ -27,7 +27,7 @@ interface SideNavProps {
 export default function SideNav({ className = '' }: SideNavProps) {
   return (
     <nav
-      className={`w-72 shrink-0 flex-col overflow-y-auto border-r border-white/6 bg-rail p-6 ${className}`}
+      className={`no-scrollbar w-72 shrink-0 flex-col overflow-y-auto border-r border-white/6 bg-rail p-6 ${className}`}
       aria-label="Navigasi utama"
     >
       <NovaLogo />

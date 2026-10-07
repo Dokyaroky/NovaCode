@@ -101,7 +101,7 @@ export default function Dashboard() {
 
         <Card className="relative overflow-clip p-6">
           <div className="absolute top-[-96px] left-[552px] size-[288px] rounded-full bg-accent-tint blur-[64px]" />
-          <div className="relative flex items-center justify-between gap-6">
+          <div className="relative flex flex-col items-center justify-between lg:flex-row gap-6">
             <div className="flex min-w-0 flex-col gap-6">
               <div className="flex items-center gap-4">
                 <IconTile tone="accentSolid">
@@ -123,7 +123,7 @@ export default function Dashboard() {
                 <ProgressBar value={CURRENT_COURSE.progress} />
               </div>
             </div>
-            <Button icon={<IconChevronRight />} onClick={() => navigate('/learn')}>
+            <Button icon={<IconChevronRight />} onClick={() => navigate('/learn')} className="w-full lg:w-fit">
               Continue Module
             </Button>
           </div>
@@ -145,7 +145,7 @@ export default function Dashboard() {
                   <IconTile tone="accentStrong">
                     <span className="font-mono text-base font-bold text-white">{quest.label}</span>
                   </IconTile>
-                  <div className="flex max-w-[110px] flex-col gap-2">
+                  <div className="flex flex-col gap-2">
                     <h3 className="text-lg font-bold text-ink">{quest.title}</h3>
                     <p className="text-xs text-ink-soft">{quest.meta}</p>
                   </div>
