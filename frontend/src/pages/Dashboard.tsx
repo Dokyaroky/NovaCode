@@ -123,7 +123,7 @@ export default function Dashboard() {
                 <ProgressBar value={CURRENT_COURSE.progress} />
               </div>
             </div>
-            <Button icon={<IconChevronRight />} onClick={() => navigate('/learn')} className="w-full lg:w-fit">
+            <Button icon={<IconChevronRight />} onClick={() => navigate('/learn')} className="w-full md:w-fit">
               Continue Module
             </Button>
           </div>
@@ -170,9 +170,9 @@ export default function Dashboard() {
           {AI_AUDITS.map((audit) => (
             <Card
               key={audit.id}
-              className="flex flex-1 items-center justify-between gap-6 p-6"
+              className="flex flex-1 flex-col md:flex-row items-center justify-between gap-6 p-6"
             >
-              <div className="flex min-w-0 items-center gap-6">
+              <div className="flex flex-col md:flex-row min-w-0 items-start md:items-center gap-6">
                 <IconTile tone="accentStrong" className="h-14 w-[48.8px]">
                   <img src={auditIcon} alt="" width={28} height={28} />
                 </IconTile>

@@ -3,7 +3,7 @@ import type { KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
-import { SESSION, SESSION_CODE, SESSION_PEERS } from '@/data/studypod'
+import { CODE_TEMPLATES, SESSION, SESSION_PEERS } from '@/data/studypod'
 import cameraOff from '@/assets/icons/camera-off.svg'
 import checkSm from '@/assets/icons/check-sm.svg'
 import groupChallenge from '@/assets/icons/group-challenge.svg'
@@ -11,8 +11,16 @@ import micOff from '@/assets/icons/mic-off.svg'
 import play from '@/assets/icons/play.svg'
 import terminal from '@/assets/icons/terminal.svg'
 
-const INITIAL_CODE = SESSION_CODE.join('\n')
+const TEMPLATE = CODE_TEMPLATES[SESSION.language]
+const INITIAL_CODE = TEMPLATE.code.join('\n')
 const INDENT = '    '
+
+/* Pulls the literal a print/log/select call would emit, so Run Test reflects edits. */
+const STDOUT_PATTERNS = [
+  /print\(\s*["'](.+?)["']\s*\)/,
+  /console\.log\(\s*["'](.+?)["']\s*\)/,
+  /SELECT\s+["'](.+?)["']/i,
+]
 
 function CallControl({ icon, label }: { icon: string; label: string }) {
   return (
@@ -32,6 +40,7 @@ function CallControl({ icon, label }: { icon: string; label: string }) {
 export default function StudyPodSession() {
   const navigate = useNavigate()
   const [code, setCode] = useState(INITIAL_CODE)
+  const [output, setOutput] = useState<string[]>([SESSION.outputReady])
 
   const editorRef = useRef<HTMLTextAreaElement>(null)
   const gutterRef = useRef<HTMLDivElement>(null)
@@ -65,6 +74,14 @@ export default function StudyPodSession() {
   useEffect(() => {
     syncScroll()
   })
+
+  /* Mock run: echoes the command and prints what the buffer asks for (no backend yet). */
+  const runTest = () => {
+    const printed = STDOUT_PATTERNS.map((pattern) => pattern.exec(code)?.[1]).find(
+      (value) => value !== undefined,
+    )
+    setOutput((prev) => [...prev, `$ ${TEMPLATE.runCommand}`, printed ?? TEMPLATE.output])
+  }
 
   /* Tab indents instead of leaving the editor (4 spaces, the file is Python). */
   const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -154,7 +171,7 @@ export default function StudyPodSession() {
             <div className="flex min-w-0 flex-col gap-1">
               <h1 className="truncate text-xl font-bold text-white">{SESSION.editorTitle}</h1>
               <span className="truncate text-xs leading-4 text-ink-soft">
-                {SESSION.editorFile} · {dirty ? SESSION.unsavedLabel : SESSION.savedLabel}
+                {TEMPLATE.filename} · {dirty ? SESSION.unsavedLabel : SESSION.savedLabel}
               </span>
             </div>
           </div>
@@ -216,9 +233,26 @@ export default function StudyPodSession() {
         </div>
 
         <div className="px-6 pb-6">
-          <div className="flex h-13 items-center gap-3 overflow-clip rounded-card bg-code p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
-            <img src={terminal} alt="" width={17} height={17} />
-            <span className="font-mono text-sm leading-5 text-ink-soft">{SESSION.runStatus}</span>
+          <div className="flex flex-col overflow-hidden rounded-card bg-code shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
+            <div className="flex h-11 shrink-0 items-center gap-3 border-b-[0.9px] border-white/8 px-4">
+              <img src={terminal} alt="" width={17} height={17} />
+              <span className="text-sm font-semibold text-white">{SESSION.outputLabel}</span>
+            </div>
+            <div
+              role="log"
+              aria-live="polite"
+              aria-label={SESSION.outputLabel}
+              className="no-scrollbar h-[140px] overflow-y-auto p-4"
+            >
+              {output.map((line, index) => (
+                <p
+                  key={index}
+                  className="font-mono text-sm leading-5 break-words whitespace-pre-wrap text-ink-soft"
+                >
+                  {line}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -229,6 +263,7 @@ export default function StudyPodSession() {
               variant="outline"
               iconPosition="start"
               icon={<img src={play} alt="" width={18} height={18} />}
+              onClick={runTest}
             >
               Run Test
             </Button>

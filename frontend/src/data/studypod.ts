@@ -25,31 +25,59 @@ export const SESSION = {
     'Pass all four shared test cases',
   ],
   editorTitle: 'Collaborative Editor - Python',
-  editorFile: 'login_challenge.py',
+  /** The starter template the session opens with — see CODE_TEMPLATES. */
+  language: 'python' as CodeLanguage,
   savedLabel: 'Changes saved',
   unsavedLabel: 'Unsaved changes',
   peerStatus: 'Peer is typing...',
-  runStatus: '4 tests passed in 0.12s',
   footerNote: 'Both collaborators must agree before submitting.',
-  /** Line 6 carries the peer's caret in the design. */
-  caretLine: 6,
+  outputLabel: 'Output',
+  outputReady: 'Ready. Run your test to see the output.',
+  /** Line carrying the peer's caret in the untouched buffer. */
+  caretLine: 2,
+}
+
+export type CodeLanguage = 'python' | 'javascript' | 'typescript' | 'sql'
+
+export interface CodeTemplate {
+  filename: string
+  runCommand: string
+  /** What this template prints when it runs. */
+  output: string
+  code: string[]
+}
+
+/** Hello-World starter for every language a session can run in. */
+export const CODE_TEMPLATES: Record<CodeLanguage, CodeTemplate> = {
+  python: {
+    filename: 'hello_world.py',
+    runCommand: 'python hello_world.py',
+    output: 'Hello World',
+    code: ['# Print "Hello World" to the console', 'print("Hello World")'],
+  },
+  javascript: {
+    filename: 'hello_world.js',
+    runCommand: 'node hello_world.js',
+    output: 'Hello World',
+    code: ['// Print "Hello World" to the console', 'console.log("Hello World")'],
+  },
+  typescript: {
+    filename: 'hello_world.ts',
+    runCommand: 'ts-node hello_world.ts',
+    output: 'Hello World',
+    code: ['// Print "Hello World" to the console', 'console.log("Hello World")'],
+  },
+  sql: {
+    filename: 'hello_world.sql',
+    runCommand: 'psql -f hello_world.sql',
+    output: 'Hello World',
+    code: ['-- Print "Hello World"', "SELECT 'Hello World' AS greeting;"],
+  },
 }
 
 export const SESSION_PEERS: SessionPeer[] = [
   { id: 'you', initials: 'NC', name: 'You', gradient: 'bg-[linear-gradient(135deg,#8b5cf6_0%,#3b82f6_100%)]' },
   { id: 'peer', initials: 'AM', name: 'Alex Morgan', gradient: 'bg-[linear-gradient(135deg,#f97316_0%,#c2410c_100%)]' },
-]
-
-export const SESSION_CODE = [
-  'def login(username, password):',
-  '    if not username or not password:',
-  '        return {"success": False}',
-  '',
-  '    user = find_user(username)',
-  '    if user and verify(password, user.hash):',
-  '        return {"success": True, "user": user}',
-  '',
-  '    return {"success": False}',
 ]
 
 export const MATCHING = {
