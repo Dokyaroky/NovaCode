@@ -16,7 +16,7 @@ interface AuthLayoutProps {
 export default function AuthLayout({ aside, children }: AuthLayoutProps) {
   return (
     <div className="grid min-h-screen grid-cols-1 bg-shell lg:grid-cols-2">
-      <aside className="hidden flex-col gap-24 bg-shell px-16 py-12 lg:flex">
+      <aside className="hidden flex-col bg-shell px-16 py-12 lg:flex">
         <NovaLogo />
         <div className="flex flex-1 flex-col items-center justify-center pb-16">{aside}</div>
       </aside>

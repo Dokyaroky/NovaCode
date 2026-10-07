@@ -42,6 +42,11 @@
   --text-hero--letter-spacing: -3.24px;
   --text-hero--font-weight: 900;
 
+  --text-hero-sm: 60px;
+  --text-hero-sm--line-height: 63px;
+  --text-hero-sm--letter-spacing: -2.4px;
+  --text-hero-sm--font-weight: 900;
+
   --text-display: 36px;
   --text-display--line-height: 40px;
   --text-display--letter-spacing: -1.08px;
