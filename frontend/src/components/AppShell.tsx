@@ -45,7 +45,7 @@ export default function AppShell({
 
   return (
     <div
-      className={`grid min-h-screen grid-cols-1 bg-shell lg:h-screen lg:overflow-hidden ${
+      className={`grid min-h-screen grid-cols-1 bg-shell lg:h-screen lg:grid-rows-[100%] lg:overflow-hidden ${
         rail ? RAIL_GRID[railWidth] : 'lg:grid-cols-[288px_minmax(0,1fr)]'
       } ${className}`}
     >

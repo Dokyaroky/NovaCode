@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react'
+import type { KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
@@ -8,6 +10,9 @@ import groupChallenge from '@/assets/icons/group-challenge.svg'
 import micOff from '@/assets/icons/mic-off.svg'
 import play from '@/assets/icons/play.svg'
 import terminal from '@/assets/icons/terminal.svg'
+
+const INITIAL_CODE = SESSION_CODE.join('\n')
+const INDENT = '    '
 
 function CallControl({ icon, label }: { icon: string; label: string }) {
   return (
@@ -26,10 +31,53 @@ function CallControl({ icon, label }: { icon: string; label: string }) {
 /** Full-bleed session workspace: the frame is a 504 | 936 split with no sidebar. */
 export default function StudyPodSession() {
   const navigate = useNavigate()
+  const [code, setCode] = useState(INITIAL_CODE)
+
+  const editorRef = useRef<HTMLTextAreaElement>(null)
+  const gutterRef = useRef<HTMLDivElement>(null)
+  const backdropRef = useRef<HTMLPreElement>(null)
+
+  const dirty = code !== INITIAL_CODE
+  const lines = code.split('\n')
+
+  /* Gutter and caret backdrop are not scrollers: they mirror the textarea. */
+  const syncScroll = () => {
+    const editor = editorRef.current
+    if (!editor) return
+    if (gutterRef.current) gutterRef.current.scrollTop = editor.scrollTop
+    if (backdropRef.current) {
+      backdropRef.current.scrollTop = editor.scrollTop
+      backdropRef.current.scrollLeft = editor.scrollLeft
+    }
+  }
+
+  /* Mirror the textarea into the gutter and caret backdrop: a native listener (React's
+     delegated onScroll is not reliable here) plus a sync on every render, which also
+     catches the browser's own scroll-to-caret when typing past the fold. */
+  useEffect(() => {
+    const editor = editorRef.current
+    if (!editor) return
+    const handleScroll = () => syncScroll()
+    editor.addEventListener('scroll', handleScroll, { passive: true })
+    return () => editor.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    syncScroll()
+  })
+
+  /* Tab indents instead of leaving the editor (4 spaces, the file is Python). */
+  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key !== 'Tab') return
+    event.preventDefault()
+    const editor = event.currentTarget
+    editor.setRangeText(INDENT, editor.selectionStart, editor.selectionEnd, 'end')
+    setCode(editor.value)
+  }
 
   return (
-    <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[504px_minmax(0,1fr)]">
-      <div className="flex flex-col gap-6 bg-shell p-6">
+    <div className="grid min-h-screen grid-cols-1 lg:h-screen lg:grid-rows-[100%] lg:grid-cols-[504px_minmax(0,1fr)] lg:overflow-hidden">
+      <div className="no-scrollbar flex flex-col gap-6 bg-shell p-6 lg:overflow-y-auto">
         <Card className="flex flex-col overflow-clip p-6">
           <div className="flex items-center justify-between gap-4">
             <div className="flex min-w-0 flex-col gap-2">
@@ -105,35 +153,66 @@ export default function StudyPodSession() {
             </div>
             <div className="flex min-w-0 flex-col gap-1">
               <h1 className="truncate text-xl font-bold text-white">{SESSION.editorTitle}</h1>
-              <span className="truncate text-xs leading-4 text-ink-soft">{SESSION.editorMeta}</span>
+              <span className="truncate text-xs leading-4 text-ink-soft">
+                {SESSION.editorFile} · {dirty ? SESSION.unsavedLabel : SESSION.savedLabel}
+              </span>
             </div>
           </div>
           <span className="flex h-9 shrink-0 items-center gap-3 rounded-full bg-success-tint px-4 py-2">
-            <span className="size-2 rounded-full bg-success opacity-95" />
+            <span
+              className={`size-2 rounded-full ${dirty ? 'bg-brand' : 'bg-success'} opacity-95`}
+            />
             <span className="text-sm leading-5 font-semibold whitespace-nowrap text-ink-soft">
-              {SESSION.peerStatus}
+              {dirty ? 'Peer is editing too…' : SESSION.peerStatus}
             </span>
           </span>
         </header>
 
-        <div className="no-scrollbar flex flex-1 flex-col overflow-auto p-8">
-          {SESSION_CODE.map((line, index) => {
-            const lineNumber = index + 1
+        {/* Editable code area: the textarea scrolls, the gutter and caret backdrop mirror it. */}
+        <div className="flex min-h-0 flex-1 overflow-hidden p-8">
+          <div
+            ref={gutterRef}
+            aria-hidden="true"
+            className="no-scrollbar flex w-6 shrink-0 flex-col overflow-hidden pr-0"
+          >
+            {lines.map((_, index) => (
+              <span
+                key={index}
+                className="h-9 shrink-0 text-right font-mono text-[15px] leading-9 text-ink-soft"
+              >
+                {index + 1}
+              </span>
+            ))}
+          </div>
 
-            return (
-              <div key={lineNumber} className="flex h-9 items-start gap-8">
-                <span className="w-6 shrink-0 text-right font-mono text-[15px] leading-9 text-ink-soft">
-                  {lineNumber}
-                </span>
-                <span className="font-mono text-[15px] leading-9 whitespace-pre text-ink-soft">
+          <div className="relative min-w-0 flex-1 pl-8">
+            {/* Transparent text keeps the metrics; only the peer caret is painted. */}
+            <pre
+              ref={backdropRef}
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 m-0 overflow-hidden font-mono text-[15px] leading-9 text-transparent"
+            >
+              {lines.map((line, index) => (
+                <div key={index} className="h-9 whitespace-pre">
                   {line}
-                  {lineNumber === SESSION.caretLine && (
-                    <span className="ml-0.5 inline-block h-5 w-0.5 translate-y-1 bg-brand opacity-95" />
+                  {!dirty && index + 1 === SESSION.caretLine && (
+                    <span className="inline-block h-5 w-0.5 translate-y-1 bg-brand" />
                   )}
-                </span>
-              </div>
-            )
-          })}
+                </div>
+              ))}
+            </pre>
+
+            <textarea
+              ref={editorRef}
+              value={code}
+              onChange={(event) => setCode(event.target.value)}
+              onKeyDown={handleKeyDown}
+              spellCheck={false}
+              wrap="off"
+              aria-label="Collaborative code editor"
+              className="no-scrollbar absolute inset-0 size-full resize-none overflow-auto border-0 bg-transparent p-0 font-mono text-[15px] leading-9 text-ink-soft outline-none caret-brand"
+            />
+          </div>
         </div>
 
         <div className="px-6 pb-6">
