@@ -14,6 +14,8 @@ export const SESSION = {
   eyebrow: 'StudyPod Session',
   title: 'Virtual Call',
   status: 'Connected',
+  /** The session header's exit: it minimises the call instead of ending it. */
+  backToDashboard: 'Back to Dashboard',
   /** Call controls under the peer tiles (frame 106:3843 ends the call). */
   controls: { mute: 'Mute', camera: 'Turn Off Camera', end: 'End Call' },
   challengeEyebrow: 'Group Challenge',
@@ -32,6 +34,13 @@ export const SESSION = {
   savedLabel: 'Changes saved',
   unsavedLabel: 'Unsaved changes',
   peerStatus: 'Peer is typing...',
+  /** Minimised call window (leaving the session without ending it). */
+  minimizedNotice: 'Call minimised — it keeps running while you browse.',
+  minimizedLabel: 'Minimised StudyPod call',
+  dragHint: 'Drag to move · double-click to reopen',
+  restoreLabel: 'Reopen the session',
+  minimizedPeer: 'in the call',
+  rejoin: 'Rejoin',
   footerNote: 'Both collaborators must agree before submitting.',
   outputLabel: 'Output',
   outputReady: 'Ready. Run your test to see the output.',

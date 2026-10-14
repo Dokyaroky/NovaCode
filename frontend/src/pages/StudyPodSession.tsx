@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
 import Modal from '@/components/Modal'
+import { clearMinimizedCall, writeMinimizedCall } from '@/components/MinimizedCall'
 import { useToast } from '@/components/Toast'
 import { CODE_TEMPLATES, END_SESSION, SESSION, SESSION_PEERS } from '@/data/studypod'
+import arrowLeft from '@/assets/icons/back-arrow.svg'
 import cameraOff from '@/assets/icons/camera-off.svg'
 import checkSm from '@/assets/icons/check-sm.svg'
 import endSession from '@/assets/icons/end-session.svg'
@@ -60,12 +62,37 @@ function CallControl({
 /** Full-bleed session workspace: the frame is a 504 | 936 split with no sidebar. */
 export default function StudyPodSession() {
   const navigate = useNavigate()
+  const location = useLocation()
   const { push } = useToast()
   const [code, setCode] = useState(INITIAL_CODE)
   const [output, setOutput] = useState<string[]>([SESSION.outputReady])
   const [micOn, setMicOn] = useState(true)
   const [cameraOn, setCameraOn] = useState(true)
   const [endCallOpen, setEndCallOpen] = useState(false)
+  const minimizeCallRef = useRef<HTMLButtonElement>(null)
+
+  /**
+   * This route means the call is no longer minimised (it is on screen again). When the minimised
+   * window's End Call sent us here (`state.endCall`) the call is parked until the user answers
+   * the dialog, so "Yes, End Call" resolves as the frame's copy implies; leaving the page with
+   * the call still running parks it again for the floating window.
+   */
+  const endedRef = useRef(false)
+
+  useEffect(() => {
+    const flagged = Boolean((location.state as { endCall?: boolean } | null)?.endCall)
+    if (flagged) writeMinimizedCall(true)
+    else clearMinimizedCall()
+    if (flagged) setEndCallOpen(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(
+    () => () => {
+      if (!endedRef.current) writeMinimizedCall(true)
+    },
+    [],
+  )
 
   const editorRef = useRef<HTMLTextAreaElement>(null)
   const gutterRef = useRef<HTMLDivElement>(null)
@@ -121,7 +148,11 @@ export default function StudyPodSession() {
      the button states the rule instead of faking a successful submission. */
   const submitGroupWork = () => push({ title: SESSION.footerNote, tone: 'info' })
 
+  /* Confirming here always ends the call: the parked flag goes first, so the session page
+     un-mounting cannot leave a floating window behind. */
   const endCall = () => {
+    endedRef.current = true
+    writeMinimizedCall(false)
     setEndCallOpen(false)
     push({ title: END_SESSION.endedMessage, tone: 'success' })
     navigate('/dashboard')
@@ -130,6 +161,22 @@ export default function StudyPodSession() {
   return (
     <div className="grid min-h-screen grid-cols-1 lg:h-screen lg:grid-rows-[100%] lg:grid-cols-[504px_minmax(0,1fr)] lg:overflow-hidden">
       <div className="no-scrollbar flex flex-col gap-6 bg-shell p-6 lg:overflow-y-auto">
+        {/* Leaving without ending the call is possible: the call minimises to a floating window. */}
+        <Button
+          variant="outline"
+          className="self-start"
+          aria-disabled={endCallOpen}
+          title={endCallOpen ? SESSION.footerNote : undefined}
+          icon={<img src={arrowLeft} alt="" width={17} height={17} />}
+          iconPosition="start"
+          onClick={() => {
+            if (endCallOpen) return
+            minimizeCallRef.current?.click()
+          }}
+        >
+          {SESSION.backToDashboard}
+        </Button>
+
         <Card className="flex flex-col overflow-clip p-6">
           <div className="flex items-center justify-between gap-4">
             <div className="flex min-w-0 flex-col gap-2">
@@ -357,6 +404,17 @@ export default function StudyPodSession() {
           </button>
         </div>
       </Modal>
+
+      {/* Off-screen trigger: the header's "Back to Dashboard" parks the call and minimises it. */}
+      <button
+        ref={minimizeCallRef}
+        type="button"
+        hidden
+        onClick={() => {
+          writeMinimizedCall(true)
+          navigate('/dashboard', { state: { minimizeCall: true } })
+        }}
+      />
     </div>
   )
 }
