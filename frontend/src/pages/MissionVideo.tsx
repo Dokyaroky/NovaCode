@@ -273,7 +273,7 @@ export default function MissionVideo() {
           <div className="flex h-8 shrink-0 items-center justify-between gap-4">
             <Link
               to={MISSION.backPath}
-              className="flex h-6 shrink-0 items-center gap-2 rounded-sm text-base leading-6 text-ink-soft transition hover:text-ink focus-visible:ring-2 focus-visible:ring-brand focus-visible:outline-none"
+              className="text-button flex h-6 shrink-0 items-center gap-2 rounded-sm text-base leading-6 text-ink-soft transition hover:text-ink focus-visible:ring-2 focus-visible:ring-brand focus-visible:outline-none"
             >
               <IconArrowLeft />
               {MISSION.backLabel}

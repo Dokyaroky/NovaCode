@@ -107,6 +107,27 @@
   body::-webkit-scrollbar {
     display: none;
   }
+
+  /* Tailwind v4's preflight leaves buttons on `cursor: default`. Every control in this app is a
+     pointer, and a disabled one says so instead of still looking clickable. */
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  [role='tab']:not(:disabled),
+  [role='switch']:not(:disabled),
+  label:has(> input:not(:disabled)),
+  summary {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  button[aria-disabled='true'],
+  [role='button'][aria-disabled='true'],
+  [role='tab'][aria-disabled='true'],
+  [role='switch'][aria-disabled='true'],
+  input:disabled + *,
+  label:has(> input:disabled) {
+    cursor: not-allowed;
+  }
 }
 
 /* Scroll container without a visible scrollbar. */
@@ -116,6 +137,18 @@
 
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+/* A control that is only a label (with or without a leading icon): the underline is the feedback,
+   alongside the pointer cursor from the base rules. */
+@utility text-button {
+  transition: color 150ms ease-out;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 4px;
   }
 }
 

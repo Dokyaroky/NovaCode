@@ -44,6 +44,11 @@ with `text-*`). Fixed-colour art lives in `src/assets/**` as `.svg` imported by 
   Pages must not inline mock literals.
 - Interactions must be real: buttons navigate / open a modal / toggle state, tabs switch panels, forms
   validate, disabled states explain themselves. No decorative control that pretends to work.
+- Every interactive control shows feedback: `cursor: pointer` (base rules in `index.css` cover every
+  `button`, `[role=button|tab|switch]`, `<label>` around an input and `<summary>`, because Tailwind v4's
+  preflight leaves buttons on `cursor: default`), `cursor: not-allowed` for disabled ones, hover/active
+  states on all of them, and a visible `focus-visible` ring. A control that is only a label uses the
+  `text-button` utility (underline on hover/focus) — the `Button` variant `ghost` already includes it.
 - States: loading (`aria-busy`, no spinners per the project's rule — text + progress bar), empty, error,
   validation, success, disabled all need an explicit visual, not just a happy path.
 - Accessibility: semantic elements, `<button>` for actions, `<a>/<NavLink>` for navigation, labels tied to

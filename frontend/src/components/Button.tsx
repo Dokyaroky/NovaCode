@@ -21,7 +21,8 @@ const VARIANTS: Record<ButtonVariant, string> = {
   primary: 'gap-3 rounded-pill bg-brand px-6 text-base text-white shadow-button',
   secondary: 'gap-3 rounded-pill bg-accent px-6 text-base text-white shadow-button',
   small: 'gap-3 rounded-full bg-accent px-5 text-base text-white',
-  ghost: 'gap-2 text-base text-white',
+  /* Text button: no chrome, so the underline on hover/focus is its feedback. */
+  ghost: 'text-button gap-2 text-base text-white',
   outline: 'gap-3 rounded-pill border-[0.9px] border-white/40 px-6 text-base text-white hover:bg-white/5',
 }
 
@@ -50,7 +51,7 @@ export default function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`inline-flex shrink-0 items-center justify-center whitespace-nowrap transition hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 ${
+      className={`inline-flex shrink-0 cursor-pointer items-center justify-center whitespace-nowrap transition hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 ${
         size === 'lg' ? 'h-14' : HEIGHTS[variant]
       } ${VARIANTS[variant]} ${className}`}
       {...rest}

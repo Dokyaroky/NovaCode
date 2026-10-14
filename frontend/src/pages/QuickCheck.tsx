@@ -159,7 +159,7 @@ export default function QuickCheck() {
         <div className="flex min-w-0 items-center gap-6">
           <Link
             to={QUICK_CHECK.backPath}
-            className="flex shrink-0 items-center gap-2 text-base leading-6 text-white/60 transition hover:text-ink focus-visible:ring-2 focus-visible:ring-brand focus-visible:outline-none"
+            className="text-button flex shrink-0 items-center gap-2 text-base leading-6 text-white/60 transition hover:text-ink focus-visible:ring-2 focus-visible:ring-brand focus-visible:outline-none"
           >
             <IconArrowLeft />
             {QUICK_CHECK.backLabel}
