@@ -1,6 +1,6 @@
 export const STUDY_TOPICS = ['Python', 'JavaScript', 'SQL & Data Modeling', 'React', 'Algorithms']
 
-export const STUDY_DIFFICULTIES = ['Beginner', 'Intermediate', 'Advanced']
+export const STUDY_DIFFICULTIES = ['Beginner', 'Medium', 'Advanced']
 
 export interface SessionPeer {
   id: string
@@ -12,8 +12,10 @@ export interface SessionPeer {
 
 export const SESSION = {
   eyebrow: 'StudyPod Session',
-  title: 'Video Call',
+  title: 'Virtual Call',
   status: 'Connected',
+  /** Call controls under the peer tiles (frame 106:3843 ends the call). */
+  controls: { mute: 'Mute', camera: 'Turn Off Camera', end: 'End Call' },
   challengeEyebrow: 'Group Challenge',
   challengeTitle: 'Build a Login Function',
   challengeBody:
@@ -50,10 +52,19 @@ export interface CodeTemplate {
 /** Hello-World starter for every language a session can run in. */
 export const CODE_TEMPLATES: Record<CodeLanguage, CodeTemplate> = {
   python: {
-    filename: 'hello_world.py',
-    runCommand: 'python hello_world.py',
-    output: 'Hello World',
-    code: ['# Print "Hello World" to the console', 'print("Hello World")'],
+    /* The session frame (12:333) opens on the challenge's own stub, not a hello world. */
+    filename: 'login_challenge.py',
+    runCommand: 'python login_challenge.py',
+    output: 'Process finished with exit code 0',
+    code: [
+      'def login(username, password):',
+      '    if not username or not password:',
+      '        return {"success": False}',
+      '    user = find_user(username)',
+      '    if user and verify(password, user.hash):',
+      '        return {"success": True, "user": user}',
+      '    return {"success": False}',
+    ],
   },
   javascript: {
     filename: 'hello_world.js',
@@ -97,4 +108,17 @@ export const SETUP = {
   difficultyPlaceholder: 'Choose your difficulty',
   submit: 'Find a Match',
   waitNote: 'Average wait time: 45 seconds',
+  /* Frame 91:4440 shows the form with both selectors already answered. */
+  defaultTopic: 'Python',
+  defaultDifficulty: 'Medium',
+}
+
+/** The "End Collaborative Session?" dialog (frame 106:3843). */
+export const END_SESSION = {
+  title: 'End Collaborative Session?',
+  body: 'Are you sure you want to leave? Your peer is still in the session. Unsubmitted group work may be lost if both peers leave.',
+  cancel: 'Cancel',
+  confirm: 'Yes, End Call',
+  /** Toast shown once the call is actually ended. */
+  endedMessage: 'You left the collaborative session.',
 }

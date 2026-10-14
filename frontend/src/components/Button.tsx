@@ -1,8 +1,8 @@
-import type { ReactNode } from 'react'
+import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
 type ButtonVariant = 'primary' | 'secondary' | 'small' | 'ghost' | 'outline'
 
-interface ButtonProps {
+interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'> {
   children: ReactNode
   variant?: ButtonVariant
   /** 'lg' is the 56px full-width submit button used by the auth forms. */
@@ -43,6 +43,7 @@ export default function Button({
   onClick,
   disabled,
   className = '',
+  ...rest
 }: ButtonProps) {
   return (
     <button
@@ -52,6 +53,7 @@ export default function Button({
       className={`inline-flex shrink-0 items-center justify-center whitespace-nowrap transition hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 ${
         size === 'lg' ? 'h-14' : HEIGHTS[variant]
       } ${VARIANTS[variant]} ${className}`}
+      {...rest}
     >
       {icon && iconPosition === 'start' && icon}
       {children}

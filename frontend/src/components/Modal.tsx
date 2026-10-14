@@ -21,6 +21,14 @@ export interface ModalProps {
   /** Right-aligned action row inside the dialog. */
   footer?: ReactNode
   children?: ReactNode
+  /** Accessible name when the dialog has no title row (centred dialogs). */
+  ariaLabel?: string
+  /** Hide the top-right close button — the design's centred dialogs draw none. */
+  showClose?: boolean
+  /** Panel width override (the centred end-session dialog is 420px). */
+  panelClassName?: string
+  /** Body wrapper padding; override when the body owns the dialog's layout. */
+  bodyClassName?: string
 }
 
 export default function Modal({
@@ -31,6 +39,10 @@ export default function Modal({
   size = 'md',
   footer,
   children,
+  ariaLabel,
+  showClose = true,
+  panelClassName = '',
+  bodyClassName = 'px-6 pb-6',
 }: ModalProps) {
   const panelRef = useRef<HTMLDivElement>(null)
 
@@ -53,26 +65,30 @@ export default function Modal({
           ref={panelRef}
           role="dialog"
           aria-modal="true"
-          aria-label={title ?? 'Dialog'}
+          aria-label={ariaLabel ?? title ?? 'Dialog'}
           tabIndex={-1}
-          className={`animate-scale-in relative flex w-full ${SIZES[size]} flex-col overflow-clip rounded-card bg-surface shadow-shell outline-none`}
+          className={`animate-scale-in relative flex w-full ${SIZES[size]} flex-col overflow-clip rounded-card bg-surface shadow-shell outline-none ${panelClassName}`}
         >
-          <div className="flex items-start justify-between gap-6 p-6">
-            <div className="flex min-w-0 flex-col gap-2">
-              {title && <h2 className="text-xl font-bold text-ink">{title}</h2>}
-              {description && <p className="text-sm leading-6 text-ink-soft">{description}</p>}
+          {(showClose || title || description) && (
+            <div className="flex items-start justify-between gap-6 p-6">
+              <div className="flex min-w-0 flex-col gap-2">
+                {title && <h2 className="text-xl font-bold text-ink">{title}</h2>}
+                {description && <p className="text-sm leading-6 text-ink-soft">{description}</p>}
+              </div>
+              {showClose && (
+                <button
+                  type="button"
+                  onClick={onClose}
+                  aria-label="Close dialog"
+                  className="grid size-9 shrink-0 place-items-center rounded-tile text-ink-soft transition duration-150 hover:bg-white/10 hover:text-ink focus-visible:ring-2 focus-visible:ring-brand focus-visible:outline-none active:scale-95"
+                >
+                  <IconClose width={18} height={18} />
+                </button>
+              )}
             </div>
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label="Close dialog"
-              className="grid size-9 shrink-0 place-items-center rounded-tile text-ink-soft transition duration-150 hover:bg-white/10 hover:text-ink focus-visible:ring-2 focus-visible:ring-brand focus-visible:outline-none active:scale-95"
-            >
-              <IconClose width={18} height={18} />
-            </button>
-          </div>
+          )}
 
-          {children && <div className="px-6 pb-6">{children}</div>}
+          {children && <div className={bodyClassName}>{children}</div>}
 
           {footer && (
             <div className="flex flex-wrap items-center justify-end gap-4 border-t-[0.9px] border-white/8 px-6 py-5">

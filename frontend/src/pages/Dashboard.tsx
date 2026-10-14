@@ -164,7 +164,7 @@ export default function Dashboard() {
             subtitle="Feedback grounded in your submitted code."
           >
             <Button variant="ghost" icon={<IconChevronRight />} onClick={() => navigate('/projects')}>
-              View audit history
+              View Projects history
             </Button>
           </SectionHeader>
           {AI_AUDITS.map((audit) => (

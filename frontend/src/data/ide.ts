@@ -7,7 +7,9 @@ export const IDE = {
   title: 'Find the highest score',
   brief: 'Write a function that accepts a list of player scores and returns the highest value.',
   requirementsTitle: 'Your function should:',
-  hint: 'Ask AI for a hint',
+  hint: 'Give Me a hint',
+  /** Revealed by the hint button; its body is drawn from the challenge's own material. */
+  hintTitle: 'Hint',
   filename: 'solution.py',
   savedLabel: 'All changes saved',
   terminalLabel: 'Terminal',

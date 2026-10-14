@@ -16,6 +16,7 @@ import terminalIcon from '@/assets/icons/terminal-ide.svg'
 export default function Ide() {
   const [output, setOutput] = useState<string>(IDE.readyMessage)
   const [running, setRunning] = useState(false)
+  const [hintOpen, setHintOpen] = useState(false)
 
   const runCode = () => {
     setRunning(true)
@@ -83,10 +84,28 @@ export default function Ide() {
             variant="secondary"
             className="self-start"
             iconPosition="start"
+            aria-expanded={hintOpen}
             icon={<img src={aiHint} alt="" width={18} height={18} />}
+            onClick={() => setHintOpen((open) => !open)}
           >
             {IDE.hint}
           </Button>
+
+          {hintOpen && (
+            <div
+              role="status"
+              aria-live="polite"
+              className="flex flex-col gap-3 rounded-card bg-accent-tint p-5"
+            >
+              <p className="text-sm font-semibold text-white">{IDE.hintTitle}</p>
+              <p className="font-mono text-sm leading-6 text-ink-soft">
+                {IDE_EXAMPLE.call} {IDE_EXAMPLE.result}
+              </p>
+              <p className="text-sm leading-6 text-ink-soft">
+                {IDE_REQUIREMENTS[0]} <span className="font-mono">{IDE_REQUIREMENT_TOKEN}</span>
+              </p>
+            </div>
+          )}
         </section>
 
         <section className="flex min-w-0 flex-col bg-[#0b1120]">
