@@ -110,11 +110,20 @@ without horizontal overflow at 390x844. Commands run from the repo root: `npm ru
 (API :8000 + web :5173) — if a shell command cannot contain the bundler's name, launch the frontend
 from a script file instead.
 
-Frame values that were reproduced exactly, per screen: Career Path pins (324/214, 419/379, 284/539),
-boss card (84, 764, 620x170), fuel 15%/30%; mission column 691.6 | 372.4 with the video box 691.6x390
-at y84 and a 643.6x6 progress bar; quick-check 900px column at x270 with a 900x506.25 video and a
-252x56 submit; questionnaire 1000px container at x76 with a 476px option grid; Profile panel 1104;
-end-session dialog 420x332 with 172px buttons and a 12px gap.
+Frame values that were reproduced exactly, per screen: mission column 691.6 | 372.4 with the video box
+691.6x390 at y84 and a 643.6x6 progress bar; quick-check 900px column at x270 with a 900x506.25 video
+and a 252x56 submit; questionnaire 1000px container at x76 with a 476px option grid; Profile panel
+1104; end-session dialog 420x332 with 172px buttons and a 12px gap.
+
+The **Career Path map is the one screen deliberately restyled** after implementation: at the user's
+request it is now a centred, Duolingo-style route — a 560px column, pins alternating at 23%/77% with a
+168px vertical step, one 6px S-curve per hop (brand when the mission is reached, muted while locked)
+drawn from the pin centres, the astronaut standing in front of the active pin (`z-10`, 92px,
+`max-w-none` — the image preflight otherwise clamps it to the 80px wrapper), and the boss card centred
+under the route. The frames' absolute pin/boss coordinates therefore no longer apply; the geometry
+lives in `MISSION_ROUTE` in the page, and `docs/figma/frames/118-5899_Career_Path_2.txt` keeps the
+original numbers.
+
 
 ### Deviations the user should know about
 

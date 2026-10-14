@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import AppShell from '@/components/AppShell'
 import Button from '@/components/Button'
@@ -15,10 +15,9 @@ import bossIcon from '@/assets/expedition/boss.svg'
 import changeCareer from '@/assets/expedition/change-career.svg'
 import extractionIcon from '@/assets/expedition/extraction.svg'
 import rocket from '@/assets/expedition/rocket.png'
-import routePath from '@/assets/expedition/route-path.svg'
 
 /* The frame draws each pin as an 80px ring with a 5.07px stroke; the finished ring keeps the
-   brand orange, the active one is the darker ember tone with the astronaut peeking out. */
+   brand orange, the active one is the darker ember tone with the astronaut standing on it. */
 const PIN_RING: Record<MissionStatus, string> = {
   extracting:
     'border-[5.067px] border-[rgba(139,97,0,0.37)] bg-[#bc4f11] shadow-[0_0_22.8px_8px_rgba(226,190,44,0.14),0_12px_30px_0_rgba(16,185,129,0.2)]',
@@ -32,89 +31,175 @@ const PIN_LABEL: Record<MissionStatus, string> = {
   locked: '[Locked]',
 }
 
-const MISSION_ROUTE = '/learn/mission'
+/* Duolingo-style route: a centred column where the pins alternate left/right and a curve joins
+   their centres. Every number is in the column's own coordinate space, so the map keeps its shape
+   at any width — the SVG stretches horizontally while the pins are positioned in percentages. */
+const MISSION_ROUTE = {
+  /** Width of the route column at desktop; it shrinks to the viewport below that. */
+  column: 560,
+  /** Pin centres, as a percentage of the column (a 27% swing around the middle). */
+  xLeft: 23,
+  xRight: 77,
+  /** Vertical distance between two pin centres. */
+  gap: 168,
+  /** Ring diameter, and the height of a ring + its label card. */
+  ring: 80,
+  unit: 144,
+} as const
+
+const MISSION_PATH = '/learn/mission'
 const FINAL_REVIEW_ROUTE = '/projects/review'
+
+/** Pins alternate off-centre, starting on the left (frame 118:5899 draws them that way). */
+function pinSide(index: number): 'left' | 'right' {
+  return index % 2 === 0 ? 'left' : 'right'
+}
+
+function pinX(index: number): number {
+  return pinSide(index) === 'left' ? MISSION_ROUTE.xLeft : MISSION_ROUTE.xRight
+}
+
+/** S-curve between two route points, bending through the vertical midpoint. */
+function curve(from: { x: number; y: number }, to: { x: number; y: number }): string {
+  const midY = (from.y + to.y) / 2
+  return `M ${from.x} ${from.y} C ${from.x} ${midY}, ${to.x} ${midY}, ${to.x} ${to.y}`
+}
 
 export default function CareerPath() {
   const [params] = useSearchParams()
   const navigate = useNavigate()
+  const [crashOpen, setCrashOpen] = useState(false)
   const stage: ExpeditionStage = EXPEDITION_STAGES[params.get('stage') ?? ''] ?? EXPEDITION
   const current = activeMission(stage)
   const sidebar = EXPEDITION_SIDEBAR
 
+  const { column, gap, ring, unit } = MISSION_ROUTE
+  const routeHeight = (stage.missions.length - 1) * gap + unit
+  const points = stage.missions.map((_, index) => ({
+    x: (pinX(index) / 100) * column,
+    y: index * gap + ring / 2,
+  }))
+
   return (
     <AppShell mainClassName="p-0">
       <div className="grid min-h-0 flex-1 lg:grid-cols-[minmax(0,1fr)_346px]">
-        {/* ── Expedition map ─────────────────────────────────────────────── */}
-        <section className="relative isolate overflow-hidden px-6 pt-6 lg:h-[960px]">
+        {/* ── Expedition route ───────────────────────────────────────────── */}
+        <section className="relative isolate overflow-hidden px-6 py-8 lg:px-10">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-16 top-56 hidden size-64 rounded-full bg-success/5 blur-[100px] lg:block"
+            className="pointer-events-none absolute top-40 left-8 hidden size-64 rounded-full bg-success/5 blur-[100px] lg:block"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-[454px] top-[640px] hidden size-72 rounded-full bg-accent/10 blur-[110px] lg:block"
+            className="pointer-events-none absolute top-[520px] right-10 hidden size-72 rounded-full bg-accent/10 blur-[110px] lg:block"
           />
 
-          <header className="flex flex-col gap-3 lg:absolute lg:left-6 lg:top-6 lg:w-[758px]">
-            <span className="inline-flex items-center gap-2 self-start rounded-full bg-accent-tint px-3.5 py-2 text-xs font-bold uppercase leading-[18px] tracking-[0.72px] text-ink-violet">
-              <img src={badgeFuel} alt="" className="size-4" />
-              {stage.badge}
-            </span>
-            <h1 className="text-display text-white">{stage.title}</h1>
-            <p className="max-w-[700px] text-sm leading-6 text-ink-soft">{stage.subtitle}</p>
-          </header>
+          <div className="mx-auto flex w-full max-w-[560px] flex-col">
+            <header className="flex flex-col gap-3">
+              <span className="inline-flex items-center gap-2 self-start rounded-full bg-accent-tint px-3.5 py-2 text-xs font-bold uppercase leading-[18px] tracking-[0.72px] text-ink-violet">
+                <img src={badgeFuel} alt="" className="size-4" />
+                {stage.badge}
+              </span>
+              <h1 className="text-display text-white">{stage.title}</h1>
+              <p className="text-sm leading-6 text-ink-soft lg:max-w-[700px]">{stage.subtitle}</p>
+            </header>
 
-          {/* Departure route: the frame's 758x742 vector, decorative at desktop only. */}
-          <img
-            src={routePath}
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none absolute left-6 top-[194px] hidden h-[742px] w-[758px] lg:block"
-          />
+            {/* The route itself: one curve per hop, tinted by the mission it leads into. */}
+            <div className="relative mt-10" style={{ height: routeHeight }}>
+              <svg
+                viewBox={`0 0 ${column} ${routeHeight}`}
+                preserveAspectRatio="none"
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 size-full"
+              >
+                {stage.missions.map((mission, index) => {
+                  const to = points[index]
+                  // The first hop starts above the column so the route has a lead-in.
+                  const from = index === 0 ? { x: to.x, y: 0 } : points[index - 1]
+                  const reached = mission.status !== 'locked'
+                  return (
+                    <path
+                      key={mission.id}
+                      d={curve(from, to)}
+                      fill="none"
+                      stroke={reached ? 'var(--color-brand)' : 'var(--color-muted)'}
+                      strokeWidth={6}
+                      strokeLinecap="round"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                  )
+                })}
+              </svg>
 
-          <ul className="relative mt-6 flex flex-col gap-6 lg:static lg:mt-0 lg:block">
-            {stage.missions.map((mission) => (
-              <MissionPin key={mission.id} mission={mission} onOpen={() => navigate(MISSION_ROUTE)} />
-            ))}
-          </ul>
+              <ul>
+                {stage.missions.map((mission, index) => (
+                  <MissionPin
+                    key={mission.id}
+                    mission={mission}
+                    side={pinSide(index)}
+                    top={index * gap}
+                    x={pinX(index)}
+                    onOpen={() => navigate(MISSION_PATH)}
+                  />
+                ))}
+              </ul>
+            </div>
 
-          <BossCard stage={stage} />
+            <BossCard stage={stage} />
+          </div>
         </section>
 
         {/* ── Expedition sidebar ─────────────────────────────────────────── */}
         <aside className="flex flex-col gap-6 border-t border-white/10 bg-rail p-6 lg:h-[960px] lg:border-t-0 lg:border-l lg:border-l-[1.267px]">
           <Card className="flex w-full flex-col p-6">
-            <div className="grid h-[220px] place-items-center rounded-card border-[1.267px] border-dashed border-white/25 bg-shell">
-              <img src={rocket} alt="" className="size-[164px]" />
-            </div>
-
-            <div className="mt-6 flex flex-col gap-3">
-              <p className="text-xs font-bold uppercase tracking-[0.96px] text-ink-soft">
-                {sidebar.crash.label}
-              </p>
-              <h2 className="text-2xl font-bold leading-8 text-white">{sidebar.crash.heading}</h2>
-            </div>
-
-            <div className="mt-6 flex flex-col gap-3">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-semibold text-white">{sidebar.crash.tankLabel}</span>
-                <span className="text-sm font-bold text-ink-soft">{stage.fuelPercent}%</span>
-              </div>
-              <ProgressBar value={stage.fuelPercent} />
-              <p className="text-xs leading-5 text-ink-soft">{sidebar.crash.note}</p>
-            </div>
-
-            <Link
-              to="/learn/questionnaire"
-              className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-[20px] border-[1.267px] border-[#94a3b8] text-base text-[#94a3b8] transition hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            {/* Below lg the report is collapsed behind this toggle; desktop keeps it open. */}
+            <Button
+              variant="outline"
+              className="w-full lg:hidden"
+              aria-expanded={crashOpen}
+              aria-controls="crash-report"
+              icon={<img src={rocket} alt="" className="size-[18px]" />}
+              iconPosition="start"
+              onClick={() => setCrashOpen((open) => !open)}
             >
-              <img src={changeCareer} alt="" className="size-[17px]" />
-              {sidebar.crash.cta}
-            </Link>
+              {sidebar.crash.label}
+            </Button>
+
+            <div
+              id="crash-report"
+              className={`${crashOpen ? 'flex' : 'hidden'} flex-col lg:flex`}
+            >
+              <div className="grid h-[220px] place-items-center rounded-card border-[1.267px] border-dashed border-white/25 bg-shell">
+                <img src={rocket} alt="" className="size-[164px]" />
+              </div>
+
+              <div className="mt-6 flex flex-col gap-3">
+                <p className="text-xs font-bold uppercase tracking-[0.96px] text-ink-soft">
+                  {sidebar.crash.label}
+                </p>
+                <h2 className="text-2xl font-bold leading-8 text-white">{sidebar.crash.heading}</h2>
+              </div>
+
+              <div className="mt-6 flex flex-col gap-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold text-white">{sidebar.crash.tankLabel}</span>
+                  <span className="text-sm font-bold text-ink-soft">{stage.fuelPercent}%</span>
+                </div>
+                <ProgressBar value={stage.fuelPercent} label={sidebar.crash.tankLabel} />
+                <p className="text-xs leading-5 text-ink-soft">{sidebar.crash.note}</p>
+              </div>
+
+              <Link
+                to="/learn/questionnaire"
+                className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-[20px] border-[1.267px] border-[#94a3b8] text-base text-[#94a3b8] transition hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+              >
+                <img src={changeCareer} alt="" className="size-[17px]" />
+                {sidebar.crash.cta}
+              </Link>
+            </div>
           </Card>
 
-          <Card className="flex w-full flex-1 flex-col p-6">
+          <Card className="flex w-full flex-col p-6 lg:flex-1">
             <div className="flex items-start gap-4">
               <IconTile tone="brand" className="size-11 rounded-tile">
                 <img src={extractionIcon} alt="" className="size-[22px]" />
@@ -130,9 +215,9 @@ export default function CareerPath() {
             <p className="mt-6 text-sm leading-6 text-ink-soft">{sidebar.current.body}</p>
 
             <Button
-              className="mt-auto w-full"
+              className="mt-6 w-full lg:mt-auto"
               icon={<img src={extractionIcon} alt="" className="size-[17px]" />}
-              onClick={() => navigate(MISSION_ROUTE)}
+              onClick={() => navigate(MISSION_PATH)}
             >
               {sidebar.current.cta}
             </Button>
@@ -145,50 +230,53 @@ export default function CareerPath() {
 
 interface MissionPinProps {
   mission: Mission
+  side: 'left' | 'right'
+  top: number
+  x: number
   onOpen: () => void
 }
 
-/** One map pin: 80px ring + label card, absolutely placed on the desktop canvas. */
-function MissionPin({ mission, onOpen }: MissionPinProps) {
+/** One stop on the route: an 80px ring with the astronaut standing in front of the active one. */
+function MissionPin({ mission, side, top, x, onOpen }: MissionPinProps) {
   const locked = mission.status === 'locked'
 
   return (
     <li
-      className="lg:absolute lg:left-[var(--pin-x)] lg:top-[var(--pin-y)]"
-      style={{ '--pin-x': `${mission.x}px`, '--pin-y': `${mission.y}px` } as CSSProperties}
+      className="absolute flex w-20 -translate-x-1/2 flex-col items-center"
+      style={{ left: `${x}%`, top }}
     >
-      <div className="flex items-center gap-4 lg:w-[220px] lg:flex-col lg:gap-3">
-        <div className="relative shrink-0">
-          {mission.status === 'extracting' && (
-            <img
-              src={astronaut}
-              alt=""
-              aria-hidden="true"
-              className="pointer-events-none absolute -left-[52px] -top-4 size-[92px]"
-            />
+      <div className="relative w-20">
+        {mission.status === 'extracting' && (
+          <img
+            src={astronaut}
+            alt=""
+            aria-hidden="true"
+            className={`pointer-events-none absolute -top-4 z-10 size-[92px] max-w-none drop-shadow-[0_14px_20px_rgba(0,0,0,0.45)] ${
+              side === 'left' ? 'left-9' : 'right-9'
+            }`}
+          />
+        )}
+        <button
+          type="button"
+          onClick={onOpen}
+          disabled={locked}
+          aria-label={`${mission.title} ${PIN_LABEL[mission.status]}`}
+          className={`relative z-0 grid size-20 place-items-center overflow-clip rounded-full transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
+            locked ? 'cursor-not-allowed' : 'cursor-pointer hover:brightness-110 active:scale-[0.98]'
+          } ${PIN_RING[mission.status]}`}
+        >
+          {mission.status === 'locked' ? (
+            <span className="text-base text-white">{mission.order}</span>
+          ) : (
+            <img src={checkSm} alt="" className="size-4" />
           )}
-          <button
-            type="button"
-            onClick={onOpen}
-            disabled={locked}
-            aria-label={`${mission.title} ${PIN_LABEL[mission.status]}`}
-            className={`grid size-20 place-items-center overflow-clip rounded-full transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
-              locked ? 'cursor-not-allowed' : 'cursor-pointer hover:brightness-110 active:scale-[0.98]'
-            } ${PIN_RING[mission.status]}`}
-          >
-            {mission.status === 'locked' ? (
-              <span className="text-base text-white">{mission.order}</span>
-            ) : (
-              <img src={checkSm} alt="" className="size-4" />
-            )}
-          </button>
-        </div>
-
-        <span className="flex w-auto min-w-[112px] flex-col rounded-card bg-surface px-4 py-2 text-center shadow-card">
-          <span className="text-sm font-semibold text-white">{mission.title}</span>
-          <span className="text-xs font-semibold text-ink-soft">{PIN_LABEL[mission.status]}</span>
-        </span>
+        </button>
       </div>
+
+      <span className="mt-3 flex w-max min-w-[112px] flex-col rounded-card bg-surface px-4 py-2 text-center shadow-card">
+        <span className="text-sm font-semibold text-white">{mission.title}</span>
+        <span className="text-xs font-semibold text-ink-soft">{PIN_LABEL[mission.status]}</span>
+      </span>
     </li>
   )
 }
@@ -208,7 +296,7 @@ function BossCard({ stage }: { stage: ExpeditionStage }) {
 
   /* The design puts a 3.8px violet stroke plus a wide violet glow on this card only. */
   const shell =
-    'flex min-h-[144px] items-center justify-between gap-6 rounded-card border-[3.8px] border-accent bg-surface p-6 shadow-[0_0_0_1px_rgba(139,92,246,0.4),0_0_60px_0_rgba(139,92,246,0.24)]'
+    'mt-12 flex min-h-[144px] w-full flex-col gap-5 rounded-card border-[3.8px] border-accent bg-surface p-6 shadow-[0_0_0_1px_rgba(139,92,246,0.4),0_0_60px_0_rgba(139,92,246,0.24)] sm:flex-row sm:items-center sm:justify-between sm:gap-6'
 
   const content = (
     <>
@@ -226,11 +314,9 @@ function BossCard({ stage }: { stage: ExpeditionStage }) {
     </>
   )
 
-  const placement = 'mt-8 lg:absolute lg:left-[84px] lg:top-[764.4px] lg:mt-0 lg:w-[620px]'
-
   if (boss.locked) {
     return (
-      <div className={`${shell} ${placement}`} aria-disabled="true">
+      <div className={shell} aria-disabled="true">
         {content}
       </div>
     )
@@ -239,7 +325,7 @@ function BossCard({ stage }: { stage: ExpeditionStage }) {
   return (
     <Link
       to={FINAL_REVIEW_ROUTE}
-      className={`${shell} ${placement} transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand`}
+      className={`${shell} transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand`}
     >
       {content}
     </Link>

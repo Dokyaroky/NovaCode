@@ -2,7 +2,11 @@
  * Career Path — "The Fuel Expedition" mock data.
  * Figma: frame 118:5899 (authoritative: 15% fuel, one mission extracting) and 122:6601
  * (the advanced state: 30% fuel, every mission finished, the boss unlocked).
- * Every string is a text node of those frames; `x`/`y` are the frame's 806x960 map canvas.
+ * Every string is a text node of those frames.
+ *
+ * Geometry: the screen draws the missions as a centred, Duolingo-style route, so the pins are
+ * placed by index (see MISSION_ROUTE in the page) rather than by the frames' absolute x/y — the
+ * old coordinates remain in `docs/figma/frames/118-5899_Career_Path_2.txt`.
  */
 
 export type MissionStatus = 'finished' | 'extracting' | 'locked'
@@ -14,8 +18,6 @@ export interface Mission {
   status: MissionStatus
   /** Number drawn inside the pin while the mission is not the active one. */
   order: string
-  x: number
-  y: number
 }
 
 export interface ExpeditionStage {
@@ -63,9 +65,9 @@ export const EXPEDITION: ExpeditionStage = {
     'Your rocket is out of fuel. Complete coding nodes to extract Plasma Fuel and defeat the Final Boss to ignite the engine.',
   fuelPercent: 15,
   missions: [
-    { id: 'html-css-base', title: 'HTML/CSS Base', status: 'extracting', order: '1', x: 254, y: 214 },
-    { id: 'react-ui', title: 'React UI', status: 'locked', order: '2', x: 349, y: 379 },
-    { id: 'nodejs-backend', title: 'Node.js Backend', status: 'locked', order: '3', x: 214, y: 539 },
+    { id: 'html-css-base', title: 'HTML/CSS Base', status: 'extracting', order: '1' },
+    { id: 'react-ui', title: 'React UI', status: 'locked', order: '2' },
+    { id: 'nodejs-backend', title: 'Node.js Backend', status: 'locked', order: '3' },
   ],
   boss: {
     label: 'Boss Lair',
@@ -81,9 +83,9 @@ export const EXPEDITION_ADVANCED: ExpeditionStage = {
   id: 'advanced',
   fuelPercent: 30,
   missions: [
-    { id: 'html-css-base', title: 'HTML/CSS Base', status: 'finished', order: '1', x: 254, y: 214 },
-    { id: 'react-ui', title: 'React UI', status: 'finished', order: '2', x: 349, y: 379 },
-    { id: 'nodejs-backend', title: 'Node.js Backend', status: 'finished', order: '3', x: 214, y: 539 },
+    { id: 'html-css-base', title: 'HTML/CSS Base', status: 'finished', order: '1' },
+    { id: 'react-ui', title: 'React UI', status: 'finished', order: '2' },
+    { id: 'nodejs-backend', title: 'Node.js Backend', status: 'finished', order: '3' },
   ],
   boss: {
     label: 'Boss Lair',
