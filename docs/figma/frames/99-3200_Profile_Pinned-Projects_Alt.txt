@@ -1,0 +1,170 @@
+<frame id="99:3200" name='Profile_Pinned-Projects_Alt' x=2216.0 y=7463.0 width=1440.0 height=960.0 >
+  <frame id="99:3201" name='Shell' x=0.0 y=0.0 width=1440.0 height=960.0 >
+    <frame id="99:3202" name='SideNav' x=0.0 y=0.0 width=288.0 height=960.0 >
+      <frame id="99:3203" name='NovaLogo' x=24.0 y=24.0 width=239.1 height=40.0 >
+        <frame id="99:3204" name='Text' x=0.0 y=0.0 width=40.0 height=40.0 >
+          <frame id="99:3205" name='Icon' x=8.5 y=8.5 width=23.0 height=23.0 >
+        <frame id="99:3209" name='Text' x=52.0 y=6.0 width=95.1 height=28.0 >
+          <text id="99:3210" name='Novacode' x=0.0 y=0.0 width=95.0 height=28.0 >
+      <frame id="99:3211" name='Navigation - App navigation' x=24.0 y=64.0 width=239.1 height=412.0 >
+        <frame id="99:3212" name='Button' x=0.0 y=64.0 width=239.1 height=48.0 >
+          <frame id="99:3213" name='Icon' x=16.0 y=14.0 width=20.0 height=20.0 >
+          <text id="99:3216" name='Dashboard' x=52.0 y=12.0 width=83.0 height=24.0 >
+        <frame id="99:3217" name='Button' x=0.0 y=124.0 width=239.1 height=48.0 >
+          <frame id="99:3218" name='Icon' x=16.0 y=14.0 width=20.0 height=20.0 >
+          <text id="99:3221" name='Career Path' x=52.0 y=12.0 width=91.0 height=24.0 >
+        <frame id="99:3222" name='Button' x=0.0 y=184.0 width=239.1 height=48.0 >
+          <frame id="99:3223" name='Icon' x=16.0 y=14.0 width=20.0 height=20.0 >
+          <text id="99:3226" name='Explore' x=52.0 y=12.0 width=57.0 height=24.0 >
+        <frame id="99:3227" name='Button' x=0.0 y=244.0 width=239.1 height=48.0 >
+          <frame id="99:3228" name='Icon' x=16.0 y=14.0 width=20.0 height=20.0 >
+          <text id="99:3230" name='Projects' x=52.0 y=12.0 width=62.0 height=24.0 >
+        <frame id="99:3231" name='Button' x=0.0 y=304.0 width=239.1 height=48.0 >
+          <frame id="99:3232" name='Icon' x=16.0 y=14.0 width=20.0 height=20.0 >
+          <text id="99:3236" name='StudyPod' x=52.0 y=12.0 width=74.0 height=24.0 >
+        <frame id="99:3237" name='Button' x=0.0 y=364.0 width=239.1 height=48.0 >
+          <frame id="99:3238" name='Icon' x=16.0 y=14.0 width=20.0 height=20.0 >
+          <text id="99:3241" name='Profile' x=52.0 y=12.0 width=49.0 height=24.0 >
+      <frame id="99:3242" name='Container:margin' x=24.0 y=476.0 width=239.1 height=460.0 >
+        <frame id="99:3243" name='Container' x=0.0 y=364.0 width=239.1 height=96.0 >
+          <frame id="99:3244" name='Container' x=16.0 y=16.0 width=207.1 height=40.0 >
+            <frame id="99:3245" name='Text' x=0.0 y=0.0 width=40.0 height=40.0 >
+              <text id="99:3246" name='N' x=14.0 y=8.0 width=12.0 height=24.0 >
+            <frame id="99:3247" name='Container' x=52.0 y=2.0 width=74.9 height=36.0 >
+              <frame id="99:3248" name='Paragraph' x=0.0 y=0.0 width=74.9 height=20.0 >
+                <text id="99:3249" name='Nova Chen' x=0.0 y=0.0 width=75.0 height=20.0 >
+              <frame id="99:3250" name='Paragraph' x=0.0 y=20.0 width=74.9 height=16.0 >
+                <text id="99:3251" name='Level 12' x=0.0 y=0.0 width=47.0 height=16.0 >
+          <frame id="99:3252" name='Container' x=16.0 y=72.0 width=207.1 height=8.0 >
+            <frame id="99:3253" name='Container' x=0.0 y=0.0 width=155.3 height=8.0 >
+    <frame id="99:3254" name='ProfileSettings' x=288.0 y=0.0 width=1152.0 height=960.0 >
+      <frame id="99:3255" name='Article' x=24.0 y=24.0 width=1104.0 height=204.0 >
+        <frame id="99:3256" name='Container' x=24.0 y=24.0 width=320.4 height=156.0 >
+          <frame id="99:3257" name='Container' x=0.0 y=22.0 width=112.0 height=112.0 >
+            <frame id="99:3258" name='Text' x=0.0 y=0.0 width=112.0 height=112.0 >
+              <text id="99:3259" name='NC' x=33.5 y=38.0 width=45.0 height=36.0 >
+            <frame id="99:3260" name='Text' x=80.0 y=80.0 width=28.0 height=28.0 >
+              <frame id="99:3261" name='Icon' x=7.5 y=7.5 width=13.0 height=13.0 >
+          <frame id="99:3263" name='Container' x=136.0 y=0.0 width=184.4 height=156.0 >
+            <frame id="99:3264" name='Container' x=0.0 y=0.0 width=184.4 height=96.0 >
+              <frame id="99:3265" name='Text' x=0.0 y=0.0 width=184.4 height=16.0 >
+                <text id="99:3266" name='Profile & Settings' x=0.0 y=0.0 width=140.0 height=16.0 >
+              <frame id="99:3267" name='Heading 1' x=0.0 y=24.0 width=184.4 height=40.0 >
+                <text id="99:3268" name='Nova Chen' x=0.0 y=0.0 width=186.0 height=40.0 >
+              <frame id="99:3269" name='Paragraph' x=0.0 y=72.0 width=184.4 height=24.0 >
+                <text id="99:3270" name='Career: Front-End Developer' x=0.0 y=0.0 width=220.0 height=24.0 >
+            <frame id="99:3271" name='Container' x=0.0 y=112.0 width=184.4 height=44.0 >
+              <frame id="99:3272" name="Button - Open Nova Chen's GitHub profile" x=0.0 y=0.0 width=44.0 height=44.0 >
+                <text id="99:3273" name='GH' x=10.0 y=10.0 width=24.0 height=24.0 >
+              <frame id="99:3274" name="Button - Open Nova Chen's LinkedIn profile" x=56.0 y=0.0 width=44.0 height=44.0 >
+                <text id="99:3275" name='in' x=15.0 y=10.0 width=14.0 height=24.0 >
+        <frame id="99:3276" name='Container' x=675.1 y=62.0 width=404.9 height=80.0 >
+          <frame id="99:3277" name='Container' x=0.0 y=0.0 width=230.0 height=80.0 >
+            <frame id="99:3278" name='Text' x=24.0 y=18.0 width=44.0 height=44.0 >
+              <frame id="99:3279" name='Icon' x=10.5 y=10.5 width=23.0 height=23.0 >
+            <frame id="99:3283" name='Container' x=84.0 y=16.0 width=122.0 height=48.0 >
+              <frame id="99:3284" name='Text' x=0.0 y=0.0 width=122.0 height=16.0 >
+                <text id="99:3285" name='League' x=0.0 y=0.0 width=43.0 height=16.0 >
+              <text id="99:3286" name='Gold League' x=0.0 y=20.0 width=123.0 height=28.0 >
+          <frame id="99:3287" name='Container' x=254.0 y=8.0 width=1.0 height=64.0 >
+          <frame id="99:3288" name='Container' x=279.0 y=10.0 width=125.8 height=60.0 >
+            <text id="99:3289" name='Total XP' x=77.8 y=0.0 width=48.0 height=16.0 >
+            <frame id="99:3290" name='Text' x=0.0 y=20.0 width=125.8 height=40.0 >
+              <text id="99:3291" name='12,400' x=0.0 y=0.0 width=131.0 height=40.0 >
+      <frame id="99:3292" name='Section' x=24.0 y=252.0 width=1104.0 height=268.0 >
+        <frame id="99:3293" name='Article' x=0.0 y=0.0 width=540.0 height=268.0 >
+          <frame id="99:3294" name='Container' x=24.0 y=66.0 width=240.0 height=136.0 >
+            <frame id="99:3295" name='Container' x=0.0 y=0.0 width=240.0 height=88.0 >
+              <frame id="99:3296" name='Heading 2' x=0.0 y=0.0 width=240.0 height=32.0 >
+                <text id="99:3297" name='Skill Radar' x=0.0 y=0.0 width=124.0 height=32.0 >
+              <text id="99:3298" name='Verified strengths from completed projects and AI ' x=0.0 y=40.0 width=240.0 height=48.0 >
+            <frame id="99:3299" name='Text' x=0.0 y=104.0 width=124.5 height=32.0 >
+              <text id="99:3300" name='Advanced profile' x=12.0 y=8.0 width=101.0 height=16.0 >
+          <frame id="99:3301" name='ProfileSkillRadar' x=296.0 y=24.0 width=220.0 height=220.0 >
+            <frame id="99:3302" name='Image - Skill radar showing strong OOP, Logic, and Database skills' x=0.0 y=0.0 width=220.0 height=220.0 >
+            <frame id="99:3314" name='Text' x=97.0 y=0.0 width=26.0 height=16.0 >
+              <text id="99:3315" name='OOP' x=0.0 y=0.0 width=27.0 height=16.0 >
+            <text id="99:3316" name='Logic' x=188.3 y=176.0 width=32.0 height=16.0 >
+            <text id="99:3317" name='Database' x=0.0 y=176.0 width=56.0 height=16.0 >
+        <frame id="99:3318" name='Article' x=564.0 y=0.0 width=540.0 height=268.0 >
+          <frame id="99:3319" name='Container' x=24.0 y=24.0 width=492.0 height=60.0 >
+            <frame id="99:3320" name='Heading 2' x=0.0 y=0.0 width=492.0 height=32.0 >
+              <text id="99:3321" name='Quick Stats' x=0.0 y=0.0 width=136.0 height=32.0 >
+            <frame id="99:3322" name='Paragraph' x=0.0 y=40.0 width=492.0 height=20.0 >
+              <text id="99:3323" name='Your learning milestones at a glance.' x=0.0 y=0.0 width=243.0 height=20.0 >
+          <frame id="99:3324" name='Container' x=24.0 y=108.0 width=492.0 height=136.0 >
+            <frame id="99:3325" name='Container' x=0.0 y=0.0 width=234.0 height=136.0 >
+              <frame id="99:3326" name='Text' x=24.0 y=44.0 width=48.0 height=48.0 >
+                <frame id="99:3327" name='Icon' x=11.5 y=11.5 width=25.0 height=25.0 >
+              <frame id="99:3329" name='Container' x=88.0 y=44.0 width=85.4 height=48.0 >
+                <text id="99:3330" name='Longest Streak' x=0.0 y=0.0 width=86.0 height=16.0 >
+                <frame id="99:3331" name='Text' x=0.0 y=20.0 width=85.4 height=28.0 >
+                  <text id="99:3332" name='32 Days' x=0.0 y=0.0 width=80.0 height=28.0 >
+            <frame id="99:3333" name='Container' x=258.0 y=0.0 width=234.0 height=136.0 >
+              <frame id="99:3334" name='Text' x=24.0 y=44.0 width=48.0 height=48.0 >
+                <frame id="99:3335" name='Icon' x=11.5 y=11.5 width=25.0 height=25.0 >
+              <frame id="99:3339" name='Container' x=88.0 y=44.0 width=65.4 height=48.0 >
+                <text id="99:3340" name='Certificates' x=0.0 y=0.0 width=66.0 height=16.0 >
+                <frame id="99:3341" name='Text' x=0.0 y=20.0 width=65.4 height=28.0 >
+                  <text id="99:3342" name='4' x=0.0 y=0.0 width=14.0 height=28.0 >
+      <frame id="99:3343" name='Tab List - Profile details' x=24.0 y=544.0 width=1104.0 height=64.0 >
+        <frame id="99:3344" name='Tab' x=0.0 y=0.0 width=276.0 height=63.1 >
+          <text id="99:3345" name='Certificates' x=94.0 y=19.6 width=88.0 height=24.0 >
+        <frame id="99:3346" name='Tab' x=276.0 y=0.0 width=276.0 height=63.1 >
+          <text id="99:3347" name='Course History' x=81.5 y=19.6 width=113.0 height=24.0 >
+        <frame id="99:3348" name='Tab' x=552.0 y=0.0 width=276.0 height=63.1 >
+          <text id="99:3349" name='Projects History' x=77.5 y=19.6 width=121.0 height=24.0 >
+          <frame id="99:3350" name='Text' x=24.0 y=60.1 width=228.0 height=4.0 >
+        <frame id="99:3351" name='Tab' x=828.0 y=0.0 width=276.0 height=63.1 >
+          <text id="99:3352" name='Settings' x=106.5 y=19.6 width=63.0 height=24.0 >
+      <frame id="99:3361" name='Tab Panel - Projects History' x=24.0 y=632.0 width=1104.0 height=304.0 >
+        <frame id="99:3362" name='Container' x=24.0 y=24.0 width=1056.0 height=256.0 >
+          <frame id="99:3363" name='Article' x=0.0 y=0.0 width=1056.0 height=125.8 >
+            <frame id="99:3364" name='Container' x=20.9 y=20.9 width=829.4 height=84.0 >
+              <frame id="99:3365" name='Text' x=0.0 y=0.0 width=829.4 height=16.0 >
+                <text id="99:3366" name='Active Project' x=0.0 y=0.0 width=117.0 height=16.0 >
+              <frame id="99:3367" name='Heading 2' x=0.0 y=16.0 width=829.4 height=36.0 >
+                <text id="99:3368" name='Python OOP Console App' x=0.0 y=8.0 width=249.0 height=28.0 >
+              <frame id="99:3369" name='Container' x=0.0 y=52.0 width=829.4 height=32.0 >
+                <frame id="99:3370" name='Progress Bar - Python OOP Console App progress' x=0.0 y=20.0 width=654.0 height=8.0 >
+                  <frame id="99:3371" name='Container' x=0.0 y=0.0 width=490.5 height=8.0 >
+                <frame id="99:3372" name='Text' x=670.0 y=16.0 width=159.4 height=16.0 >
+                  <text id="99:3373" name='Micro-tasks: 3/4 completed' x=0.0 y=0.0 width=160.0 height=16.0 >
+            <frame id="99:3374" name='Button' x=874.3 y=38.9 width=160.8 height=48.0 >
+              <text id="99:3375" name='Resume Work' x=28.4 y=12.0 width=104.0 height=24.0 >
+          <frame id="99:3376" name='Container' x=0.0 y=141.8 width=1056.0 height=114.2 >
+            <frame id="99:3377" name='Heading 2' x=0.0 y=0.0 width=1056.0 height=28.0 >
+              <text id="99:3378" name='Completed & Audited' x=0.0 y=0.0 width=188.0 height=28.0 >
+            <frame id="99:3379" name='Container' x=0.0 y=40.0 width=1056.0 height=74.2 >
+              <frame id="99:3380" name='Article' x=0.0 y=0.0 width=520.0 height=143.7 >
+                <frame id="99:3381" name='Container' x=16.9 y=16.9 width=486.2 height=60.0 >
+                  <frame id="99:3382" name='Heading 3' x=0.0 y=0.0 width=486.2 height=24.0 >
+                    <text id="99:3383" name='E-Commerce REST API' x=0.0 y=0.0 width=179.0 height=24.0 >
+                  <frame id="99:3384" name='Container' x=0.0 y=24.0 width=486.2 height=36.0 >
+                    <frame id="99:3385" name='Text' x=0.0 y=12.0 width=61.3 height=24.0 >
+                      <text id="99:3386" name='Python' x=10.0 y=4.0 width=42.0 height=16.0 >
+                    <frame id="99:3387" name='Text' x=69.3 y=12.0 width=64.4 height=24.0 >
+                      <text id="99:3388" name='FastAPI' x=10.0 y=4.0 width=45.0 height=16.0 >
+                    <frame id="99:3389" name='Text' x=141.7 y=12.0 width=88.6 height=24.0 >
+                      <text id="99:3390" name='PostgreSQL' x=10.0 y=4.0 width=69.0 height=16.0 >
+                <frame id="99:3391" name='Container' x=16.9 y=76.9 width=486.2 height=49.8 >
+                  <frame id="99:3392" name='Text' x=0.0 y=16.9 width=119.0 height=28.0 >
+                    <text id="99:3393" name='AI Audit: 95/100' x=12.0 y=6.0 width=97.0 height=16.0 >
+                  <frame id="99:3394" name='Button' x=328.2 y=12.0 width=157.9 height=37.8 >
+                    <text id="99:3395" name='View Audit Result' x=12.5 y=6.9 width=133.0 height=24.0 >
+              <frame id="99:3396" name='Article' x=536.0 y=0.0 width=520.0 height=143.7 >
+                <frame id="99:3397" name='Container' x=16.9 y=16.9 width=486.2 height=60.0 >
+                  <frame id="99:3398" name='Heading 3' x=0.0 y=0.0 width=486.2 height=24.0 >
+                    <text id="99:3399" name='Task Management Dashboard' x=0.0 y=0.0 width=234.0 height=24.0 >
+                  <frame id="99:3400" name='Container' x=0.0 y=24.0 width=486.2 height=36.0 >
+                    <frame id="99:3401" name='Text' x=0.0 y=12.0 width=53.0 height=24.0 >
+                      <text id="99:3402" name='React' x=10.0 y=4.0 width=34.0 height=16.0 >
+                    <frame id="99:3403" name='Text' x=61.0 y=12.0 width=83.3 height=24.0 >
+                      <text id="99:3404" name='TypeScript' x=10.0 y=4.0 width=64.0 height=16.0 >
+                    <frame id="99:3405" name='Text' x=152.3 y=12.0 width=68.2 height=24.0 >
+                      <text id="99:3406" name='Tailwind' x=10.0 y=4.0 width=49.0 height=16.0 >
+                <frame id="99:3407" name='Container' x=16.9 y=76.9 width=486.2 height=49.8 >
+                  <frame id="99:3408" name='Text' x=0.0 y=16.9 width=119.1 height=28.0 >
+                    <text id="99:3409" name='AI Audit: 92/100' x=12.0 y=6.0 width=97.0 height=16.0 >
+                  <frame id="99:3410" name='Button' x=328.2 y=12.0 width=157.9 height=37.8 >
+                    <text id="99:3411" name='View Audit Result' x=12.5 y=6.9 width=133.0 height=24.0 >

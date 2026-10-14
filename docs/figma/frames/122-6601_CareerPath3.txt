@@ -1,0 +1,84 @@
+<frame id="122:6601" name='CareerPath3' x=20948.0 y=-807.0 width=1440.0 height=960.0 >
+  <frame id="122:6602" name='Shell' x=0.0 y=0.0 width=1440.0 height=960.0 >
+    <instance id="122:6603" name='SideNav' x=0.0 y=0.0 width=288.0 height=960.0 >
+    <frame id="122:6604" name='FuelExpedition' x=288.0 y=0.0 width=1152.0 height=1920.0 >
+      <frame id="122:6605" name='Section' x=0.0 y=0.0 width=806.0 height=960.0 >
+        <frame id="122:6606" name='Container' x=64.0 y=224.0 width=256.0 height=256.0 >
+        <frame id="122:6607" name='Container' x=454.0 y=640.0 width=288.0 height=288.0 >
+        <frame id="122:6608" name='Header' x=24.0 y=24.0 width=758.0 height=146.0 >
+          <frame id="122:6609" name='Text' x=0.0 y=0.0 width=198.4 height=34.0 >
+            <frame id="122:6610" name='Icon' x=14.0 y=9.0 width=16.0 height=16.0 >
+            <text id="122:6613" name='The Fuel Expedition' x=38.0 y=8.0 width=146.0 height=18.0 >
+          <frame id="122:6614" name='Heading 1' x=0.0 y=46.0 width=758.0 height=40.0 >
+            <text id="122:6615" name='Expedition: Full Stack Developer' x=0.0 y=0.0 width=547.0 height=40.0 >
+          <text id="122:6616" name='Your rocket is out of fuel. Complete coding nodes ' x=0.0 y=98.0 width=700.0 height=48.0 >
+        <frame id="122:6617" name='Icon' x=24.0 y=194.0 width=758.0 height=742.0 >
+          <vector id="122:6618" name='Vector' x=280.9 y=60.5 width=194.9 height=579.0 >
+        <frame id="122:6619" name='Container' x=254.0 y=214.0 width=220.0 height=144.0 >
+          <frame id="122:6620" name='Button - HTML/CSS Base, [Fuel Extracted]' x=70.0 y=0.0 width=80.0 height=80.0 >
+            <frame id="122:6621" name='Icon' x=26.0 y=26.0 width=28.0 height=28.0 >
+          <frame id="122:6622" name='Text' x=38.5 y=92.0 width=143.0 height=52.0 >
+            <text id="122:6623" name='HTML/CSS Base' x=16.0 y=8.0 width=111.0 height=20.0 >
+            <frame id="122:6624" name='Text' x=16.0 y=28.0 width=111.0 height=16.0 >
+              <text id="122:6625" name='[Finished]' x=26.0 y=0.0 width=59.0 height=16.0 >
+          <vector id="122:6626" name='Vector 1' x=110.0 y=40.0 width=135.8 height=180.0 >
+        <frame id="122:6627" name='Container' x=349.0 y=379.0 width=220.0 height=144.0 >
+          <frame id="122:6628" name='Button - React UI, [Extracting...]' x=70.0 y=0.0 width=80.0 height=80.0 >
+          <rounded-rectangle id="122:6630" name='image 1' x=120.0 y=0.0 width=92.0 height=92.0 >
+          <frame id="122:6631" name='Text' x=54.2 y=92.0 width=111.6 height=52.0 >
+            <frame id="122:6632" name='Container' x=16.0 y=8.0 width=79.6 height=20.0 >
+              <text id="122:6633" name='React UI' x=11.7 y=0.1 width=57.0 height=20.0 >
+            <frame id="122:6634" name='Text' x=16.0 y=28.0 width=79.6 height=16.0 >
+              <text id="122:6635" name='[Finished]' x=10.3 y=0.0 width=59.0 height=16.0 >
+        <frame id="122:6636" name='Container' x=214.0 y=539.0 width=220.0 height=144.0 >
+          <frame id="122:6637" name='Button - Node.js Backend, [Locked]' x=70.0 y=0.0 width=80.0 height=80.0 >
+          <frame id="122:6639" name='Text' x=36.9 y=92.0 width=146.1 height=52.0 >
+            <text id="122:6640" name='Node.js Backend' x=16.0 y=8.0 width=114.1 height=20.0 >
+            <frame id="122:6641" name='Text' x=16.0 y=28.0 width=114.1 height=16.0 >
+              <text id="122:6642" name='[Finished]' x=27.6 y=0.0 width=59.0 height=16.0 >
+        <frame id="122:6643" name='Article' x=84.0 y=764.4 width=620.0 height=171.6 >
+          <frame id="122:6644" name='Container' x=27.8 y=27.8 width=465.8 height=116.0 >
+            <frame id="122:6645" name='Text' x=0.0 y=26.0 width=64.0 height=64.0 >
+              <frame id="122:6646" name='Icon' x=17.0 y=17.0 width=30.0 height=30.0 >
+            <frame id="122:6650" name='Container' x=84.0 y=0.0 width=381.8 height=116.0 >
+              <frame id="122:6651" name='Text' x=0.0 y=0.0 width=381.8 height=16.0 >
+                <text id="122:6652" name='Boss Lair' x=0.0 y=0.0 width=71.0 height=16.0 >
+              <text id="122:6653" name='Final Boss: E-Commerce Capstone' x=0.0 y=24.0 width=382.0 height=64.0 >
+              <frame id="122:6654" name='Paragraph' x=0.0 y=96.0 width=381.8 height=20.0 >
+                <text id="122:6655" name='Reward: 10,000L Rocket Fuel' x=0.0 y=0.0 width=192.0 height=20.0 >
+          <frame id="122:6656" name='Text' x=517.6 y=69.8 width=74.6 height=32.0 >
+            <text id="122:6657" name='Fight' x=23.0 y=8.0 width=31.0 height=16.0 >
+      <frame id="122:6658" name='Sidebar' x=806.0 y=0.0 width=346.0 height=960.0 >
+        <frame id="122:6659" name='Article' x=25.3 y=24.0 width=296.7 height=572.0 >
+          <frame id="122:6660" name='Container' x=24.0 y=24.0 width=248.7 height=220.0 >
+            <frame id="122:6661" name='Container' x=25.3 y=46.0 width=198.2 height=128.0 >
+              <rounded-rectangle id="122:6662" name='[CITYPNG.COM]HD Cartoon Vector Space Rocket Transparent PNG - 1500x1500 2' x=17.1 y=-18.0 width=164.0 height=164.0 >
+          <frame id="122:6663" name='Container' x=24.0 y=244.0 width=248.7 height=116.0 >
+            <frame id="122:6664" name='Text' x=0.0 y=24.0 width=248.7 height=16.0 >
+              <text id="122:6665" name='Crash Report' x=0.0 y=0.0 width=105.0 height=16.0 >
+            <text id="122:6666" name='Ship Status: Stranded' x=0.0 y=52.0 width=249.0 height=64.0 >
+          <frame id="122:6667" name='Container' x=24.0 y=360.0 width=248.7 height=120.0 >
+            <frame id="122:6668" name='Container' x=0.0 y=24.0 width=248.7 height=20.0 >
+              <frame id="122:6669" name='Text' x=0.0 y=0.0 width=64.6 height=20.0 >
+                <text id="122:6670" name='Fuel Tank' x=0.0 y=0.0 width=65.0 height=20.0 >
+              <frame id="122:6671" name='Text' x=216.4 y=0.0 width=32.3 height=20.0 >
+                <text id="122:6672" name='30%' x=0.0 y=0.0 width=31.0 height=20.0 >
+            <frame id="122:6673" name='Progress Bar - Rocket fuel tank' x=0.0 y=56.0 width=248.7 height=12.0 >
+              <frame id="122:6674" name='Container' x=0.0 y=0.0 width=91.0 height=12.0 >
+            <text id="122:6675" name='Extract Plasma Fuel from coding nodes to restart t' x=0.0 y=80.0 width=249.0 height=40.0 >
+          <frame id="122:6676" name='Button:margin' x=24.0 y=480.0 width=248.7 height=68.0 >
+            <frame id="122:6677" name='Button' x=0.0 y=24.0 width=248.7 height=44.0 >
+              <frame id="122:6678" name='Icon' x=27.9 y=13.5 width=17.0 height=17.0 >
+              <text id="122:6681" name='Change Target Career' x=52.9 y=10.0 width=168.0 height=24.0 >
+        <frame id="122:6682" name='Article' x=25.3 y=620.0 width=296.7 height=316.0 >
+          <frame id="122:6683" name='Container' x=24.0 y=24.0 width=248.7 height=80.0 >
+            <frame id="122:6684" name='Text' x=0.0 y=0.0 width=44.0 height=44.0 >
+              <frame id="122:6685" name='Icon' x=11.0 y=11.0 width=22.0 height=22.0 >
+            <frame id="122:6688" name='Container' x=60.0 y=0.0 width=188.7 height=80.0 >
+              <frame id="122:6689" name='Text' x=0.0 y=0.0 width=188.7 height=16.0 >
+                <text id="122:6690" name='Current Extraction' x=0.0 y=0.0 width=156.0 height=16.0 >
+              <text id="122:6691" name='HTML/CSS Base' x=0.0 y=24.0 width=189.0 height=28.0 >
+          <frame id="122:6692" name='Paragraph:margin' x=24.0 y=104.0 width=249.0 height=72.0 >
+            <text id="122:6693" name='Complete the active challenge to extract the next ' x=0.0 y=24.0 width=249.0 height=48.0 >
+          <frame id="122:6694" name='Button:margin' x=24.0 y=176.0 width=248.7 height=116.0 >
+            <instance id="122:6695" name='Button_StartExtraction' x=0.0 y=68.0 width=248.7 height=48.0 >

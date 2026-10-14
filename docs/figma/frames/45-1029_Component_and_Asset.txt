@@ -1,0 +1,60 @@
+<frame id="45:1029" name='Component and Asset' x=-7474.0 y=382.0 width=5736.0 height=6082.0 >
+  <frame id="45:1021" name='SignUp_button' x=126.0 y=68.0 width=175.2 height=156.0 >
+    <symbol id="45:1020" name='Property 1=Default' x=20.0 y=20.0 width=135.2 height=48.0 >
+    <symbol id="45:1022" name='Property 1=Variant2' x=16.0 y=86.0 width=144.0 height=52.0 >
+  <instance id="45:1043" name='SignUp_button' x=316.0 y=180.0 width=135.2 height=48.0 >
+  <frame id="45:1085" name='Login page' x=289.0 y=604.0 width=436.0 height=224.0 >
+    <symbol id="45:1084" name='Property 1=Default' x=20.0 y=20.0 width=396.0 height=48.0 >
+    <symbol id="45:1086" name='Property 1=Variant2' x=20.0 y=88.0 width=396.0 height=48.0 >
+    <symbol id="45:1132" name='Property 1=Variant3' x=20.0 y=156.0 width=396.0 height=48.0 >
+  <instance id="45:1182" name='Login page' x=699.0 y=327.0 width=396.0 height=48.0 >
+  <frame id="45:1230" name='Button' x=875.0 y=556.0 width=440.0 height=172.0 >
+    <symbol id="45:1229" name='Property 1=Default' x=20.0 y=20.0 width=400.0 height=56.0 >
+    <symbol id="45:1231" name='Property 1=Variant2' x=20.0 y=96.0 width=400.0 height=56.0 >
+  <frame id="59:556" name='Sidebar Navigation Button' x=1442.0 y=570.0 width=200.0 height=40.0 >
+  <frame id="52:679" name='Button_CareerPath' x=333.0 y=1202.0 width=279.1 height=400.0 >
+    <symbol id="52:678" name='Property 1=Default' x=20.0 y=20.0 width=239.1 height=48.0 >
+    <symbol id="52:680" name='Property 1=Variant2' x=20.0 y=88.0 width=239.1 height=48.0 >
+    <symbol id="57:904" name='Property 1=Variant3' x=20.0 y=156.0 width=239.1 height=48.0 >
+  <frame id="60:1009" name='Button_Explore' x=612.0 y=1202.0 width=279.1 height=400.0 >
+    <symbol id="60:1010" name='Property 1=Default' x=20.0 y=20.0 width=239.1 height=48.0 >
+    <symbol id="60:1015" name='Property 1=Variant2' x=20.0 y=88.0 width=239.1 height=48.0 >
+    <symbol id="60:1020" name='Property 1=Variant3' x=20.0 y=156.0 width=239.1 height=48.0 >
+  <frame id="60:1040" name='Button_Projects' x=891.0 y=1202.0 width=279.1 height=400.0 >
+    <symbol id="60:1041" name='Property 1=Default' x=20.0 y=20.0 width=239.1 height=48.0 >
+    <symbol id="60:1046" name='Property 1=Variant2' x=20.0 y=88.0 width=239.1 height=48.0 >
+    <symbol id="60:1051" name='Property 1=Variant3' x=20.0 y=156.0 width=239.1 height=48.0 >
+  <frame id="60:1068" name='Button_StudyPod' x=1171.0 y=1203.0 width=279.1 height=400.0 >
+    <symbol id="60:1069" name='Property 1=Default' x=20.0 y=20.0 width=239.1 height=48.0 >
+    <symbol id="60:1073" name='Property 1=Variant2' x=20.0 y=88.0 width=239.1 height=48.0 >
+    <symbol id="60:1077" name='Property 1=Variant3' x=20.0 y=156.0 width=239.1 height=48.0 >
+  <frame id="60:1099" name='Button_StudyPod' x=1450.0 y=1202.0 width=279.1 height=400.0 >
+    <symbol id="60:1100" name='Property 1=Default' x=20.0 y=20.0 width=239.1 height=48.0 >
+    <symbol id="60:1106" name='Property 1=Variant2' x=20.0 y=88.0 width=239.1 height=48.0 >
+    <symbol id="60:1112" name='Property 1=Variant3' x=20.0 y=156.0 width=239.1 height=48.0 >
+  <frame id="57:978" name='Button_Dashboard' x=54.0 y=1202.0 width=279.1 height=400.0 >
+    <symbol id="57:979" name='Property 1=Default' x=20.0 y=20.0 width=239.1 height=48.0 >
+    <symbol id="57:984" name='Property 1=Variant2' x=20.0 y=88.0 width=239.1 height=48.0 >
+    <symbol id="57:989" name='Property 1=Variant3' x=20.0 y=156.0 width=239.1 height=48.0 >
+  <instance id="63:1872" name='SideNav' x=2156.0 y=631.0 width=288.0 height=960.0 >
+  <instance id="78:1162" name='Section - Career goals' x=336.0 y=1758.0 width=1000.0 height=479.2 >
+  <frame id="78:1536" name='Button_GenerateLearningPath' x=1654.7 y=1884.6 width=340.6 height=172.0 >
+    <symbol id="78:1535" name='Property 1=Default' x=20.0 y=20.0 width=300.6 height=56.0 >
+    <symbol id="78:1537" name='Property 1=Variant2' x=20.0 y=96.0 width=300.6 height=56.0 >
+  <frame id="84:3512" name='ContinueLater' x=2536.0 y=1765.0 width=204.7 height=140.0 >
+    <symbol id="84:3511" name='Property 1=Default' x=20.0 y=20.0 width=164.7 height=40.0 >
+    <symbol id="84:3513" name='Property 1=Variant2' x=20.0 y=80.0 width=164.7 height=40.0 >
+  <frame id="78:819" name='Section - Career goals' x=379.0 y=2418.0 width=1040.0 height=3540.2 >
+    <symbol id="78:818" name='Property 1=Default' x=20.0 y=20.0 width=1000.0 height=479.2 >
+    <symbol id="78:820" name='Property 1=Variant2' x=20.0 y=624.2 width=1000.0 height=479.2 >
+    <symbol id="78:891" name='Property 1=Variant3' x=20.0 y=1228.4 width=1000.0 height=479.2 >
+    <symbol id="78:1231" name='Property 1=Variant4' x=20.0 y=1832.6 width=1000.0 height=479.2 >
+    <symbol id="78:1306" name='Property 1=Variant5' x=20.0 y=2436.8 width=1000.0 height=479.2 >
+    <symbol id="78:1382" name='Property 1=Variant6' x=20.0 y=3041.0 width=1000.0 height=479.2 >
+  <frame id="81:2175" name='Course_Button' x=3667.0 y=632.0 width=458.0 height=1081.0 >
+    <symbol id="81:2174" name='Property 1=Default' x=61.0 y=20.0 width=336.0 height=285.0 >
+    <symbol id="84:2299" name='Property 1=Variant2' x=61.0 y=358.0 width=336.0 height=285.0 >
+  <instance id="69:1035" name='SideNav' x=4831.0 y=1285.0 width=288.0 height=960.0 >
+  <frame id="113:5697" name='Button_StartExtraction' x=3030.0 y=771.0 width=288.7 height=156.0 >
+    <symbol id="113:5696" name='Property 1=Default' x=20.0 y=20.0 width=248.7 height=48.0 >
+    <symbol id="113:5698" name='Property 1=Variant2' x=20.0 y=88.0 width=248.7 height=48.0 >

@@ -1,0 +1,36 @@
+<frame id="118:6053" name='FuelExpedition2' x=12980.0 y=-536.0 width=480.0 height=419.0 >
+  <frame id="118:6054" name='Container' x=28.0 y=28.0 width=424.0 height=64.0 >
+    <frame id="118:6055" name='Container' x=0.0 y=0.0 width=357.0 height=64.0 >
+      <frame id="118:6056" name='Heading 2' x=0.0 y=0.0 width=357.0 height=32.0 >
+        <text id="118:6057" name='HTML / CSS Base' x=0.0 y=0.0 width=203.0 height=32.0 >
+      <frame id="118:6058" name='Paragraph' x=0.0 y=32.0 width=357.0 height=32.0 >
+        <text id="118:6059" name='Complete the sequence to unlock the extraction zon' x=0.0 y=8.0 width=359.0 height=24.0 >
+    <frame id="118:6060" name='Button - Close mission briefing' x=388.0 y=0.0 width=36.0 height=36.0 >
+      <frame id="118:6061" name='Icon' x=8.0 y=8.0 width=20.0 height=20.0 >
+  <frame id="118:6064" name='Container:margin' x=28.0 y=92.0 width=424.0 height=104.0 >
+    <frame id="118:6065" name='Container' x=0.0 y=28.0 width=424.0 height=76.0 >
+      <frame id="118:6066" name='Text' x=16.0 y=16.0 width=44.0 height=44.0 >
+        <frame id="118:6067" name='Icon' x=11.5 y=11.5 width=21.0 height=21.0 >
+      <frame id="118:6069" name='Container' x=76.0 y=18.0 width=208.0 height=40.0 >
+        <frame id="118:6070" name='Heading 3' x=0.0 y=0.0 width=208.0 height=20.0 >
+          <text id="118:6071" name='1. Theory: HTML & CSS' x=0.0 y=0.0 width=156.0 height=20.0 >
+        <frame id="118:6072" name='Paragraph' x=0.0 y=20.0 width=173.0 height=20.0 >
+          <text id="118:6073" name='Duration: 8 Mins' x=0.0 y=4.0 width=93.0 height=16.0 >
+      <frame id="118:6074" name='Button' x=300.0 y=20.0 width=108.0 height=36.0 >
+        <text id="118:6075" name='Watch' x=30.0 y=6.0 width=48.0 height=24.0 >
+  <frame id="118:6076" name='Container:margin' x=28.0 y=196.0 width=424.0 height=88.0 >
+    <frame id="118:6101" name='Container' x=0.0 y=12.0 width=424.0 height=76.0 >
+      <frame id="118:6102" name='Text' x=16.0 y=16.0 width=44.0 height=44.0 >
+        <frame id="118:6103" name='Icon' x=11.5 y=11.5 width=21.0 height=21.0 >
+      <frame id="118:6105" name='Container' x=76.0 y=18.0 width=208.0 height=40.0 >
+        <frame id="118:6106" name='Heading 3' x=0.0 y=10.0 width=208.0 height=20.0 >
+          <text id="118:6107" name='Fuel Extraction: NavBar' x=0.0 y=0.0 width=181.0 height=20.0 >
+      <frame id="118:6110" name='Button' x=300.0 y=20.0 width=108.0 height=36.0 >
+        <text id="118:6111" name='Code' x=33.5 y=6.0 width=41.0 height=24.0 >
+  <frame id="118:6089" name='Container:margin' x=28.0 y=284.0 width=424.0 height=107.0 >
+    <frame id="118:6090" name='Container' x=0.0 y=24.0 width=424.0 height=83.0 >
+      <frame id="118:6091" name='Container' x=17.3 y=17.3 width=389.0 height=48.0 >
+        <frame id="118:6092" name='Text' x=0.0 y=6.0 width=36.0 height=36.0 >
+          <frame id="118:6093" name='Icon' x=9.0 y=9.0 width=18.0 height=18.0 >
+        <frame id="118:6096" name='Paragraph' x=48.0 y=0.0 width=341.0 height=48.0 >
+          <text id="118:6097" name='Reward upon completion: +500 XP and 200L Plasma Fu' x=0.0 y=0.0 width=342.0 height=48.0 >

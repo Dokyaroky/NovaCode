@@ -12,7 +12,7 @@ import {
 
 const NAV = [
   { to: '/dashboard', label: 'Dashboard', Icon: IconDashboard },
-  { to: '/learn', label: 'Learn', Icon: IconLearn },
+  { to: '/learn', label: 'Career Path', Icon: IconLearn },
   { to: '/explore', label: 'Explore', Icon: IconExplore },
   { to: '/projects', label: 'Projects', Icon: IconProjects },
   { to: '/studypod', label: 'StudyPod', Icon: IconStudyPod },

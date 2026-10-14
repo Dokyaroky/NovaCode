@@ -1,0 +1,131 @@
+<frame id="122:6806" name='Projects_2' x=22428.0 y=-807.0 width=1440.0 height=960.0 >
+  <frame id="122:6807" name='Shell' x=0.0 y=0.0 width=1440.0 height=960.0 >
+    <frame id="122:6808" name='SideNav' x=0.0 y=0.0 width=288.0 height=960.0 >
+      <frame id="122:6809" name='NovaLogo' x=24.0 y=24.0 width=239.1 height=40.0 >
+        <frame id="122:6810" name='Text' x=0.0 y=0.0 width=40.0 height=40.0 >
+          <frame id="122:6811" name='Icon' x=8.5 y=8.5 width=23.0 height=23.0 >
+        <frame id="122:6815" name='Text' x=52.0 y=6.0 width=95.1 height=28.0 >
+          <text id="122:6816" name='Novacode' x=0.0 y=0.0 width=95.0 height=28.0 >
+      <frame id="122:6817" name='Navigation - App navigation' x=24.0 y=64.0 width=239.1 height=412.0 >
+        <frame id="122:6818" name='Button' x=0.0 y=64.0 width=239.1 height=48.0 >
+          <frame id="122:6819" name='Icon' x=16.0 y=14.0 width=20.0 height=20.0 >
+          <text id="122:6822" name='Dashboard' x=52.0 y=12.0 width=83.0 height=24.0 >
+        <frame id="122:6823" name='Button' x=0.0 y=124.0 width=239.1 height=48.0 >
+          <frame id="122:6824" name='Icon' x=16.0 y=14.0 width=20.0 height=20.0 >
+          <text id="122:6827" name='Career Path' x=52.0 y=12.0 width=91.0 height=24.0 >
+        <frame id="122:6828" name='Button' x=0.0 y=184.0 width=239.1 height=48.0 >
+          <frame id="122:6829" name='Icon' x=16.0 y=14.0 width=20.0 height=20.0 >
+          <text id="122:6832" name='Explore' x=52.0 y=12.0 width=57.0 height=24.0 >
+        <frame id="122:6833" name='Button' x=0.0 y=244.0 width=239.1 height=48.0 >
+          <frame id="122:6834" name='Icon' x=16.0 y=14.0 width=20.0 height=20.0 >
+          <text id="122:6836" name='Projects' x=52.0 y=12.0 width=62.0 height=24.0 >
+        <frame id="122:6837" name='Button' x=0.0 y=304.0 width=239.1 height=48.0 >
+          <frame id="122:6838" name='Icon' x=16.0 y=14.0 width=20.0 height=20.0 >
+          <text id="122:6842" name='StudyPod' x=52.0 y=12.0 width=74.0 height=24.0 >
+        <frame id="122:6843" name='Button' x=0.0 y=364.0 width=239.1 height=48.0 >
+          <frame id="122:6844" name='Icon' x=16.0 y=14.0 width=20.0 height=20.0 >
+          <text id="122:6847" name='Profile' x=52.0 y=12.0 width=49.0 height=24.0 >
+      <frame id="122:6848" name='Container:margin' x=24.0 y=476.0 width=239.1 height=460.0 >
+        <frame id="122:6849" name='Container' x=0.0 y=364.0 width=239.1 height=96.0 >
+          <frame id="122:6850" name='Container' x=16.0 y=16.0 width=207.1 height=40.0 >
+            <frame id="122:6851" name='Text' x=0.0 y=0.0 width=40.0 height=40.0 >
+              <text id="122:6852" name='N' x=14.0 y=8.0 width=12.0 height=24.0 >
+            <frame id="122:6853" name='Container' x=52.0 y=2.0 width=74.9 height=36.0 >
+              <frame id="122:6854" name='Paragraph' x=0.0 y=0.0 width=74.9 height=20.0 >
+                <text id="122:6855" name='Nova Chen' x=0.0 y=0.0 width=75.0 height=20.0 >
+              <frame id="122:6856" name='Paragraph' x=0.0 y=20.0 width=74.9 height=16.0 >
+                <text id="122:6857" name='Level 12' x=0.0 y=0.0 width=47.0 height=16.0 >
+          <frame id="122:6858" name='Container' x=16.0 y=72.0 width=207.1 height=8.0 >
+            <frame id="122:6859" name='Container' x=0.0 y=0.0 width=155.3 height=8.0 >
+    <frame id="122:6860" name='ProjectsPortfolio' x=288.0 y=0.0 width=1152.0 height=960.0 >
+      <frame id="122:6861" name='Section' x=32.0 y=32.0 width=692.0 height=983.0 >
+        <frame id="122:6862" name='Header' x=0.0 y=0.0 width=691.6 height=68.0 >
+          <frame id="122:6863" name='Paragraph' x=0.0 y=0.0 width=691.6 height=20.0 >
+            <text id="122:6864" name='Final Task: Full Stack Developer' x=0.0 y=0.0 width=211.0 height=20.0 >
+          <frame id="122:6865" name='Heading 1' x=0.0 y=20.0 width=691.6 height=48.0 >
+            <text id="122:6866" name='Project Workspace' x=0.0 y=8.0 width=326.0 height=40.0 >
+        <instance id="122:6867" name='ContinueLater' x=0.0 y=92.0 width=164.7 height=40.0 >
+        <frame id="122:6893" name='Article' x=0.0 y=156.0 width=692.0 height=540.0 >
+          <frame id="122:6894" name='Container' x=24.0 y=24.0 width=643.6 height=56.0 >
+            <frame id="122:6895" name='Paragraph' x=0.0 y=0.0 width=643.6 height=16.0 >
+              <text id="122:6896" name='Final Review' x=0.0 y=0.0 width=96.0 height=16.0 >
+            <frame id="122:6897" name='Heading 2' x=0.0 y=16.0 width=643.6 height=40.0 >
+              <text id="122:6898" name='Final Boss: E-Commerce Capstone' x=0.0 y=8.0 width=406.0 height=32.0 >
+          <frame id="122:6899" name='Label:margin' x=24.0 y=80.0 width=643.6 height=100.0 >
+            <frame id="122:6900" name='Label' x=0.0 y=20.0 width=643.6 height=80.0 >
+              <text id="122:6901" name='Paste GitHub Repository URL' x=0.0 y=0.4 width=198.0 height=20.0 >
+              <frame id="122:6902" name='URL Input' x=0.0 y=32.0 width=643.6 height=48.0 >
+                <text id="122:6903" name='https://github.com/username/project' x=16.9 y=14.0 width=609.8 height=20.0 >
+          <frame id="122:6904" name='Container' x=24.0 y=180.0 width=643.6 height=56.0 >
+            <frame id="122:6905" name='Text' x=0.0 y=27.5 width=297.2 height=1.0 >
+            <frame id="122:6906" name='Text' x=313.2 y=20.0 width=17.1 height=16.0 >
+              <text id="122:6907" name='OR' x=0.0 y=0.0 width=18.0 height=16.0 >
+            <frame id="122:6908" name='Text' x=346.4 y=27.5 width=297.2 height=1.0 >
+          <frame id="122:6909" name='Label' x=24.0 y=236.0 width=643.6 height=170.0 >
+            <frame id="122:6910" name='Text' x=297.8 y=29.0 width=48.0 height=48.0 >
+              <frame id="122:6911" name='Icon' x=11.5 y=11.5 width=25.0 height=25.0 >
+            <frame id="122:6915" name='Text:margin' x=223.3 y=77.0 width=197.0 height=40.0 >
+              <text id="122:6916" name='Click or drag .zip file here' x=0.0 y=16.0 width=197.0 height=24.0 >
+            <frame id="122:6917" name='Text:margin' x=249.8 y=117.0 width=144.0 height=24.0 >
+              <text id="122:6918" name='Maximum file size: 25 MB' x=0.0 y=8.0 width=144.0 height=16.0 >
+          <frame id="122:6919" name='Button:margin' x=24.0 y=406.0 width=643.6 height=73.1 >
+            <frame id="122:6920" name='Button' x=0.0 y=21.1 width=643.6 height=52.0 >
+              <text id="122:6921" name='Submit for AI Audit' x=235.3 y=14.0 width=143.0 height=24.0 >
+              <frame id="122:6922" name='Icon' x=390.3 y=17.0 width=18.0 height=18.0 >
+      <frame id="122:6925" name='Sidebar' x=747.6 y=32.0 width=372.4 height=896.0 >
+        <frame id="122:6926" name='Article' x=0.0 y=0.0 width=372.4 height=368.0 >
+          <frame id="122:6927" name='Text' x=24.0 y=24.0 width=48.0 height=48.0 >
+            <frame id="122:6928" name='Icon' x=12.5 y=12.5 width=23.0 height=23.0 >
+          <frame id="122:6931" name='Paragraph' x=24.0 y=72.0 width=324.4 height=40.0 >
+            <text id="122:6932" name='Project Brief' x=0.0 y=24.0 width=105.0 height=16.0 >
+          <frame id="122:6933" name='Heading 2' x=24.0 y=112.0 width=324.4 height=40.0 >
+            <text id="122:6934" name='Project Requirements' x=0.0 y=8.0 width=254.0 height=32.0 >
+          <frame id="122:6935" name='Paragraph:margin' x=24.0 y=152.0 width=324.4 height=88.0 >
+            <text id="122:6936" name='Build a command-line application that models real-' x=0.0 y=16.0 width=325.0 height=72.0 >
+          <frame id="122:6937" name='List' x=24.0 y=240.0 width=324.4 height=104.0 >
+            <frame id="122:6938" name='List Item' x=0.0 y=20.0 width=324.4 height=20.0 >
+              <frame id="122:6939" name='Text:margin' x=0.0 y=0.0 width=6.0 height=14.0 >
+                <frame id="122:6940" name='Text' x=0.0 y=8.0 width=6.0 height=6.0 >
+              <text id="122:6941" name='Use at least three related classes' x=18.0 y=0.0 width=221.0 height=20.0 >
+            <frame id="122:6942" name='List Item' x=0.0 y=52.0 width=324.4 height=20.0 >
+              <frame id="122:6943" name='Text:margin' x=0.0 y=0.0 width=6.0 height=14.0 >
+                <frame id="122:6944" name='Text' x=0.0 y=8.0 width=6.0 height=6.0 >
+              <text id="122:6945" name='Include input validation and exceptions' x=18.0 y=0.0 width=258.0 height=20.0 >
+            <frame id="122:6946" name='List Item' x=0.0 y=84.0 width=324.4 height=20.0 >
+              <frame id="122:6947" name='Text:margin' x=0.0 y=0.0 width=6.0 height=14.0 >
+                <frame id="122:6948" name='Text' x=0.0 y=8.0 width=6.0 height=6.0 >
+              <text id="122:6949" name='Document setup and usage in a README' x=18.0 y=0.0 width=271.0 height=20.0 >
+        <frame id="122:6950" name='Article' x=0.0 y=392.0 width=372.4 height=504.0 >
+          <frame id="122:6951" name='Container' x=24.9 y=24.9 width=322.6 height=48.0 >
+            <frame id="122:6952" name='Text' x=0.0 y=4.0 width=40.0 height=40.0 >
+              <frame id="122:6953" name='Icon' x=10.0 y=10.0 width=20.0 height=20.0 >
+            <frame id="122:6956" name='Container' x=52.0 y=0.0 width=143.2 height=48.0 >
+              <frame id="122:6957" name='Paragraph' x=0.0 y=0.0 width=143.2 height=16.0 >
+                <text id="122:6958" name='Minimum Score' x=0.0 y=0.0 width=114.0 height=16.0 >
+              <frame id="122:6959" name='Heading 2:margin' x=0.0 y=16.0 width=143.2 height=32.0 >
+                <text id="122:6960" name='75/100' x=0.0 y=4.0 width=70.0 height=28.0 >
+          <frame id="122:6961" name='Container:margin' x=24.9 y=72.9 width=322.6 height=176.0 >
+            <frame id="122:6962" name='Container' x=0.0 y=32.0 width=322.6 height=112.0 >
+              <frame id="122:6963" name='Paragraph' x=20.0 y=24.0 width=282.6 height=36.0 >
+                <text id="122:6964" name='WAITING' x=72.3 y=0.0 width=138.0 height=36.0 >
+              <frame id="122:6965" name='Paragraph' x=20.0 y=60.0 width=282.6 height=28.0 >
+                <text id="122:6966" name='Waiting for Submission' x=51.8 y=12.0 width=179.0 height=16.0 >
+          <text id="122:6967" name='Excellent use of polymorphism and clean folder str' x=24.9 y=248.9 width=323.0 height=24.0 >
+          <frame id="122:6968" name='Container:margin' x=24.9 y=272.9 width=322.6 height=132.9 >
+            <frame id="122:6969" name='Container' x=0.0 y=24.0 width=322.6 height=108.9 >
+              <frame id="122:6970" name='Container' x=0.0 y=24.9 width=322.6 height=20.0 >
+                <frame id="122:6971" name='Text' x=0.0 y=0.0 width=83.6 height=20.0 >
+                  <text id="122:6972" name='Code quality' x=0.0 y=0.0 width=84.0 height=20.0 >
+                <frame id="122:6973" name='Text' x=289.8 y=0.0 width=32.8 height=20.0 >
+                  <text id="122:6974" name='--' x=0.0 y=0.0 width=14.0 height=20.0 >
+              <frame id="122:6975" name='Container' x=0.0 y=56.9 width=322.6 height=20.0 >
+                <frame id="122:6976" name='Text' x=0.0 y=0.0 width=91.0 height=20.0 >
+                  <text id="122:6977" name='Requirements' x=0.0 y=0.0 width=91.0 height=20.0 >
+                <frame id="122:6978" name='Text' x=283.4 y=0.0 width=39.2 height=20.0 >
+                  <text id="122:6979" name='--' x=7.1 y=0.0 width=39.0 height=20.0 >
+              <frame id="122:6980" name='Container' x=0.0 y=88.9 width=322.6 height=20.0 >
+                <frame id="122:6981" name='Text' x=0.0 y=0.0 width=100.7 height=20.0 >
+                  <text id="122:6982" name='Documentation' x=0.0 y=0.0 width=101.0 height=20.0 >
+                <frame id="122:6983" name='Text' x=290.4 y=0.0 width=32.2 height=20.0 >
+                  <text id="122:6984" name='--' x=0.0 y=0.0 width=14.0 height=20.0 >
+          <frame id="122:6985" name='Button:margin' x=24.9 y=405.8 width=322.6 height=49.3 >

@@ -1,0 +1,13 @@
+<frame id="106:3843" name='End_Layout' x=12606.0 y=5176.0 width=420.0 height=332.0 >
+  <frame id="106:3844" name='Text' x=182.0 y=32.0 width=56.0 height=56.0 >
+    <frame id="106:3845" name='Icon' x=15.0 y=15.0 width=26.0 height=26.0 >
+  <frame id="106:3861" name='Heading 2:margin' x=50.0 y=88.0 width=320.0 height=52.0 >
+    <text id="106:3849" name='End Collaborative Session?' x=0.0 y=20.0 width=320.0 height=32.0 >
+  <frame id="106:3862" name='Paragraph:margin' x=32.0 y=140.0 width=356.0 height=84.0 >
+    <text id="106:3852" name='Are you sure you want to leave? Your peer is still' x=0.0 y=12.0 width=356.0 height=72.0 >
+  <frame id="106:3863" name='Container:margin' x=32.0 y=224.0 width=356.0 height=76.0 >
+    <frame id="106:3854" name='Container' x=0.0 y=28.0 width=356.0 height=48.0 >
+      <frame id="106:3855" name='Button' x=0.0 y=0.0 width=172.0 height=48.0 >
+        <text id="106:3856" name='Cancel' x=59.5 y=12.0 width=53.0 height=24.0 >
+      <frame id="106:3858" name='Button' x=184.0 y=0.0 width=172.0 height=48.0 >
+        <text id="106:3859" name='Yes, End Call' x=37.0 y=12.0 width=98.0 height=24.0 >

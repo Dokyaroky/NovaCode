@@ -1,0 +1,14 @@
+<frame id="125:7637" name='Cup' x=-2156.0 y=-478.0 width=679.0 height=470.0 >
+  <vector id="125:7638" name='Vector' x=114.9 y=386.4 width=449.2 height=57.4 >
+  <frame id="125:7639" name='Group' x=86.2 y=80.9 width=517.1 height=308.1 >
+    <vector id="125:7640" name='Vector' x=96.6 y=107.1 width=150.2 height=282.0 >
+    <vector id="125:7641" name='Vector' x=86.2 y=80.9 width=150.2 height=282.0 >
+    <vector id="125:7642" name='Vector' x=453.1 y=107.1 width=150.2 height=282.0 >
+    <vector id="125:7643" name='Vector' x=442.7 y=80.9 width=150.2 height=282.0 >
+  <frame id="125:7644" name='Group' x=208.9 y=112.3 width=261.2 height=276.8 >
+    <vector id="125:7645" name='Vector' x=274.2 y=138.4 width=151.5 height=191.9 >
+    <vector id="125:7646" name='Vector' x=263.8 y=112.3 width=151.5 height=191.9 >
+    <vector id="125:7647" name='Vector' x=208.9 y=141.0 width=261.2 height=121.4 >
+    <vector id="125:7648" name='Vector' x=321.2 y=289.8 width=36.6 height=67.9 >
+    <vector id="125:7649" name='Vector' x=274.2 y=352.5 width=130.6 height=36.6 >
+    <vector id="125:7650" name='Vector' x=296.4 y=146.2 width=86.2 height=82.3 >
