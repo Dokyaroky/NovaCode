@@ -106,7 +106,7 @@ export default function Projects() {
 
         <Card className="relative min-h-[200px] overflow-clip p-6">
           <div className="absolute top-[-64px] left-[912px] size-64 rounded-full bg-accent-tint blur-[64px]" />
-          <div className="relative flex flex-wrap items-center justify-between gap-6">
+          <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex min-w-0 flex-1 flex-col gap-6">
               <div className="flex items-center gap-4">
                 <IconTile tone="accentStrong">
@@ -131,6 +131,7 @@ export default function Projects() {
               </div>
             </div>
             <Button
+              className="w-full md:w-fit"
               icon={<img src={arrowRight} alt="" width={18} height={18} />}
               onClick={() => navigate(view.action.to)}
             >
