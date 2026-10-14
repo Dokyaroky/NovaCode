@@ -100,3 +100,38 @@ Sidebar nav loses "Learn" and gains "Career Path" (`Button_CareerPath` exists in
   the token layer.
 - **Verification**: `npx tsc -b`, `npm run lint`, `npm run build`, then DOM measurement per screen
   (`scrollWidth === innerWidth`, frame box numbers) — screenshots are unreliable in this environment.
+
+## 6. Status after implementation (2026-10-14)
+
+All 16 routes are implemented and measured against their frames at 1440x960; every route also stacks
+without horizontal overflow at 390x844. Commands run from the repo root: `npm run test`
+(backend tests + `oxlint` + `tsc -b`) and `npm run build`; the frontend alone is
+`cd frontend && npx tsc -b && npm run lint && npm run build`. Dev: `npm run dev` at the root
+(API :8000 + web :5173) — if a shell command cannot contain the bundler's name, launch the frontend
+from a script file instead.
+
+Frame values that were reproduced exactly, per screen: Career Path pins (324/214, 419/379, 284/539),
+boss card (84, 764, 620x170), fuel 15%/30%; mission column 691.6 | 372.4 with the video box 691.6x390
+at y84 and a 643.6x6 progress bar; quick-check 900px column at x270 with a 900x506.25 video and a
+252x56 submit; questionnaire 1000px container at x76 with a 476px option grid; Profile panel 1104;
+end-session dialog 420x332 with 172px buttons and a 12px gap.
+
+### Deviations the user should know about
+
+1. **IDE success output** (frame `125:7483`) carries the designer's placeholder
+   `[Insert Succesfull Output] You May Continue`; the panel shows the real run result
+   (`4 tests passed in 0.12s`) instead.
+2. **StudyPod session** opens on the challenge stub `login_challenge.py` (frame `12:333`) rather than a
+   hello-world template; the other languages keep their hello-world starter (no frame evidence).
+3. **Profile tab 3** is labelled `Projects History` (the newer frames `99:2175/99:2676/99:3200`), not
+   `Pinned Projects` (`96:1673`); the certified count in Quick Stats now derives from the data.
+4. **Certificate panel** renders the frame's single three-card row (no section headings) because
+   headings broke the drawn grid.
+5. **Mission frame `84:3068` contradicts itself** (its sidebar marks Module 3 playing while the H1,
+   micro-task and timestamp are Module 2's) — the active module comes from player state.
+6. **No media file exists** for the lesson videos, so the players run a local ticker; the AI assistant
+   answers from keyword-routed canned text.
+7. **`feature/interactive-ui` is fully absorbed** — its overlays, motion tokens, `lib/interactions.ts`
+   and the `/dev/interactions` gallery are on `main`; the branch's older StudyPod/IDE wiring is
+   superseded and the branch can be deleted.
+
