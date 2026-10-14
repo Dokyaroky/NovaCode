@@ -38,7 +38,7 @@ export default function SideNav({ className = '' }: SideNavProps) {
             key={to}
             to={to}
             className={({ isActive }) =>
-              `flex h-12 shrink-0 items-center gap-4 rounded-tile px-4 transition active:scale-[0.98] ${
+              `flex h-12 mb-4 shrink-0 items-center gap-4 rounded-tile px-4 transition active:scale-[0.98] ${
                 isActive
                   ? 'bg-surface text-brand'
                   : 'text-ink-soft hover:bg-surface/60 hover:text-ink'

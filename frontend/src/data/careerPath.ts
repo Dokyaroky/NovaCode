@@ -1,7 +1,8 @@
 /**
  * Career Path — "The Fuel Expedition" mock data.
  * Figma: frame 118:5899 (authoritative: 15% fuel, one mission extracting) and 122:6601
- * (the advanced state: 30% fuel, every mission finished, the boss unlocked).
+ * (the advanced state: 30% fuel, every mission finished, the boss unlocked), plus the
+ * mission-briefing overlay 118:6053 (the 480x419 `FuelExpedition2` card).
  * Every string is a text node of those frames.
  *
  * Geometry: the screen draws the missions as a centred, Duolingo-style route, so the pins are
@@ -108,4 +109,54 @@ export function activeMission(stage: ExpeditionStage): Mission {
     stage.missions.find((mission) => mission.status === 'extracting') ??
     stage.missions[stage.missions.length - 1]
   )
+}
+
+/** One row of the briefing card: the lesson to watch, then the extraction to code. */
+export interface BriefingStep {
+  /** Picks the row's icon in the page (assets stay out of the data modules). */
+  id: 'theory' | 'extraction'
+  /** Frame copy, numbering included — `1. Theory: HTML & CSS`. */
+  label: string
+  /** Small grey line under the label; the extraction row has none. */
+  meta?: string
+  /** Orange pill copy: `Watch` / `Code`. */
+  action: string
+  /** Route the pill opens. */
+  path: string
+}
+
+export interface MissionBriefing {
+  title: string
+  subtitle: string
+  closeLabel: string
+  steps: BriefingStep[]
+  reward: string
+}
+
+/**
+ * Mission briefing (frame 118:6053, the newer of the 113:5734 / 118:6053 pair — only its
+ * second row says `Fuel Extraction: NavBar` and it draws the reward box). The design's own
+ * "Button - Close mission briefing" makes this a modal, and both the sidebar's primary CTA
+ * and every unlocked map pin open it; 125:7213 is the same card's post-completion variant.
+ */
+export const MISSION_BRIEFING: MissionBriefing = {
+  title: 'HTML / CSS Base',
+  subtitle: 'Complete the sequence to unlock the extraction zone.',
+  closeLabel: 'Close mission briefing',
+  steps: [
+    {
+      id: 'theory',
+      label: '1. Theory: HTML & CSS',
+      meta: 'Duration: 8 Mins',
+      action: 'Watch',
+      path: '/learn/mission',
+    },
+    {
+      id: 'extraction',
+      label: '2. Fuel Extraction: NavBar',
+      action: 'Code',
+      path: '/learn/quick-check',
+    },
+  ],
+  reward: 'Reward upon completion: +500 XP and 200L Plasma Fuel',
 }

@@ -1,12 +1,20 @@
 import { useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import AppShell from '@/components/AppShell'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
 import IconTile from '@/components/IconTile'
+import Modal from '@/components/Modal'
 import ProgressBar from '@/components/ProgressBar'
-import { EXPEDITION, EXPEDITION_SIDEBAR, EXPEDITION_STAGES, activeMission } from '@/data/careerPath'
-import type { ExpeditionStage, Mission, MissionStatus } from '@/data/careerPath'
+import { IconClose } from '@/components/icons'
+import {
+  EXPEDITION,
+  EXPEDITION_SIDEBAR,
+  EXPEDITION_STAGES,
+  MISSION_BRIEFING,
+  activeMission,
+} from '@/data/careerPath'
+import type { BriefingStep, ExpeditionStage, Mission, MissionStatus } from '@/data/careerPath'
 
 import checkSm from '@/assets/icons/check-sm.svg'
 import astronaut from '@/assets/expedition/astronaut.png'
@@ -15,6 +23,9 @@ import bossIcon from '@/assets/expedition/boss.svg'
 import changeCareer from '@/assets/expedition/change-career.svg'
 import extractionIcon from '@/assets/expedition/extraction.svg'
 import rocket from '@/assets/expedition/rocket.png'
+import briefingCode from '@/assets/expedition/briefing-code.svg'
+import briefingReward from '@/assets/expedition/briefing-reward.svg'
+import briefingTheory from '@/assets/expedition/briefing-theory.svg'
 
 /* The frame draws each pin as an 80px ring with a 5.07px stroke; the finished ring keeps the
    brand orange, the active one is the darker ember tone with the astronaut standing on it. */
@@ -47,8 +58,13 @@ const MISSION_ROUTE = {
   unit: 144,
 } as const
 
-const MISSION_PATH = '/learn/mission'
 const FINAL_REVIEW_ROUTE = '/projects/review'
+
+/** The briefing card's two row icons, keyed by step id (frame 118:6053). */
+const BRIEFING_ICONS: Record<BriefingStep['id'], string> = {
+  theory: briefingTheory,
+  extraction: briefingCode,
+}
 
 /** Pins alternate off-centre, starting on the left (frame 118:5899 draws them that way). */
 function pinSide(index: number): 'left' | 'right' {
@@ -67,11 +83,13 @@ function curve(from: { x: number; y: number }, to: { x: number; y: number }): st
 
 export default function CareerPath() {
   const [params] = useSearchParams()
-  const navigate = useNavigate()
   const [crashOpen, setCrashOpen] = useState(false)
+  /* The briefing card both the primary CTA and the unlocked map pins open (frame 118:6053). */
+  const [briefingOpen, setBriefingOpen] = useState(false)
   const stage: ExpeditionStage = EXPEDITION_STAGES[params.get('stage') ?? ''] ?? EXPEDITION
   const current = activeMission(stage)
   const sidebar = EXPEDITION_SIDEBAR
+  const briefing = MISSION_BRIEFING
 
   const { column, gap, ring, unit } = MISSION_ROUTE
   const routeHeight = (stage.missions.length - 1) * gap + unit
@@ -139,7 +157,7 @@ export default function CareerPath() {
                     side={pinSide(index)}
                     top={index * gap}
                     x={pinX(index)}
-                    onOpen={() => navigate(MISSION_PATH)}
+                    onOpen={() => setBriefingOpen(true)}
                   />
                 ))}
               </ul>
@@ -217,13 +235,72 @@ export default function CareerPath() {
             <Button
               className="mt-6 w-full lg:mt-auto"
               icon={<img src={extractionIcon} alt="" className="size-[17px]" />}
-              onClick={() => navigate(MISSION_PATH)}
+              onClick={() => setBriefingOpen(true)}
             >
               {sidebar.current.cta}
             </Button>
           </Card>
         </aside>
       </div>
+
+      {/* Mission briefing — frame 118:6053, the 480x419 FuelExpedition overlay. The design's
+          own close button makes it a dialog (portal, so the shell's clipped columns cannot
+          crop it), and it is the step between the route and the two screens it links to. */}
+      <Modal
+        open={briefingOpen}
+        onClose={() => setBriefingOpen(false)}
+        showClose={false}
+        ariaLabel={`${briefing.title} mission briefing`}
+        size="sm"
+        panelClassName="max-w-[480px]!"
+        bodyClassName="p-7"
+      >
+        <div className="flex items-start justify-between gap-6">
+          <div className="flex min-w-0 flex-col">
+            <h2 className="text-2xl leading-8 font-bold text-white">{briefing.title}</h2>
+            <p className="pt-2 text-sm leading-6 text-ink-soft">{briefing.subtitle}</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setBriefingOpen(false)}
+            aria-label={briefing.closeLabel}
+            className="grid size-9 shrink-0 cursor-pointer place-items-center rounded-lg text-ink-soft transition hover:bg-white/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand active:scale-95"
+          >
+            <IconClose width={20} height={20} />
+          </button>
+        </div>
+
+        <ul className="flex flex-col gap-3 pt-7">
+          {briefing.steps.map((step) => (
+            <li
+              key={step.id}
+              className="flex h-[76px] items-center gap-4 rounded-card bg-shell p-4"
+            >
+              <span className="grid size-11 shrink-0 place-items-center rounded-tile bg-brand-tint">
+                <img src={BRIEFING_ICONS[step.id]} alt="" className="size-[21px]" />
+              </span>
+              <span className="flex min-w-0 flex-1 flex-col">
+                <span className="text-sm leading-5 font-bold text-white">{step.label}</span>
+                {step.meta && <span className="pt-1 text-xs leading-4 text-ink-soft">{step.meta}</span>}
+              </span>
+              <Link
+                to={step.path}
+                className="grid h-9 w-[108px] shrink-0 place-items-center rounded-pill bg-brand text-base text-white shadow-button transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand active:scale-[0.98]"
+              >
+                {step.action}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* The violet reward strip sits on the card's own 24px bottom margin, not the body's. */}
+        <div className="mt-6 flex items-center gap-3 rounded-tile border-[1.267px] border-[rgba(139,92,246,0.5)] bg-[rgba(139,92,246,0.1)] p-4">
+          <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-accent">
+            <img src={briefingReward} alt="" className="size-[18px]" />
+          </span>
+          <p className="text-sm leading-6 font-semibold text-white">{briefing.reward}</p>
+        </div>
+      </Modal>
     </AppShell>
   )
 }

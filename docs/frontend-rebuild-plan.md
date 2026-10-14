@@ -124,6 +124,12 @@ under the route. The frames' absolute pin/boss coordinates therefore no longer a
 lives in `MISSION_ROUTE` in the page, and `docs/figma/frames/118-5899_Career_Path_2.txt` keeps the
 original numbers.
 
+The **mission-briefing card** (`FuelExpedition` `118:6053`, its `Button - Close mission briefing` making
+it a dialog) is implemented as the step between the route and the lesson: the sidebar's `Start Extraction`
+CTA and every unlocked pin open it, and its two pills leave for `/learn/mission` (`Watch`) and
+`/learn/quick-check` (`Code`). Geometry from the frame: 480 wide, 28px padding, 64px header, two 424x76
+rows on `#0f172a`, a 424x83 violet reward strip.
+
 
 ### Deviations the user should know about
 
@@ -143,4 +149,8 @@ original numbers.
 7. **`feature/interactive-ui` is fully absorbed** — its overlays, motion tokens, `lib/interactions.ts`
    and the `/dev/interactions` gallery are on `main`; the branch's older StudyPod/IDE wiring is
    superseded and the branch can be deleted.
+8. **Briefing card** takes frame `118:6053`'s copy over the older `113:5734` (`Fuel Extraction: NavBar`,
+   not `2. Fuel Extraction: Navigation Bar`, and only `118:6053` draws the reward strip). Its `Code` pill
+   is pointed at the existing quick-check screen — the design only shows the briefings, not the target
+   frames, so this is the app's choice.
 
