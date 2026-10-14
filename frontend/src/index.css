@@ -82,6 +82,11 @@
   /* The matching ring: one revolution per cycle, spun up fast then coasting into the next —
      the easing lives in the keyframes, so the loop is `linear`. */
   --animate-spin-momentum: spin-momentum 1.6s linear infinite;
+  /* Career Path entrance: the route is drawn hop by hop (with `pathLength="1"` the dash is the
+     whole path) and each pin pops in as its line lands. `both` keeps the start state during the
+     per-pin delay, so a staggered element never flashes in its finished shape first. */
+  --animate-draw-route: draw-route 520ms ease-out both;
+  --animate-pop-in: pop-in 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @layer base {
@@ -219,6 +224,27 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* Career Path entrance — one hop of the route per step, each drawing from its start to its end. */
+@keyframes draw-route {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import AppShell from '@/components/AppShell'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
@@ -7,6 +7,7 @@ import IconTile from '@/components/IconTile'
 import Modal from '@/components/Modal'
 import ProgressBar from '@/components/ProgressBar'
 import { IconClose } from '@/components/icons'
+import { hasCompletedQuestionnaire } from '@/lib/onboarding'
 import {
   EXPEDITION,
   EXPEDITION_SIDEBAR,
@@ -60,6 +61,23 @@ const MISSION_ROUTE = {
 
 const FINAL_REVIEW_ROUTE = '/projects/review'
 
+/** Where the first run sends a visitor who has never answered the questionnaire. */
+const QUESTIONNAIRE_ROUTE = '/learn/questionnaire'
+
+/* Entrance choreography: hop `n` draws while pin `n` pops in, one step apart (the pins land on
+   their line, so they share the delay). Keep the step under the draw duration or the route
+   runs ahead of the map. */
+const ROUTE_ANIMATION = {
+  /** Delay between two hops, in ms. */
+  step: 180,
+  /** Delay of the first hop — the header is already on screen when the route starts. */
+  lead: 120,
+} as const
+
+function entranceDelay(index: number): string {
+  return `${ROUTE_ANIMATION.lead + index * ROUTE_ANIMATION.step}ms`
+}
+
 /** The briefing card's two row icons, keyed by step id (frame 118:6053). */
 const BRIEFING_ICONS: Record<BriefingStep['id'], string> = {
   theory: briefingTheory,
@@ -97,6 +115,13 @@ export default function CareerPath() {
     x: (pinX(index) / 100) * column,
     y: index * gap + ring / 2,
   }))
+
+  /* First run: the expedition is what the questionnaire unlocks, so a browser that has never
+     finished it gets the questions instead. `?stage=` is the preview of the design's second
+     state and stays reachable without answering. */
+  if (!params.get('stage') && !hasCompletedQuestionnaire()) {
+    return <Navigate to={QUESTIONNAIRE_ROUTE} replace />
+  }
 
   return (
     <AppShell mainClassName="p-0">
@@ -144,6 +169,12 @@ export default function CareerPath() {
                       strokeWidth={6}
                       strokeLinecap="round"
                       vectorEffect="non-scaling-stroke"
+                      /* `pathLength=1` makes the dash the whole hop, so the draw needs no
+                         measurement of the curve in JS. */
+                      pathLength={1}
+                      strokeDasharray={1}
+                      style={{ animationDelay: entranceDelay(index) }}
+                      className="animate-draw-route"
                     />
                   )
                 })}
@@ -157,6 +188,7 @@ export default function CareerPath() {
                     side={pinSide(index)}
                     top={index * gap}
                     x={pinX(index)}
+                    index={index}
                     onOpen={() => setBriefingOpen(true)}
                   />
                 ))}
@@ -310,11 +342,13 @@ interface MissionPinProps {
   side: 'left' | 'right'
   top: number
   x: number
+  /** Position on the route — drives the entrance delay, not the geometry. */
+  index: number
   onOpen: () => void
 }
 
 /** One stop on the route: an 80px ring with the astronaut standing in front of the active one. */
-function MissionPin({ mission, side, top, x, onOpen }: MissionPinProps) {
+function MissionPin({ mission, side, top, x, index, onOpen }: MissionPinProps) {
   const locked = mission.status === 'locked'
 
   return (
@@ -322,38 +356,45 @@ function MissionPin({ mission, side, top, x, onOpen }: MissionPinProps) {
       className="absolute flex w-20 -translate-x-1/2 flex-col items-center"
       style={{ left: `${x}%`, top }}
     >
-      <div className="relative w-20">
-        {mission.status === 'extracting' && (
-          <img
-            src={astronaut}
-            alt=""
-            aria-hidden="true"
-            className={`pointer-events-none absolute -top-4 z-10 size-[92px] max-w-none drop-shadow-[0_14px_20px_rgba(0,0,0,0.45)] ${
-              side === 'left' ? 'left-9' : 'right-9'
-            }`}
-          />
-        )}
-        <button
-          type="button"
-          onClick={onOpen}
-          disabled={locked}
-          aria-label={`${mission.title} ${PIN_LABEL[mission.status]}`}
-          className={`relative z-0 grid size-20 place-items-center overflow-clip rounded-full transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
-            locked ? 'cursor-not-allowed' : 'cursor-pointer hover:brightness-110 active:scale-[0.98]'
-          } ${PIN_RING[mission.status]}`}
-        >
-          {mission.status === 'locked' ? (
-            <span className="text-base text-white">{mission.order}</span>
-          ) : (
-            <img src={checkSm} alt="" className="size-4" />
+      {/* The pin pops in when its hop lands. The animation owns `transform`, so it lives on this
+          wrapper rather than on the li, whose centring translate would be overwritten. */}
+      <div
+        className="flex w-20 animate-pop-in flex-col items-center"
+        style={{ animationDelay: entranceDelay(index) }}
+      >
+        <div className="relative w-20">
+          {mission.status === 'extracting' && (
+            <img
+              src={astronaut}
+              alt=""
+              aria-hidden="true"
+              className={`pointer-events-none absolute -top-4 z-10 size-[92px] max-w-none drop-shadow-[0_14px_20px_rgba(0,0,0,0.45)] ${
+                side === 'left' ? 'left-9' : 'right-9'
+              }`}
+            />
           )}
-        </button>
-      </div>
+          <button
+            type="button"
+            onClick={onOpen}
+            disabled={locked}
+            aria-label={`${mission.title} ${PIN_LABEL[mission.status]}`}
+            className={`relative z-0 grid size-20 place-items-center overflow-clip rounded-full transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
+              locked ? 'cursor-not-allowed' : 'cursor-pointer hover:brightness-110 active:scale-[0.98]'
+            } ${PIN_RING[mission.status]}`}
+          >
+            {mission.status === 'locked' ? (
+              <span className="text-base text-white">{mission.order}</span>
+            ) : (
+              <img src={checkSm} alt="" className="size-4" />
+            )}
+          </button>
+        </div>
 
-      <span className="mt-3 flex w-max min-w-[112px] flex-col rounded-card bg-surface px-4 py-2 text-center shadow-card">
-        <span className="text-sm font-semibold text-white">{mission.title}</span>
-        <span className="text-xs font-semibold text-ink-soft">{PIN_LABEL[mission.status]}</span>
-      </span>
+        <span className="mt-3 flex w-max min-w-[112px] flex-col rounded-card bg-surface px-4 py-2 text-center shadow-card">
+          <span className="text-sm font-semibold text-white">{mission.title}</span>
+          <span className="text-xs font-semibold text-ink-soft">{PIN_LABEL[mission.status]}</span>
+        </span>
+      </div>
     </li>
   )
 }

@@ -5,6 +5,7 @@ import AppShell from '@/components/AppShell'
 import IconTile from '@/components/IconTile'
 import ProgressBar from '@/components/ProgressBar'
 import { useToast } from '@/components/Toast'
+import { markQuestionnaireCompleted } from '@/lib/onboarding'
 import { CAREER_GOALS, CAREER_QUESTIONNAIRE } from '@/data/careerGoals'
 import type { CareerGoalId } from '@/data/careerGoals'
 import arrowRight from '@/assets/icons/arrow-right.svg'
@@ -55,6 +56,9 @@ export default function Questionnaire() {
           tone: 'success',
         })
       }
+      /* The Career Path only shows itself once this flag is set, so it has to land before the
+         navigation — otherwise the expedition would bounce the user straight back here. */
+      markQuestionnaireCompleted()
       navigate('/learn')
     }, GENERATION_MS)
     return () => {

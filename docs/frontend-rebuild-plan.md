@@ -130,9 +130,20 @@ CTA and every unlocked pin open it, and its two pills leave for `/learn/mission`
 `/learn/quick-check` (`Code`). Geometry from the frame: 480 wide, 28px padding, 64px header, two 424x76
 rows on `#0f172a`, a 424x83 violet reward strip.
 
+**First run and entrance (2026-10-15).** `/learn` is gated behind the questionnaire: a browser whose
+`localStorage` has no `novacode:questionnaire-completed` key is redirected to `/learn/questionnaire`
+(same tab, no back-stack entry), and the questionnaire sets the flag right before it navigates to
+`/learn` — so the expedition shows once per browser, not once per session. `?stage=advanced` — the
+preview of the design's second state — deliberately bypasses the gate. The map then plays its entrance:
+each hop of the route is drawn (SVG `pathLength=1` + `strokeDasharray=1`, `draw-route` 520ms) and each pin
+pops in (`pop-in` 320ms) on a 180ms stagger starting at 120ms, choreography in `ROUTE_ANIMATION` in the
+page. New motion tokens live in `index.css` next to the older ones; the `prefers-reduced-motion` guard
+already flattens them and the `both` fill keeps the finished state. The two questionnaire frames the
+questions 2 and 3 belong to (`110:3992`, `113:4644`) are still empty in the file — the step flow waits
+for them.
+
 
 ### Deviations the user should know about
-
 1. **IDE success output** (frame `125:7483`) carries the designer's placeholder
    `[Insert Succesfull Output] You May Continue`; the panel shows the real run result
    (`4 tests passed in 0.12s`) instead.
