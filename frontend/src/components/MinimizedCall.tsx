@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useToast } from '@/components/Toast'
 import { SESSION, SESSION_PEERS } from '@/data/studypod'
+import endSession from '@/assets/icons/end-session.svg'
 import groupChallenge from '@/assets/icons/group-challenge.svg'
 import micOff from '@/assets/icons/mic-off.svg'
 
@@ -185,7 +186,13 @@ export default function MinimizedCall({ minimized, onRestore, announce = false }
           className="grid size-7 shrink-0 place-items-center rounded-tile text-ink-soft transition hover:bg-white/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-brand"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M5 2.5H2.5V5M9 11.5h2.5V9" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+            <path
+              d="M2.5 5.5V2.5H5.5M11.5 8.5v3h-3"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </button>
       </div>
@@ -212,19 +219,15 @@ export default function MinimizedCall({ minimized, onRestore, announce = false }
           >
             <img src={micOff} alt="" width={15} height={15} />
           </button>
-          <Link
-            to="/studypod/session"
-            onClick={onRestore}
-            className="rounded-pill bg-brand px-3 py-1.5 text-xs font-bold text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
-          >
-            {SESSION.rejoin}
-          </Link>
+          {/* The frame's red hang-up control (end-session.svg) stands in for a text button. */}
           <button
             type="button"
             onClick={requestEndCall}
-            className="rounded-pill bg-[#ef4444] px-3 py-1.5 text-xs font-bold text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            aria-label={SESSION.controls.end}
+            title={SESSION.controls.end}
+            className="grid size-8 place-items-center rounded-full bg-[#ef4444] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
           >
-            {SESSION.controls.end}
+            <img src={endSession} alt="" width={16} height={16} />
           </button>
         </span>
       </div>
