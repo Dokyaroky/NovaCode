@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Placeholder from '@/pages/Placeholder'
 import Auth from '@/pages/Auth'
+import ApiConnectionTest from '@/pages/ApiConnectionTest'
 import CareerPath from '@/pages/CareerPath'
 import Dashboard from '@/pages/Dashboard'
 import Explore from '@/pages/Explore'
@@ -64,6 +65,7 @@ export default function App() {
         {/* Dev-only galleries: the design-system primitives and the interaction overlays. */}
         <Route path="/dev/ui" element={<UiPreview />} />
         <Route path="/dev/interactions" element={<Interactions />} />
+        <Route path="/api-test" element={<ApiConnectionTest />} />
         <Route path="*" element={<Placeholder name="Not found" node="—" path="*" />} />
       </Routes>
     </div>
