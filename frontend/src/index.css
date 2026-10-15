@@ -83,11 +83,16 @@
   --animate-slide-in-right: slide-in-right 220ms cubic-bezier(0.16, 1, 0.3, 1);
   --animate-slide-in-left: slide-in-left 220ms cubic-bezier(0.16, 1, 0.3, 1);
   --animate-slide-up: slide-up 200ms cubic-bezier(0.16, 1, 0.3, 1);
-  /* The prototype's overlay entrance (MOVE_IN / TOP / 300ms / EASE_OUT_BACK). Figma does not
-     expose the travel distance, so the 24px offset is ours; type, direction and timing are not. */
+  /* The prototype's overlay entrance (MOVE_IN / TOP / 300ms / EASE_OUT_BACK). The travel is not
+     exposed by the API; the keyframe derives it from the direction plus the panel's own size and
+     the container's bounds (see `move-in-top` below), so it is a derived value, not a reading. */
   --animate-move-in-top: move-in-top 300ms var(--ease-out-back) both;
-  /* The prototype's cross-fade (DISSOLVE / 300ms / EASE_OUT) — the StudyPod loading hand-off. */
+  /* The prototype's cross-fade (DISSOLVE / 300ms / EASE_OUT). Also the stand-in for the screen
+     changes the file drives with SMART_ANIMATE, which is a morph between frames and has no CSS
+     equivalent — the duration and easing are the file's, the motion is not. */
   --animate-dissolve: fade-in 300ms ease-out both;
+  /* DISSOLVE / 100ms / EASE_OUT — the questionnaire's second state and the ending card. */
+  --animate-dissolve-fast: fade-in 100ms ease-out both;
   /* The matching ring: one revolution per cycle, spun up fast then coasting into the next —
      the easing lives in the keyframes, so the loop is `linear`. */
   --animate-spin-momentum: spin-momentum 1.6s linear infinite;
@@ -257,12 +262,15 @@
   }
 }
 
-/* The prototype's MOVE_IN / TOP overlay entrance: the surface travels down into place and
-   overshoots slightly on the ease-out-back curve. */
+/* The prototype's MOVE_IN / TOP overlay entrance. Direction TOP means the surface starts above
+   the container and travels down into place; for an element centred in the viewport, "above the
+   container" is half the container plus half the element, so the start offset is DERIVED from the
+   direction, the element's own height (`50%`) and the container's height (`50vh`) — Figma does not
+   expose the travel distance, so this is geometry, not a reading. */
 @keyframes move-in-top {
   from {
     opacity: 0;
-    transform: translateY(-24px);
+    transform: translateY(calc(-50vh - 50%));
   }
   to {
     opacity: 1;

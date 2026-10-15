@@ -110,6 +110,7 @@ export default function Landing() {
               variant="secondary"
               iconPosition="start"
               icon={<img src={play} alt="" width={18} height={18} />}
+              onClick={() => navigate('/learn/mission')}
             >
               Watch demo
             </Button>

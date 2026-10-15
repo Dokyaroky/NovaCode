@@ -22,9 +22,22 @@ import badgeIcon from '@/assets/icons/search.svg'
  *
  * The frame only draws the answered state, so three states are ours: nothing chosen (the CTA is
  * `aria-disabled` and the helper line says why), a blocked submit (validation alert) and the
- * generation step (text + progress bar, never a spinner).
+ * generation corridor. The corridor is the prototype's: state 2 (frame 110:3992) holds 3s, state 3
+ * (113:4644) holds 13s, then the screen leaves for the Career Path with a 100ms ease-out. Those two
+ * frames are still empty in the file, so the states share this screen's placeholder checklist and
+ * only their timing and the entry transition are the reference's.
  */
-const GENERATION_MS = 1400
+const PHASES = CAREER_QUESTIONNAIRE.generating.phases
+/** Total corridor length, derived from the phases' own holds. */
+const CORRIDOR_MS = PHASES.reduce((total, phase) => total + phase.hold, 0)
+
+/* The transition the file plays INTO each state: SMART_ANIMATE 300ms EASE_OUT (the morph itself
+   has no CSS equivalent, so the fade stands in) and DISSOLVE 100ms EASE_OUT. */
+const PHASE_ENTRY: Record<(typeof PHASES)[number]['entry'], string> = {
+  smart: 'animate-dissolve',
+  dissolve: 'animate-dissolve-fast',
+}
+
 const HELPER_ID = 'career-goal-helper'
 
 export default function Questionnaire() {
@@ -33,22 +46,35 @@ export default function Questionnaire() {
   const [selectedId, setSelectedId] = useState<CareerGoalId | null>(null)
   const [showValidation, setShowValidation] = useState(false)
   const [generating, setGenerating] = useState(false)
+  const [phaseIndex, setPhaseIndex] = useState(0)
   const [progress, setProgress] = useState(0)
   const groupRef = useRef<HTMLFieldSetElement>(null)
 
   const selected = CAREER_GOALS.find((goal) => goal.id === selectedId) ?? null
   const steps = CAREER_QUESTIONNAIRE.generating.steps
   const step = steps[Math.min(steps.length - 1, Math.floor((progress / 100) * steps.length))]
+  const phase = PHASES[Math.min(phaseIndex, PHASES.length - 1)]
+  const lastPhase = phaseIndex === PHASES.length - 1
 
-  /* The generation step: a timed progress ramp that ends on the Career Path screen with the toast
-     that confirms the path. Both timers die with the screen. */
+  /* Progress runs across the whole corridor, so the bar reflects the reference's 3s + 13s. */
   useEffect(() => {
     if (!generating) return
     const start = Date.now()
     const tick = window.setInterval(() => {
-      setProgress(Math.min(100, Math.round(((Date.now() - start) / GENERATION_MS) * 100)))
+      setProgress(Math.min(100, Math.round(((Date.now() - start) / CORRIDOR_MS) * 100)))
     }, 60)
-    const finish = window.setTimeout(() => {
+    return () => window.clearInterval(tick)
+  }, [generating])
+
+  /* One timer per state: state 2 hands over to state 3, state 3 lands on the Career Path. The
+     timers die with the screen, and both ends are the reference's own holds. */
+  useEffect(() => {
+    if (!generating) return
+    const timer = window.setTimeout(() => {
+      if (!lastPhase) {
+        setPhaseIndex((index) => index + 1)
+        return
+      }
       if (selected) {
         push({
           title: CAREER_QUESTIONNAIRE.toast.title,
@@ -60,12 +86,9 @@ export default function Questionnaire() {
          navigation — otherwise the expedition would bounce the user straight back here. */
       markQuestionnaireCompleted()
       navigate('/learn')
-    }, GENERATION_MS)
-    return () => {
-      window.clearInterval(tick)
-      window.clearTimeout(finish)
-    }
-  }, [generating, selected, navigate, push])
+    }, phase.hold)
+    return () => window.clearTimeout(timer)
+  }, [generating, phase.hold, lastPhase, selected, navigate, push])
 
   function choose(id: CareerGoalId) {
     setSelectedId(id)
@@ -84,6 +107,7 @@ export default function Questionnaire() {
     }
     setShowValidation(false)
     setProgress(0)
+    setPhaseIndex(0)
     setGenerating(true)
   }
 
@@ -163,10 +187,13 @@ export default function Questionnaire() {
             {/* CTA — frame 43:423: a 56px brand pill, 40px below the section. */}
             <div className="flex w-full flex-col items-center gap-3 pt-10">
               {generating ? (
+                /* Keyed by state, so entering state 3 replays the file's DISSOLVE (100ms) and
+                   entering state 2 the 300ms ease-out the smart animate would use. */
                 <div
+                  key={phase.id}
                   role="status"
                   aria-live="polite"
-                  className="flex w-full max-w-[360px] flex-col gap-3"
+                  className={`flex w-full max-w-[360px] flex-col gap-3 ${PHASE_ENTRY[phase.entry]}`}
                 >
                   <p className="text-center text-sm leading-5 font-semibold text-ink">
                     {CAREER_QUESTIONNAIRE.generating.label} · {progress}%

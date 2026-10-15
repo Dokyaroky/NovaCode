@@ -142,32 +142,53 @@ Hover/un-hover is the whole pattern: `MOUSE_ENTER` → Variant2, `MOUSE_LEAVE` �
 The sidebar's `ON_CLICK` additionally swaps the **SideNav** set to the clicked route's variant
 (e.g. Explore → 63:1403), which is the app's active-nav state.
 
-## 5. What the app reproduces, and what it cannot
+## 5. Reference-accurate vs. approximation
 
-Reproduced (values are the file's): 300 ms / EASE_OUT on nav + tabs, 300 ms / EASE_OUT_BACK on
-buttons and pills (`--ease-out-back`, `duration-300`), dialogs enter with `animate-move-in-top`
-(MOVE_IN / TOP / 300 ms / EASE_OUT_BACK) and close instantly (CLOSE), the StudyPod hand-off and the
-questionnaire state changes use DISSOLVE.
+Everything in this table is what the app does today. "Read" = the value comes from the file;
+"derived" = computed from geometry the file does give; "approximation" = ours.
 
-Not reproducible from the prototype data — do not invent these:
+| Behaviour | Source | Status |
+|---|---|---|
+| Screen-change duration/easing (300 ms, EASE_OUT) | read | **approximation of the motion** — the file morphs (SMART_ANIMATE); the app cross-fades with the file's duration/easing. No playback comparison yet. |
+| Button/pill hover (300 ms, EASE_OUT_BACK) | read | approximation: the file swaps a component variant; the app transitions the same properties |
+| Nav/tab hover (300 ms, EASE_OUT) | read | approximation, same reason |
+| Dialog entrance: MOVE_IN, direction TOP, 300 ms, EASE_OUT_BACK | type/direction/duration/easing read; **travel derived** | the start offset is `translateY(calc(-50vh - 50%))` = half the viewport + half the panel, i.e. the panel's bottom edge exactly at the top of the container. Figma does not expose the travel distance. |
+| Dialog close (CLOSE, no transition) | read | matches |
+| DISSOLVE 300 ms (StudyPod hand-off) | read | matches |
+| DISSOLVE 100 ms (questionnaire 2→3, ending card) | read | matches |
+| Questionnaire corridor: state 2 holds 3 s, state 3 holds 13 s, then Career Path | read | matches (holds from `hold` in `careerGoals.ts`); the two states' *visuals* are placeholders — frames `110:3992`/`113:4644` are empty |
+| Career Path route draw + pin pop (180 ms stagger) | ours | not in the file: the map is the one screen deliberately restyled at the user's request |
 
-1. **SMART_ANIMATE is a Figma morph**, not a CSS transition: it interpolates shared layers between
-   two frames. The app approximates it with the matching duration/easing on whatever property
-   changes (colour, background, ring). There is no such thing as a faithful CSS smart-animate for
-   a page→page morph; a cross-fade is the closest honest stand-in, and page-level morphs are not
-   implemented.
-2. **MOVE_IN travel distance is not in the API** — only type, direction, duration and easing are.
-   The app uses a 24 px offset; the direction and timing are the file's.
-3. **`overlayRelativePosition` is unusable**: it is reported in the trigger's nested coordinate
-   space (Career Path's briefing says `x: -663.27, y: -594`), so it cannot place the overlay. The
-   app centres dialogs, which is how the design presents them.
-4. **Playback cannot be watched**: the prototype's own preview only runs inside Figma. To judge
-   timing, load the file and press Present, or export the flow — the app's values come from the
-   settings above, not from watching it move.
-5. **The `AFTER_TIMEOUT` chains in §3 are not wired** except where a screen genuinely auto-advances
-   (the StudyPod loading steps, the storyboard hops). Wire them only on request: several are demo
-   devices (the Main Video Page chain is one screen's three states, the IDE 0.8 s hops are a
-   storyboard), not product behaviour.
-6. **The StudyPod loading ring is a deliberate, user-approved deviation**: the file steps six ring
-   variants every 50–100 ms (a strobe), the app runs one `spin-momentum` revolution per 1.6 s. The
-   screen's entrance uses the file's DISSOLVE (300 ms, EASE_OUT) instead.
+**Overlay position — checked, and it is not usable.** `overlayRelativePosition` is documented as
+relative to the top-left of the frame the overlay is overlaid on, and that holds for exactly one of
+the four overlays in the file:
+
+| Overlay | dest size | `rel` | frame-centred offset | verdict |
+|---|---|---|---|---|
+| `Projects_2` 125:7001 → `FuelExpedition` 125:7213 | 480×250 | (480, 355) | (480, 355) | **matches the centred placement** — trustworthy |
+| `Studypod_Matched Peers` → `End_Layout` 106:3843 | 420×332 | (250, −45) | (510, 314) | card would hang out of the frame's top-left → stale |
+| `Career Path` 45:764 → `FuelExpedition` 113:5734 | 480×419 | (−663.27, −594) | (480, 270.5) | entirely off-frame → stale |
+| `Career Path_2` 118:5899 → `FuelExpedition2` 118:6053 | 480×419 | (−663.27, −594) | (480, 270.5) | identical constant on a second screen → stale |
+
+It is not an offset from the trigger either (`trigger + rel` = (11642, 5261) vs dest (12606, 5176)),
+and not `dest − frame origin` ((1490, 271)). Three values read as leftovers from dragging the
+overlay frames around the canvas after they were authored. Since the only trustworthy reading is the
+centred one, the app centres dialogs — **flagged for review**: press Present in Figma and confirm
+whether the briefing cards should sit centred or, say, offset over the map.
+
+## 6. Process rules the app now follows
+
+The file's `AFTER_TIMEOUT` chains mix presentation with process; the app treats them differently.
+
+- **Presentation** runs the state sequence with the file's pauses: the questionnaire corridor
+  (3 s + 13 s, one screen, two timed states — not three navigations), and the map's entrance.
+- **Process** waits for a result and never succeeds because a timer expired: `Run code` computes
+  `runSolution(buffer)` (an emptied buffer fails), the project audit resolves through
+  `simulateAudit`, the questionnaire waits for the learner's answer, StudyPod animates its ring
+  while the simulated match runs and stops when it lands.
+- Chains whose frames are **states of one screen** are not replayed as navigation: the `Main Video
+  Page` 0.8 s hops (one player, three states) and `Projects_3 → Projects_4` (the Projects screen's
+  empty/completed states) are already modelled as states; `CareerPath3` 122:6135 → 122:6291 →
+  122:6444 is the map advancing 15 % → 30 %, one screen again.
+- The `CareerPath Ending → 3 s → Questionnaire` tail is a **demo loop** and is deliberately not
+  wired (a product should not restart onboarding by itself).

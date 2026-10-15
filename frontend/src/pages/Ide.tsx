@@ -1,31 +1,55 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
 import NovaLogo from '@/components/NovaLogo'
 import ProgressBar from '@/components/ProgressBar'
-import { IDE, IDE_CODE, IDE_EXAMPLE, IDE_REQUIREMENTS, IDE_REQUIREMENT_TOKEN } from '@/data/ide'
+import {
+  IDE,
+  IDE_CODE,
+  IDE_EXAMPLE,
+  IDE_REQUIREMENTS,
+  IDE_REQUIREMENT_TOKEN,
+  IDE_TESTS,
+  runSolution,
+} from '@/data/ide'
 import aiHint from '@/assets/icons/ai-hint.svg'
 import github from '@/assets/icons/github.svg'
 import run from '@/assets/icons/run.svg'
 import terminalIcon from '@/assets/icons/terminal-ide.svg'
 
+type RunStatus = 'ready' | 'running' | 'passed' | 'failed'
+
 /**
  * Full-bleed IDE: the frame is an 80px top bar over a 460 | 980 split, with no sidebar.
  * The design's top-left wordmark reads "CodeQuest"; per the locked decision it renders NovaCode.
+ *
+ * The editor is real: `Run code` reports the verdict of `runSolution(buffer)`, so an edited or
+ * emptied buffer fails the suite instead of always printing the frame's success line. The run
+ * itself is a local simulation with the delay in `IDE_TESTS.runDelay` — there is no backend.
  */
 export default function Ide() {
+  const [code, setCode] = useState<string>(IDE_CODE.join('\n'))
   const [output, setOutput] = useState<string>(IDE.readyMessage)
+  const [status, setStatus] = useState<RunStatus>('ready')
   const [running, setRunning] = useState(false)
   const [hintOpen, setHintOpen] = useState(false)
 
   const runCode = () => {
+    /* The verdict is computed from the buffer at the moment of the click; the delay only
+       simulates the time a runner would take. */
+    const verdict = runSolution(code)
     setRunning(true)
+    setStatus('running')
     setOutput(IDE.runningMessage)
     window.setTimeout(() => {
-      setOutput(IDE.okMessage)
+      setOutput(verdict.message)
+      setStatus(verdict.passed ? 'passed' : 'failed')
       setRunning(false)
-    }, 900)
+    }, IDE_TESTS.runDelay)
   }
+
+  const lines = code.split('\n')
 
   return (
     <div className="flex min-h-screen flex-col bg-shell">
@@ -36,13 +60,13 @@ export default function Ide() {
           <div className="w-40 shrink-0">
             <ProgressBar value={IDE.moduleProgress} size="sm" />
           </div>
-          <button
-            type="button"
+          <Link
+            to="/profile"
             aria-label="Open profile"
-            className="grid size-11 shrink-0 place-items-center rounded-full bg-accent text-base text-white transition hover:brightness-110 active:scale-[0.98]"
+            className="grid size-11 shrink-0 place-items-center rounded-full bg-accent text-base text-white transition duration-300 ease-out-back hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand active:scale-[0.98]"
           >
             {IDE.profileInitial}
-          </button>
+          </Link>
         </div>
       </header>
 
@@ -118,15 +142,24 @@ export default function Ide() {
             <span className="text-xs leading-4 whitespace-nowrap text-ink-soft">{IDE.savedLabel}</span>
           </div>
 
-          <div className="no-scrollbar flex flex-1 flex-col overflow-auto p-6 md:p-8">
-            {IDE_CODE.map((line, index) => (
-              <div key={index} className="flex h-9 items-start gap-8">
-                <span className="w-5 shrink-0 text-right font-mono text-[15px] leading-9 text-ink-soft">
+          <div className="flex flex-1 gap-8 overflow-auto p-6 md:p-8">
+            {/* Gutter: same row height as the textarea, so the numbers stay with their lines. */}
+            <div aria-hidden="true" className="flex w-5 shrink-0 flex-col items-end">
+              {lines.map((_, index) => (
+                <span key={index} className="font-mono text-[15px] leading-9 text-ink-soft">
                   {index + 1}
                 </span>
-                <span className="font-mono text-[15px] leading-9 whitespace-pre text-ink-soft">{line}</span>
-              </div>
-            ))}
+              ))}
+            </div>
+            <textarea
+              value={code}
+              onChange={(event) => setCode(event.target.value)}
+              spellCheck={false}
+              rows={Math.max(lines.length, 1)}
+              aria-label={IDE.editorLabel}
+              wrap="off"
+              className="min-w-0 flex-1 resize-none border-0 bg-transparent p-0 font-mono text-[15px] leading-9 whitespace-pre text-ink-soft caret-brand outline-none"
+            />
           </div>
 
           <div className="flex min-h-[220px] flex-col border-t-[0.9px] border-white/8 bg-code">
@@ -143,7 +176,15 @@ export default function Ide() {
                 {IDE.runLabel}
               </Button>
             </div>
-            <p className="p-6 font-mono text-sm leading-7 text-ink-soft">{output}</p>
+            <p
+              role="status"
+              aria-live="polite"
+              className={`p-6 font-mono text-sm leading-7 ${
+                status === 'failed' ? 'text-code-red' : status === 'passed' ? 'text-success' : 'text-ink-soft'
+              }`}
+            >
+              {output}
+            </p>
           </div>
         </section>
       </div>

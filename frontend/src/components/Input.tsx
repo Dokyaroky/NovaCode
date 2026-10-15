@@ -7,6 +7,8 @@ interface InputProps {
   name?: string
   autoComplete?: string
   className?: string
+  /** Validation message; when set the field explains itself instead of silently failing. */
+  error?: string
 }
 
 /** 56px field on the dark canvas: 8px radius, 0.9px white-alpha border, 14px semibold text. */
@@ -19,7 +21,10 @@ export default function Input({
   name,
   autoComplete,
   className = '',
+  error,
 }: InputProps) {
+  const errorId = name ? `${name}-error` : undefined
+
   return (
     <label className={`flex flex-col gap-2 ${className}`}>
       <span className="text-sm font-semibold text-ink">{label}</span>
@@ -30,8 +35,17 @@ export default function Input({
         placeholder={placeholder}
         autoComplete={autoComplete}
         onChange={(event) => onChange(event.target.value)}
-        className="h-14 w-full rounded-lg border-[0.9px] border-white/25 bg-shell px-4 text-sm font-semibold text-ink outline-none transition placeholder:text-ink-soft/60 focus:border-brand/70"
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? errorId : undefined}
+        className={`h-14 w-full rounded-lg border-[0.9px] bg-shell px-4 text-sm font-semibold text-ink outline-none transition duration-300 ease-out placeholder:text-ink-soft/60 focus:border-brand/70 ${
+          error ? 'border-code-red' : 'border-white/25'
+        }`}
       />
+      {error && (
+        <span id={errorId} role="alert" className="text-xs leading-4 text-code-red">
+          {error}
+        </span>
+      )}
     </label>
   )
 }

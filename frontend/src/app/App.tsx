@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Placeholder from '@/pages/Placeholder'
 import Auth from '@/pages/Auth'
 import CareerPath from '@/pages/CareerPath'
@@ -41,23 +41,31 @@ const IMPLEMENTED: Record<string, ReactNode> = {
 }
 
 export default function App() {
+  const { pathname } = useLocation()
+
+  /* Every screen change in the file is a SMART_ANIMATE (300 ms, EASE_OUT) — a morph between two
+     frames, which has no CSS equivalent. The stand-in is the file's own cross-fade duration and
+     easing on the incoming screen. Keying on the pathname makes the wrapper remount per route,
+     which replays the fade; a query-only change (e.g. `?stage=advanced`, `?tab=`) does not. */
   return (
-    <Routes>
-      {SCREENS.map((screen) => (
-        <Route
-          key={screen.path}
-          path={screen.path}
-          element={
-            IMPLEMENTED[screen.path] ?? (
-              <Placeholder name={screen.name} node={screen.node} path={screen.path} />
-            )
-          }
-        />
-      ))}
-      {/* Dev-only galleries: the design-system primitives and the interaction overlays. */}
-      <Route path="/dev/ui" element={<UiPreview />} />
-      <Route path="/dev/interactions" element={<Interactions />} />
-      <Route path="*" element={<Placeholder name="Not found" node="—" path="*" />} />
-    </Routes>
+    <div key={pathname} className="animate-dissolve h-full">
+      <Routes>
+        {SCREENS.map((screen) => (
+          <Route
+            key={screen.path}
+            path={screen.path}
+            element={
+              IMPLEMENTED[screen.path] ?? (
+                <Placeholder name={screen.name} node={screen.node} path={screen.path} />
+              )
+            }
+          />
+        ))}
+        {/* Dev-only galleries: the design-system primitives and the interaction overlays. */}
+        <Route path="/dev/ui" element={<UiPreview />} />
+        <Route path="/dev/interactions" element={<Interactions />} />
+        <Route path="*" element={<Placeholder name="Not found" node="—" path="*" />} />
+      </Routes>
+    </div>
   )
 }

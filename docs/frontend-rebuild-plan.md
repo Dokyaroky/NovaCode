@@ -165,4 +165,16 @@ for them.
    follow the file's prototype: `Watch` → `Video_Career 118:5783` (`/learn/quick-check`) and `Code` →
    `IDE 14:2011` (`/ide`). See `docs/figma/prototype-interactions.md` for the interaction data and the
    motion contract (dialogs enter MOVE_IN/TOP/300 ms/EASE_OUT_BACK, close instantly).
+9. **No dead ends** (audited route by route; every `button`/`role=button|tab|switch` clicked and its
+   effect observed): `Enroll` on Explore navigated nowhere (`onClick={() => undefined}`), the auth
+   form's submit only called `preventDefault`, the OAuth buttons and the landing's `Watch demo` had
+   no handler at all. Now: `Enroll` → the lesson player (the file's `Course_Button` → `Main Video
+   Page 43:2`) with an enrolment toast, the auth form validates (name/email/8+ characters, inline
+   errors) and then runs a simulated check into the Dashboard (the file's `Button 45:1276/45:1282` →
+   `4:577`), the OAuth buttons say they are not connected instead of pretending, and `Watch demo`
+   opens the lesson player. `Submit for AI Audit` is `disabled` until a repo URL or zip is present —
+   that is why it looks inert, and the helper line says so.
+10. **`Run code` is a real check now**: the editor is editable and the verdict comes from
+   `runSolution(buffer)` (missing `scores` parameter → 2/4, no `return` → 3/4, empty → "Nothing to
+   run"), instead of the frame's success line printing after a fixed timer.
 

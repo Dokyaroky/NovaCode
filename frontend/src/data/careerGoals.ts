@@ -105,6 +105,19 @@ export const CAREER_QUESTIONNAIRE = {
       'Selecting missions and courses',
       'Sequencing your first week',
     ],
+    /**
+     * The prototype's corridor. The CTA swaps state 1 for state 2 (frame `110:3992`) with a
+     * 300ms ease-out smart animate, state 2 holds 3s and cuts to state 3 (`113:4644`) with a
+     * 100ms dissolve, state 3 holds 13s and then leaves for the Career Path (100ms ease-out).
+     * Both frames are still EMPTY in the file, so today the two states render the placeholder
+     * checklist further down; the holds and the transition kinds are the file's own numbers.
+     * Total corridor: 16s. Shorter for a live demo? Change the two `hold` values — nothing else
+     * depends on them.
+     */
+    phases: [
+      { id: 'state-2', hold: 3000, entry: 'smart' },
+      { id: 'state-3', hold: 13000, entry: 'dissolve' },
+    ],
   },
   toast: {
     title: 'Learning path generated',
