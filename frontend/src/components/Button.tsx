@@ -16,7 +16,9 @@ interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'cla
 }
 
 /* Metrics straight from the design: 48px pills at a 30px radius, 44px for the small
-   in-card action, 24px for the text-only button, 56px for the form submit. */
+   in-card action, 24px for the text-only button, 56px for the form submit.
+   The hover state is a variant swap in the file: MOUSE_ENTER -> Variant2 at 300ms
+   EASE_OUT_BACK, MOUSE_LEAVE -> Default at the same timing. */
 const VARIANTS: Record<ButtonVariant, string> = {
   primary: 'gap-3 rounded-pill bg-brand px-6 text-base text-white shadow-button',
   secondary: 'gap-3 rounded-pill bg-accent px-6 text-base text-white shadow-button',
@@ -51,7 +53,7 @@ export default function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`inline-flex shrink-0 cursor-pointer items-center justify-center whitespace-nowrap transition hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 ${
+      className={`inline-flex shrink-0 cursor-pointer items-center justify-center whitespace-nowrap transition duration-300 ease-out-back hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 ${
         size === 'lg' ? 'h-14' : HEIGHTS[variant]
       } ${VARIANTS[variant]} ${className}`}
       {...rest}

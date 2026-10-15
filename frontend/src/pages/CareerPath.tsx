@@ -241,7 +241,7 @@ export default function CareerPath() {
 
               <Link
                 to="/learn/questionnaire"
-                className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-[20px] border-[1.267px] border-[#94a3b8] text-base text-[#94a3b8] transition hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-[20px] border-[1.267px] border-[#94a3b8] text-base text-[#94a3b8] transition duration-300 ease-out hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               >
                 <img src={changeCareer} alt="" className="size-[17px]" />
                 {sidebar.crash.cta}
@@ -317,7 +317,7 @@ export default function CareerPath() {
               </span>
               <Link
                 to={step.path}
-                className="grid h-9 w-[108px] shrink-0 place-items-center rounded-pill bg-brand text-base text-white shadow-button transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand active:scale-[0.98]"
+                className="grid h-9 w-[108px] shrink-0 place-items-center rounded-pill bg-brand text-base text-white shadow-button transition duration-300 ease-out-back hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand active:scale-[0.98]"
               >
                 {step.action}
               </Link>

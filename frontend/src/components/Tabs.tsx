@@ -77,7 +77,7 @@ export default function Tabs({
             tabIndex={isActive || (selectedIndex === -1 && index === 0) ? 0 : -1}
             onClick={() => onChange(tab.id)}
             onKeyDown={(event) => handleKeyDown(event, index)}
-            className="relative flex h-14 items-center justify-center text-base text-white transition hover:text-brand focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-inset focus-visible:outline-none active:scale-[0.99]"
+            className="relative flex h-14 items-center justify-center text-base text-white transition duration-300 ease-out hover:text-brand focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-inset focus-visible:outline-none active:scale-[0.99]"
           >
             {tab.label}
             {isActive && (

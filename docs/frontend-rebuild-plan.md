@@ -161,7 +161,8 @@ for them.
    and the `/dev/interactions` gallery are on `main`; the branch's older StudyPod/IDE wiring is
    superseded and the branch can be deleted.
 8. **Briefing card** takes frame `118:6053`'s copy over the older `113:5734` (`Fuel Extraction: NavBar`,
-   not `2. Fuel Extraction: Navigation Bar`, and only `118:6053` draws the reward strip). Its `Code` pill
-   is pointed at the existing quick-check screen — the design only shows the briefings, not the target
-   frames, so this is the app's choice.
+   not `2. Fuel Extraction: Navigation Bar`, and only `118:6053` draws the reward strip). Its pills
+   follow the file's prototype: `Watch` → `Video_Career 118:5783` (`/learn/quick-check`) and `Code` →
+   `IDE 14:2011` (`/ide`). See `docs/figma/prototype-interactions.md` for the interaction data and the
+   motion contract (dialogs enter MOVE_IN/TOP/300 ms/EASE_OUT_BACK, close instantly).
 

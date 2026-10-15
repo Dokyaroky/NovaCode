@@ -138,6 +138,12 @@ export interface MissionBriefing {
  * second row says `Fuel Extraction: NavBar` and it draws the reward box). The design's own
  * "Button - Close mission briefing" makes this a modal, and both the sidebar's primary CTA
  * and every unlocked map pin open it; 125:7213 is the same card's post-completion variant.
+ *
+ * Destinations and motion come from the file's prototype, not from guesswork: the CTA
+ * (`Button_StartExtraction` 118:5994) triggers an OVERLAY with MOVE_IN / TOP / 300ms /
+ * EASE_OUT_BACK, the close button fires CLOSE with no transition, `Watch` (118:6074) goes to
+ * `Video_Career` 118:5783 (the theory video + quick check) and `Code` (118:6110) to the IDE
+ * 14:2011 — both with the default 300ms ease-out smart animate.
  */
 export const MISSION_BRIEFING: MissionBriefing = {
   title: 'HTML / CSS Base',
@@ -149,13 +155,13 @@ export const MISSION_BRIEFING: MissionBriefing = {
       label: '1. Theory: HTML & CSS',
       meta: 'Duration: 8 Mins',
       action: 'Watch',
-      path: '/learn/mission',
+      path: '/learn/quick-check',
     },
     {
       id: 'extraction',
       label: '2. Fuel Extraction: NavBar',
       action: 'Code',
-      path: '/learn/quick-check',
+      path: '/ide',
     },
   ],
   reward: 'Reward upon completion: +500 XP and 200L Plasma Fuel',

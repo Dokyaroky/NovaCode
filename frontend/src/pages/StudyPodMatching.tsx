@@ -18,7 +18,7 @@ export default function StudyPodMatching() {
   }, [navigate])
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-shell px-6 py-12">
+    <div className="animate-dissolve flex min-h-screen items-center justify-center bg-shell px-6 py-12">
       <div className="flex w-full max-w-[337px] flex-col items-center gap-8">
         <div className="relative grid size-28 place-items-center">
           <span className="absolute inset-0 rounded-full border-[3.6px] border-accent-tint" />

@@ -67,7 +67,10 @@ export default function Modal({
           aria-modal="true"
           aria-label={ariaLabel ?? title ?? 'Dialog'}
           tabIndex={-1}
-          className={`animate-scale-in relative flex w-full ${SIZES[size]} flex-col overflow-clip rounded-card bg-surface shadow-shell outline-none ${panelClassName}`}
+          /* The prototype enters every dialog it draws as an OVERLAY with MOVE_IN / TOP / 300ms /
+             EASE_OUT_BACK and closes with no transition at all (`Button - Close mission briefing`
+             → CLOSE), which is what the unmount already does. */
+          className={`animate-move-in-top relative flex w-full ${SIZES[size]} flex-col overflow-clip rounded-card bg-surface shadow-shell outline-none ${panelClassName}`}
         >
           {(showClose || title || description) && (
             <div className="flex items-start justify-between gap-6 p-6">
