@@ -69,7 +69,7 @@ export default function Landing() {
   return (
     <div className="flex min-h-screen flex-col bg-shell">
       <header className="flex h-24 shrink-0 items-center justify-between px-4 md:px-8 lg:px-16">
-        <NovaLogo />
+        <NovaLogo to={null} />
         <Button
           icon={<img src={arrowRight} alt="" width={18} height={18} />}
           onClick={() => navigate('/signup')}
@@ -110,6 +110,7 @@ export default function Landing() {
               variant="secondary"
               iconPosition="start"
               icon={<img src={play} alt="" width={18} height={18} />}
+              onClick={() => navigate('/learn/mission')}
             >
               Watch demo
             </Button>

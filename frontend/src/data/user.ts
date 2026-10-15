@@ -25,7 +25,7 @@ export const CURRENT_USER: User = {
   totalXp: 8420,
   streakDays: 14,
   personalBest: 21,
-  league: 'Bronze League',
+  league: 'The Big League',
   leagueCaption: 'Top learners this week',
   leaguePosition: 'Gold III',
   track: 'Front-End Developer',

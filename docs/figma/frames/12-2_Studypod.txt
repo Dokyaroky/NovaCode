@@ -1,0 +1,40 @@
+<frame id="12:2" name='Studypod' x=-757.0 y=4947.0 width=1440.0 height=960.0 >
+  <frame id="12:6" name='Shell' x=0.0 y=0.0 width=1440.0 height=960.0 >
+    <instance id="69:1763" name='SideNav' x=0.0 y=0.0 width=288.0 height=960.0 >
+    <frame id="12:70" name='StudyPodSetup' x=288.0 y=0.0 width=1152.0 height=960.0 >
+      <frame id="12:71" name='Container' x=128.0 y=96.0 width=288.0 height=288.0 >
+      <frame id="12:72" name='Container' x=800.0 y=640.0 width=256.0 height=256.0 >
+      <frame id="12:73" name='Container' x=256.0 y=172.0 width=640.0 height=616.0 >
+        <frame id="12:74" name='Article' x=0.0 y=0.0 width=640.0 height=572.0 >
+          <frame id="12:75" name='Container' x=32.0 y=32.0 width=576.0 height=196.0 >
+            <frame id="12:76" name='Text' x=256.0 y=0.0 width=64.0 height=64.0 >
+              <frame id="12:77" name='Icon' x=17.0 y=17.0 width=30.0 height=30.0 >
+            <frame id="12:81" name='Container' x=63.9 y=88.0 width=448.1 height=108.0 >
+              <frame id="12:82" name='Text' x=0.0 y=0.0 width=448.1 height=16.0 >
+                <text id="12:83" name='StudyPod Matchmaking' x=132.6 y=0.0 width=183.0 height=16.0 >
+              <frame id="12:85" name='Heading 1' x=0.0 y=28.0 width=448.1 height=40.0 >
+                <text id="12:86" name='Start a Collaborative Session' x=-21.4 y=0.0 width=491.0 height=40.0 >
+              <frame id="12:91" name='Paragraph:margin' x=0.0 y=80.0 width=446.5 height=28.0 >
+                <text id="12:89" name='Pair up with a peer to solve real-world coding cha' x=6.8 y=0.0 width=433.0 height=28.0 >
+          <frame id="12:92" name='Form' x=32.0 y=228.0 width=576.0 height=312.0 >
+            <frame id="12:93" name='Label' x=0.0 y=32.0 width=576.0 height=84.0 >
+              <text id="12:94" name='Select Topic' x=0.0 y=0.0 width=84.0 height=20.0 >
+              <frame id="12:96" name='Text' x=0.0 y=28.0 width=576.0 height=56.0 >
+                <frame id="12:97" name='Dropdown' x=0.0 y=0.0 width=576.0 height=56.0 >
+                  <frame id="12:98" name='Container' x=16.9 y=0.9 width=510.2 height=54.2 >
+                    <text id="12:99" name='Choose a coding topic' x=0.0 y=15.1 width=173.0 height=24.0 >
+                <text id="12:102" name='↓' x=544.1 y=14.0 width=18.0 height=28.0 >
+            <frame id="12:104" name='Label' x=0.0 y=140.0 width=576.0 height=84.0 >
+              <text id="12:105" name='Select Difficulty' x=0.0 y=0.0 width=108.0 height=20.0 >
+              <frame id="12:107" name='Text' x=0.0 y=28.0 width=576.0 height=56.0 >
+                <frame id="12:108" name='Dropdown' x=0.0 y=0.0 width=576.0 height=56.0 >
+                  <frame id="12:109" name='Container' x=16.9 y=0.9 width=510.2 height=54.2 >
+                    <text id="12:110" name='Choose your difficulty' x=0.0 y=15.1 width=172.0 height=24.0 >
+                <text id="12:113" name='↓' x=544.1 y=14.0 width=18.0 height=28.0 >
+            <frame id="12:121" name='Button:margin' x=0.0 y=248.0 width=576.0 height=64.0 >
+              <frame id="12:115" name='Button' x=0.0 y=8.0 width=576.0 height=56.0 >
+                <text id="12:116" name='Find a Match' x=224.0 y=16.0 width=98.0 height=24.0 >
+                <frame id="12:118" name='Icon' x=334.0 y=19.0 width=18.0 height=18.0 >
+        <frame id="12:123" name='Paragraph' x=208.3 y=596.0 width=223.5 height=20.0 >
+          <frame id="12:124" name='Text' x=0.0 y=6.0 width=8.0 height=8.0 >
+          <text id="12:125" name='Average wait time: 45 seconds' x=20.0 y=0.0 width=204.0 height=20.0 >

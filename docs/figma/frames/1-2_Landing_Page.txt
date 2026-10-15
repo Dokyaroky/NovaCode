@@ -1,0 +1,111 @@
+<frame id="1:2" name='Landing Page' x=-733.0 y=-578.0 width=1440.0 height=960.0 >
+  <frame id="1:6" name='Shell' x=0.0 y=0.0 width=1440.0 height=960.0 >
+    <frame id="1:8" name='TopNav' x=0.0 y=0.0 width=1440.0 height=96.0 >
+      <frame id="4:916" name='NovaLogo' x=64.0 y=28.0 width=239.1 height=40.0 >
+        <frame id="4:917" name='Text' x=0.0 y=0.0 width=40.0 height=40.0 >
+          <frame id="4:918" name='Icon' x=8.5 y=8.5 width=23.0 height=23.0 >
+        <frame id="4:922" name='Text' x=52.0 y=6.0 width=91.1 height=28.0 >
+          <text id="4:923" name='Novacode' x=0.0 y=0.0 width=95.0 height=28.0 >
+      <instance id="45:1049" name='SignUp_button' x=1240.8 y=24.0 width=135.2 height=48.0 >
+    <frame id="1:24" name='Landing' x=0.0 y=96.0 width=1440.0 height=499.1 >
+      <frame id="1:25" name='Container' x=64.0 y=56.0 width=624.0 height=443.1 >
+        <frame id="1:26" name='Text' x=0.0 y=0.0 width=318.7 height=34.0 >
+          <frame id="1:27" name='Icon' x=14.0 y=9.0 width=16.0 height=16.0 >
+          <text id="1:29" name='The fun way to become a developer' x=38.0 y=8.0 width=267.0 height=18.0 >
+        <frame id="1:31" name='Container' x=0.0 y=66.0 width=580.0 height=229.1 >
+          <frame id="1:32" name='Heading 1' x=0.0 y=0.0 width=580.0 height=141.1 >
+            <text id="1:33" name='Master coding. Build your future.' x=0.0 y=0.0 width=570.0 height=142.0 >
+          <text id="1:36" name='Level up from first line to hired developer with h' x=0.0 y=165.1 width=580.0 height=64.0 >
+        <frame id="1:38" name='Container' x=0.0 y=327.1 width=396.0 height=48.0 >
+          <instance id="45:1197" name='Login page' x=0.0 y=0.0 width=396.0 height=48.0 >
+        <frame id="1:50" name='Container' x=0.0 y=407.1 width=350.6 height=36.0 >
+          <frame id="1:51" name='Container' x=0.0 y=0.0 width=120.0 height=36.0 >
+            <frame id="1:64" name='Text:margin' x=0.0 y=0.0 width=28.0 height=36.0 >
+              <frame id="1:52" name='Text' x=0.0 y=0.0 width=36.0 height=36.0 >
+                <text id="1:53" name='AK' x=10.5 y=10.5 width=15.0 height=15.0 >
+            <frame id="1:65" name='Text:margin' x=28.0 y=0.0 width=28.0 height=36.0 >
+              <frame id="1:55" name='Text' x=0.0 y=0.0 width=36.0 height=36.0 >
+                <text id="1:56" name='JS' x=11.5 y=10.5 width=13.0 height=15.0 >
+            <frame id="1:66" name='Text:margin' x=56.0 y=0.0 width=28.0 height=36.0 >
+              <frame id="1:58" name='Text' x=0.0 y=0.0 width=36.0 height=36.0 >
+                <text id="1:59" name='ML' x=10.5 y=10.5 width=15.0 height=15.0 >
+            <frame id="1:61" name='Text' x=84.0 y=0.0 width=36.0 height=36.0 >
+              <text id="1:62" name='TR' x=11.0 y=10.5 width=14.0 height=15.0 >
+          <frame id="1:67" name='Text' x=144.0 y=8.0 width=206.6 height=20.0 >
+            <text id="1:68" name='12,000+ learners building daily' x=0.0 y=0.0 width=207.0 height=20.0 >
+      <frame id="1:70" name='Placeholder for Landing' x=752.0 y=137.6 width=624.0 height=280.0 >
+    <frame id="1:71" name='Landing' x=0.0 y=595.1 width=1440.0 height=240.0 >
+      <frame id="1:72" name='Article' x=64.0 y=96.0 width=421.3 height=144.0 >
+        <frame id="1:73" name='Text' x=24.0 y=24.0 width=48.0 height=48.0 >
+          <frame id="1:74" name='Icon' x=12.0 y=12.0 width=24.0 height=24.0 >
+        <frame id="1:78" name='Container' x=96.0 y=24.0 width=301.3 height=88.0 >
+          <frame id="1:79" name='Heading 2' x=0.0 y=0.0 width=301.3 height=28.0 >
+            <text id="1:80" name='Gamified path' x=0.0 y=0.0 width=138.0 height=28.0 >
+          <text id="1:83" name='Earn XP, unlock ranks, and make every lesson feel ' x=0.0 y=40.0 width=302.0 height=48.0 >
+      <frame id="1:85" name='Article' x=509.3 y=96.0 width=421.3 height=144.0 >
+        <frame id="1:86" name='Text' x=24.0 y=24.0 width=48.0 height=48.0 >
+          <frame id="1:87" name='Icon' x=12.0 y=12.0 width=24.0 height=24.0 >
+        <frame id="1:90" name='Container' x=96.0 y=24.0 width=301.3 height=88.0 >
+          <frame id="1:91" name='Heading 2' x=0.0 y=0.0 width=301.3 height=28.0 >
+            <text id="1:92" name='AI roleplay' x=0.0 y=0.0 width=104.0 height=28.0 >
+          <text id="1:95" name='Practice interviews and code reviews with an adapt' x=0.0 y=40.0 width=302.0 height=48.0 >
+      <frame id="1:97" name='Article' x=954.7 y=96.0 width=421.3 height=144.0 >
+        <frame id="1:98" name='Text' x=24.0 y=24.0 width=48.0 height=48.0 >
+          <frame id="1:99" name='Icon' x=12.0 y=12.0 width=24.0 height=24.0 >
+        <frame id="1:102" name='Container' x=96.0 y=24.0 width=301.3 height=88.0 >
+          <frame id="1:103" name='Heading 2' x=0.0 y=0.0 width=301.3 height=28.0 >
+            <text id="1:104" name='Web IDE' x=0.0 y=0.0 width=82.0 height=28.0 >
+          <text id="1:107" name='Write and run real code without leaving your learn' x=0.0 y=40.0 width=302.0 height=48.0 >
+    <frame id="1:7" name='Landing' x=690.0 y=80.0 width=440.0 height=440.0 >
+    <frame id="1:121" name='CodeWindow' x=781.5 y=228.6 width=574.8 height=289.9 >
+      <frame id="1:122" name='Container' x=0.0 y=0.0 width=570.9 height=65.9 >
+        <frame id="1:123" name='Container' x=20.0 y=22.0 width=52.2 height=12.9 >
+          <frame id="1:124" name='Italic Text' x=0.0 y=0.0 width=12.2 height=12.2 >
+          <frame id="1:125" name='Italic Text' x=20.0 y=0.0 width=12.2 height=12.2 >
+          <frame id="1:126" name='Italic Text' x=40.0 y=0.0 width=12.2 height=12.2 >
+        <frame id="1:127" name='Text' x=273.0 y=20.0 width=58.3 height=17.0 >
+          <text id="1:128" name='quest.py' x=0.0 y=0.0 width=58.3 height=17.0 >
+        <frame id="1:130" name='Icon' x=532.0 y=19.0 width=18.3 height=18.3 >
+      <frame id="1:134" name='Container' x=0.0 y=56.0 width=573.8 height=233.9 >
+        <frame id="1:135" name='Container' x=32.0 y=32.0 width=506.5 height=40.8 >
+          <frame id="1:136" name='Text' x=0.0 y=0.0 width=16.6 height=32.3 >
+            <text id="1:137" name='1' x=0.0 y=0.0 width=9.6 height=32.2 >
+          <frame id="1:139" name='Code' x=40.0 y=0.0 width=176.5 height=35.1 >
+            <text id="1:140" name='def level_up(player):' x=0.0 y=0.0 width=177.5 height=35.1 >
+        <frame id="1:142" name='Container' x=32.0 y=64.0 width=506.5 height=40.8 >
+          <frame id="1:143" name='Text' x=0.0 y=0.0 width=16.6 height=32.3 >
+            <text id="1:144" name='2' x=0.0 y=0.0 width=9.6 height=32.2 >
+          <frame id="1:146" name='Code' x=40.0 y=0.0 width=134.5 height=34.3 >
+            <text id="1:147" name='player.xp += 500' x=0.0 y=0.0 width=135.5 height=34.4 >
+        <frame id="1:149" name='Container' x=32.0 y=96.0 width=506.5 height=40.8 >
+          <frame id="1:150" name='Text' x=0.0 y=0.0 width=16.6 height=32.3 >
+            <text id="1:151" name='3' x=0.0 y=0.0 width=9.6 height=32.2 >
+          <frame id="1:153" name='Code' x=40.0 y=0.0 width=176.5 height=35.1 >
+            <text id="1:154" name='if player.xp >= 1000:' x=0.0 y=0.0 width=177.5 height=35.1 >
+        <frame id="1:156" name='Container' x=32.0 y=128.0 width=506.5 height=40.8 >
+          <frame id="1:157" name='Text' x=0.0 y=0.0 width=16.6 height=32.3 >
+            <text id="1:158" name='4' x=0.0 y=0.0 width=9.6 height=32.2 >
+          <frame id="1:160" name='Code' x=40.0 y=0.0 width=193.5 height=35.4 >
+            <text id="1:161" name='player.rank = "Builder"' x=0.0 y=0.0 width=194.5 height=35.4 >
+        <frame id="1:163" name='Container' x=32.0 y=160.0 width=506.5 height=40.8 >
+          <frame id="1:164" name='Text' x=0.0 y=0.0 width=16.6 height=32.3 >
+            <text id="1:165" name='5' x=0.0 y=0.0 width=9.6 height=32.2 >
+          <frame id="1:167" name='Code' x=40.0 y=0.0 width=109.5 height=33.9 >
+            <text id="1:168" name='return player' x=0.0 y=0.0 width=110.5 height=33.9 >
+    <frame id="1:109" name='Landing' x=1167.0 y=195.0 width=189.0 height=84.0 >
+      <frame id="1:110" name='Container' x=-0.4 y=0.0 width=189.4 height=72.0 >
+        <frame id="1:111" name='Text' x=20.0 y=18.0 width=36.0 height=36.0 >
+          <frame id="1:112" name='Icon' x=8.0 y=8.0 width=20.0 height=20.0 >
+        <frame id="1:114" name='Container' x=68.0 y=16.0 width=101.4 height=40.0 >
+          <frame id="1:115" name='Paragraph' x=0.0 y=0.0 width=101.4 height=16.0 >
+            <text id="1:116" name='Challenge passed' x=0.0 y=0.0 width=102.0 height=16.0 >
+          <frame id="1:118" name='Paragraph' x=0.0 y=16.0 width=101.4 height=24.0 >
+            <text id="1:119" name='+120 XP' x=0.0 y=0.0 width=66.0 height=24.0 >
+    <frame id="1:170" name='Landing' x=752.0 y=473.6 width=197.0 height=72.0 >
+      <frame id="1:171" name='Text' x=20.0 y=18.0 width=37.8 height=36.0 >
+        <text id="1:172" name='🔥' x=0.0 y=0.0 width=30.0 height=36.0 >
+      <frame id="1:174" name='Container' x=73.8 y=16.0 width=103.2 height=40.0 >
+        <frame id="1:175" name='Paragraph' x=0.0 y=0.0 width=103.2 height=24.0 >
+          <text id="1:176" name='14 day streak' x=0.0 y=0.0 width=105.0 height=24.0 >
+        <frame id="1:178" name='Paragraph' x=0.0 y=24.0 width=103.2 height=16.0 >
+          <text id="1:179" name='Personal best' x=0.0 y=0.0 width=78.0 height=16.0 >

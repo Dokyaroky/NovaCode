@@ -69,7 +69,7 @@ export default function UiPreview() {
       </SectionHeader>
 
       <Block title="Logo · buttons">
-        <NovaLogo />
+        <NovaLogo to={null} />
         <div className="flex flex-wrap items-center gap-4">
           <Button>Start your quest</Button>
           <Button variant="secondary" iconPosition="start" icon={<IconChevronSmall />}>

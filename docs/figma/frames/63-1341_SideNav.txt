@@ -1,0 +1,7 @@
+<frame id="63:1341" name='SideNav' x=-4872.0 y=3106.0 width=1901.0 height=960.0 >
+  <symbol id="57:834" name='Property 1=Default' x=18.0 y=0.0 width=288.0 height=960.0 >
+  <symbol id="63:1342" name='Property 1=Variant2' x=337.0 y=0.0 width=288.0 height=960.0 >
+  <symbol id="63:1403" name='Property 1=Variant3' x=656.0 y=0.0 width=288.0 height=960.0 >
+  <symbol id="63:1464" name='Property 1=Variant4' x=975.0 y=0.0 width=288.0 height=960.0 >
+  <symbol id="63:1524" name='Property 1=Variant5' x=1294.0 y=0.0 width=288.0 height=960.0 >
+  <symbol id="63:1586" name='Property 1=Variant6' x=1613.0 y=0.0 width=288.0 height=960.0 >

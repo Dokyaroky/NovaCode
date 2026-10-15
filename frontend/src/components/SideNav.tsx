@@ -12,7 +12,7 @@ import {
 
 const NAV = [
   { to: '/dashboard', label: 'Dashboard', Icon: IconDashboard },
-  { to: '/learn', label: 'Learn', Icon: IconLearn },
+  { to: '/learn', label: 'Career Path', Icon: IconLearn },
   { to: '/explore', label: 'Explore', Icon: IconExplore },
   { to: '/projects', label: 'Projects', Icon: IconProjects },
   { to: '/studypod', label: 'StudyPod', Icon: IconStudyPod },
@@ -32,13 +32,13 @@ export default function SideNav({ className = '' }: SideNavProps) {
     >
       <NovaLogo />
 
-      <div className="mt-16 flex flex-col gap-3">
+      <div className="mt-16 mb-4 flex flex-col gap-3">
         {NAV.map(({ to, label, Icon }) => (
           <NavLink
             key={to}
             to={to}
             className={({ isActive }) =>
-              `flex h-12 shrink-0 items-center gap-4 rounded-tile px-4 transition active:scale-[0.98] ${
+              `flex h-12 shrink-0 items-center gap-4 rounded-tile px-4 transition duration-300 ease-out active:scale-[0.98] ${
                 isActive
                   ? 'bg-surface text-brand'
                   : 'text-ink-soft hover:bg-surface/60 hover:text-ink'

@@ -1,0 +1,99 @@
+<frame id="43:2" name='Main Video Page' x=772.0 y=2743.0 width=1440.0 height=960.0 >
+  <frame id="43:6" name='Shell' x=0.0 y=0.0 width=1440.0 height=960.0 >
+    <instance id="84:2676" name='SideNav' x=0.0 y=0.0 width=288.0 height=960.0 >
+    <frame id="43:70" name='CoursePlayer' x=288.0 y=0.0 width=1152.0 height=960.0 >
+      <frame id="43:71" name='Section' x=32.0 y=32.0 width=691.6 height=896.0 >
+        <frame id="43:72" name='Container' x=0.0 y=0.0 width=691.6 height=32.0 >
+          <frame id="43:73" name='Button' x=0.0 y=4.0 width=142.7 height=24.0 >
+            <frame id="43:80" name='Text:transform' x=0.0 y=3.5 width=17.0 height=17.0 >
+              <frame id="43:74" name='Text' x=17.0 y=17.0 width=17.0 height=17.0 >
+                <frame id="43:75" name='Icon' x=0.0 y=0.0 width=17.0 height=17.0 >
+            <text id="43:78" name='Back to Explore' x=25.0 y=0.0 width=118.0 height=24.0 >
+          <frame id="43:81" name='Text' x=546.1 y=0.0 width=145.5 height=32.0 >
+            <text id="43:82" name='React Interface Lab' x=16.0 y=8.0 width=114.0 height=16.0 >
+        <frame id="43:130" name='Container:margin' x=0.0 y=32.0 width=691.6 height=410.0 >
+          <frame id="43:84" name='Container' x=0.0 y=20.0 width=691.6 height=390.0 >
+            <frame id="43:85" name='Container' x=0.0 y=0.0 width=691.6 height=390.0 >
+            <frame id="43:86" name='Button - Play lesson video' x=305.8 y=155.0 width=80.0 height=80.0 >
+              <frame id="43:90" name='Text:transform' x=25.0 y=25.0 width=30.0 height=30.0 >
+                <frame id="43:87" name='Text' x=2.0 y=0.0 width=30.0 height=30.0 >
+                  <frame id="43:88" name='Icon' x=0.0 y=0.0 width=30.0 height=30.0 >
+            <frame id="43:91" name='Container' x=0.0 y=272.0 width=691.6 height=118.0 >
+              <frame id="43:92" name='Container' x=24.0 y=56.0 width=643.6 height=6.0 >
+                <frame id="43:93" name='Container' x=0.0 y=0.0 width=270.3 height=6.0 >
+              <frame id="43:94" name='Container' x=24.0 y=62.0 width=643.6 height=36.0 >
+                <frame id="43:95" name='Text' x=0.0 y=18.0 width=93.6 height=16.0 >
+                  <text id="43:96" name='04:12 / 10:00' x=0.0 y=0.0 width=78.0 height=16.0 >
+                <frame id="43:98" name='Button - Video volume' x=623.6 y=16.0 width=20.0 height=20.0 >
+                  <frame id="43:99" name='Icon' x=0.0 y=0.0 width=20.0 height=20.0 >
+        <frame id="43:103" name='Heading 1' x=0.0 y=442.0 width=691.6 height=60.0 >
+          <text id="43:104" name='Module 2: React State Management' x=0.0 y=24.0 width=521.0 height=36.0 >
+        <frame id="43:132" name='Article:margin' x=0.0 y=502.0 width=691.6 height=341.1 >
+          <frame id="43:106" name='Article' x=0.0 y=20.0 width=691.6 height=321.1 >
+            <frame id="43:107" name='Container' x=24.0 y=24.0 width=643.6 height=60.0 >
+              <frame id="43:108" name='Container' x=0.0 y=0.0 width=219.3 height=60.0 >
+                <frame id="43:115" name='Container' x=0.0 y=0.0 width=219.3 height=24.0 >
+                  <text id="43:109" name='Practice as you learn' x=0.0 y=3.3 width=172.0 height=16.0 >
+                <frame id="43:114" name='Heading 2:margin' x=0.0 y=24.0 width=219.3 height=36.0 >
+                  <text id="43:112" name='Interactive Micro-Task' x=0.0 y=8.0 width=221.0 height=28.0 >
+            <frame id="43:128" name='Label:margin' x=24.0 y=84.0 width=643.6 height=149.1 >
+              <frame id="43:116" name='Label' x=0.0 y=20.0 width=643.6 height=129.1 >
+                <text id="43:117" name='Declare a state variable called "count"' x=0.0 y=0.1 width=254.0 height=20.0 >
+                <frame id="43:119" name='Text Area - Micro-task code editor' x=0.0 y=32.0 width=643.6 height=96.0 >
+                  <text id="43:120" name='const [count, setCount] = useState(0)' x=16.0 y=16.0 width=611.6 height=24.0 >
+            <frame id="43:121" name='Container' x=24.0 y=233.1 width=643.6 height=64.0 >
+              <frame id="43:122" name='Button' x=474.1 y=16.0 width=169.5 height=48.0 >
+                <text id="43:123" name='Submit Task' x=23.7 y=12.0 width=93.0 height=24.0 >
+                <frame id="43:125" name='Icon' x=128.7 y=15.5 width=17.0 height=17.0 >
+      <frame id="43:133" name='Sidebar' x=747.6 y=32.0 width=372.4 height=896.0 >
+        <frame id="43:134" name='Section' x=0.0 y=0.0 width=372.4 height=408.0 >
+          <frame id="43:135" name='Container' x=0.0 y=0.0 width=372.4 height=97.3 >
+            <frame id="43:136" name='Paragraph' x=24.0 y=20.0 width=324.4 height=16.0 >
+              <text id="43:137" name='Up Next' x=0.0 y=0.0 width=58.0 height=16.0 >
+            <frame id="43:139" name='Heading 2' x=24.0 y=36.0 width=324.4 height=40.0 >
+              <text id="43:140" name='Course Content' x=0.0 y=8.0 width=187.0 height=32.0 >
+          <frame id="43:143" name='Container' x=0.0 y=97.3 width=372.4 height=310.7 >
+            <frame id="43:144" name='Container' x=16.0 y=16.0 width=340.4 height=84.0 >
+              <frame id="43:145" name='Text' x=16.0 y=24.0 width=36.0 height=36.0 >
+                <frame id="43:146" name='Icon' x=9.0 y=9.0 width=18.0 height=18.0 >
+              <frame id="43:148" name='Container' x=68.0 y=20.0 width=100.6 height=44.0 >
+                <frame id="43:149" name='Paragraph' x=0.0 y=0.0 width=100.6 height=16.0 >
+                  <text id="43:150" name='Module 1' x=0.0 y=0.0 width=53.0 height=16.0 >
+                <frame id="43:155" name='Paragraph:margin' x=0.0 y=16.0 width=100.6 height=28.0 >
+                  <text id="43:153" name='Props Basics' x=0.0 y=4.0 width=101.0 height=24.0 >
+            <frame id="43:181" name='Container:margin' x=16.0 y=100.0 width=340.4 height=92.0 >
+              <frame id="43:156" name='Container' x=0.0 y=8.0 width=340.4 height=84.0 >
+                <frame id="43:157" name='Text' x=19.8 y=24.0 width=36.0 height=36.0 >
+                  <frame id="43:158" name='Icon' x=10.0 y=10.0 width=16.0 height=16.0 >
+                <frame id="43:160" name='Container' x=71.8 y=20.0 width=147.7 height=44.0 >
+                  <frame id="43:161" name='Paragraph' x=0.0 y=0.0 width=147.7 height=16.0 >
+                    <text id="43:162" name='Module 2 · Playing' x=0.0 y=0.0 width=106.0 height=16.0 >
+                  <frame id="43:167" name='Paragraph:margin' x=0.0 y=16.0 width=147.7 height=28.0 >
+                    <text id="43:165" name='State Management' x=0.0 y=4.0 width=149.0 height=24.0 >
+            <frame id="43:182" name='Container:margin' x=16.0 y=192.0 width=340.4 height=92.0 >
+              <frame id="43:168" name='Container' x=0.0 y=8.0 width=340.4 height=84.0 >
+                <frame id="43:169" name='Text' x=16.0 y=24.0 width=36.0 height=36.0 >
+                  <frame id="43:170" name='Icon' x=9.5 y=9.5 width=17.0 height=17.0 >
+                <frame id="43:173" name='Container' x=68.0 y=20.0 width=90.8 height=44.0 >
+                  <frame id="43:174" name='Paragraph' x=0.0 y=0.0 width=90.8 height=16.0 >
+                    <text id="43:175" name='Module 3' x=0.0 y=0.0 width=55.0 height=16.0 >
+                  <frame id="43:180" name='Paragraph:margin' x=0.0 y=16.0 width=90.8 height=28.0 >
+                    <text id="43:178" name='Effect Hook' x=0.0 y=4.0 width=92.0 height=24.0 >
+        <frame id="43:183" name='Section' x=0.0 y=432.0 width=372.4 height=464.0 >
+          <frame id="43:184" name='Container' x=24.0 y=24.0 width=324.4 height=48.0 >
+            <frame id="43:185" name='Text' x=0.0 y=4.0 width=40.0 height=40.0 >
+              <frame id="43:186" name='Icon' x=10.0 y=10.0 width=20.0 height=20.0 >
+            <frame id="43:189" name='Container' x=52.0 y=0.0 width=138.4 height=48.0 >
+              <frame id="43:190" name='Heading 2' x=0.0 y=0.0 width=138.4 height=28.0 >
+                <text id="43:191" name='AI Assistant' x=0.0 y=0.0 width=119.0 height=28.0 >
+              <frame id="43:196" name='Paragraph:margin' x=0.0 y=28.0 width=138.4 height=20.0 >
+                <text id="43:194" name='Online and ready to help' x=0.0 y=4.0 width=139.0 height=16.0 >
+          <frame id="43:197" name='Container' x=24.0 y=72.0 width=324.4 height=292.0 >
+            <frame id="43:198" name='Container' x=0.0 y=24.0 width=285.5 height=48.0 >
+              <text id="43:199" name='Need help with React State?' x=16.0 y=12.0 width=188.0 height=24.0 >
+          <frame id="43:209" name='Container:margin' x=24.0 y=364.0 width=324.4 height=76.0 >
+            <frame id="43:201" name='Container' x=0.0 y=20.0 width=324.4 height=56.0 >
+              <frame id="43:202" name='Text Input - Ask the AI assistant a question' x=8.0 y=8.0 width=260.4 height=40.0 >
+                <text id="43:203" name='Ask a question...' x=12.0 y=8.0 width=236.4 height=24.0 >
+              <frame id="43:204" name='Button - Send question' x=276.4 y=8.0 width=40.0 height=40.0 >
+                <frame id="43:205" name='Icon' x=11.0 y=11.0 width=18.0 height=18.0 >

@@ -1,0 +1,19 @@
+<frame id="91:4641" name='Studypod_Loading Screen' x=6692.0 y=4947.0 width=1440.0 height=960.0 >
+  <frame id="91:4642" name='Shell' x=0.0 y=0.0 width=1440.0 height=960.0 >
+    <frame id="91:4643" name='StudyPodSetup' x=551.6 y=314.0 width=336.9 height=332.0 >
+      <frame id="91:4644" name='Container' x=112.4 y=0.0 width=112.0 height=112.0 >
+        <frame id="91:4645" name='Text' x=24.0 y=24.0 width=64.0 height=64.0 >
+          <frame id="91:4646" name='Icon' x=17.0 y=17.0 width=30.0 height=30.0 >
+        <frame id="91:4650" name='Group 1' x=20.0 y=19.0 width=73.0 height=73.0 >
+          <frame id="91:4651" name='Text' x=23.0 y=22.0 width=67.0 height=67.0 >
+          <frame id="91:4652" name='Text' x=20.0 y=85.7 width=73.0 height=73.0 >
+      <frame id="91:4653" name='Container' x=0.0 y=144.0 width=336.9 height=104.0 >
+        <frame id="91:4654" name='Text' x=0.0 y=0.0 width=336.9 height=16.0 >
+          <text id="91:4655" name='StudyPod Matchmaking' x=76.9 y=0.0 width=183.0 height=16.0 >
+        <frame id="91:4656" name='Heading 1' x=0.0 y=28.0 width=336.9 height=40.0 >
+          <text id="91:4657" name='Finding your peer...' x=-5.1 y=0.0 width=347.0 height=40.0 >
+        <text id="91:4658" name='Matching you for a beginner python session.' x=0.4 y=80.0 width=336.0 height=24.0 >
+      <frame id="91:4659" name='Container' x=0.3 y=280.0 width=336.3 height=52.0 >
+        <frame id="91:4660" name='Text' x=24.0 y=20.0 width=12.0 height=12.0 >
+        <frame id="91:4661" name='Text' x=52.0 y=16.0 width=260.3 height=20.0 >
+          <text id="91:4662" name='Searching for an available collaborator' x=0.1 y=0.0 width=260.0 height=20.0 >

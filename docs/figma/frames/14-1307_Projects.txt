@@ -1,0 +1,139 @@
+<frame id="14:1307" name='Projects' x=-757.0 y=3821.0 width=1440.0 height=960.0 >
+  <frame id="14:1311" name='Shell' x=0.0 y=0.0 width=1440.0 height=960.0 >
+    <instance id="69:1709" name='SideNav' x=0.0 y=0.0 width=288.0 height=960.0 >
+    <frame id="14:1375" name='ProjectsPortfolio' x=288.0 y=0.0 width=1152.0 height=960.0 >
+      <frame id="14:1376" name='Header' x=24.0 y=24.0 width=1104.0 height=64.0 >
+        <frame id="14:1377" name='Container' x=0.0 y=0.0 width=290.1 height=64.0 >
+          <frame id="14:1378" name='Text' x=0.0 y=0.0 width=290.1 height=16.0 >
+            <text id="14:1379" name='Projects & Portfolio' x=0.0 y=0.0 width=166.0 height=16.0 >
+          <frame id="14:1381" name='Heading 1' x=0.0 y=24.0 width=290.1 height=40.0 >
+            <text id="14:1382" name='Your Proof of Work' x=0.0 y=0.0 width=319.0 height=40.0 >
+        <frame id="14:1384" name='Button' x=893.4 y=8.0 width=210.6 height=48.0 >
+          <frame id="14:1385" name='Icon' x=24.9 y=15.0 width=18.0 height=18.0 >
+          <text id="14:1389" name='Sync with GitHub' x=54.9 y=12.0 width=132.0 height=24.0 >
+      <frame id="14:1391" name='Article' x=24.0 y=112.0 width=1104.0 height=200.0 >
+        <frame id="14:1392" name='Container' x=912.0 y=-64.0 width=256.0 height=256.0 >
+        <frame id="14:1393" name='Container' x=24.0 y=24.0 width=1056.0 height=152.0 >
+          <frame id="14:1394" name='Container' x=0.0 y=12.0 width=827.2 height=128.0 >
+            <frame id="14:1395" name='Container' x=0.0 y=0.0 width=827.2 height=60.0 >
+              <frame id="14:1396" name='Text' x=0.0 y=6.0 width=48.0 height=48.0 >
+                <text id="14:1397" name='Py' x=13.0 y=10.0 width=22.0 height=28.0 >
+              <frame id="14:1399" name='Container' x=64.0 y=0.0 width=367.7 height=60.0 >
+                <text id="14:1401" name='Active project · Object-oriented programming' x=0.0 y=0.0 width=367.0 height=16.0 >
+                <text id="14:1404" name='Python OOP Console App' x=0.0 y=24.0 width=374.0 height=36.0 >
+            <frame id="14:1406" name='Container' x=0.0 y=84.0 width=680.0 height=44.0 >
+              <frame id="14:1407" name='Container' x=0.0 y=0.0 width=680.0 height=20.0 >
+                <frame id="14:1408" name='Text' x=0.0 y=0.0 width=111.6 height=20.0 >
+                  <text id="14:1409" name='Project progress' x=0.0 y=0.0 width=112.0 height=20.0 >
+                <frame id="14:1411" name='Text' x=647.7 y=0.0 width=32.3 height=20.0 >
+                  <text id="14:1412" name='75%' x=0.0 y=0.0 width=30.0 height=20.0 >
+              <frame id="14:1414" name='Progress Bar - Python OOP Console App progress' x=0.0 y=32.0 width=680.0 height=12.0 >
+                <frame id="14:1415" name='Container' x=0.0 y=0.0 width=510.0 height=12.0 >
+          <instance id="84:3276" name='SignUp_button' x=899.0 y=52.0 width=157.0 height=48.0 >
+      <frame id="14:1422" name='Section' x=24.0 y=336.0 width=1104.0 height=339.0 >
+        <frame id="14:1423" name='Container' x=0.0 y=0.0 width=1104.0 height=60.0 >
+          <frame id="14:1424" name='Container' x=0.0 y=0.0 width=385.5 height=60.0 >
+            <frame id="14:1425" name='Heading 2' x=0.0 y=0.0 width=385.5 height=32.0 >
+              <text id="14:1426" name='Completed & AI-Audited' x=0.0 y=0.0 width=287.0 height=32.0 >
+            <text id="14:1429" name='Verified projects that demonstrate production-read' x=0.0 y=40.0 width=386.0 height=20.0 >
+          <frame id="14:1431" name='Text' x=973.5 y=28.0 width=130.5 height=32.0 >
+            <text id="14:1432" name='3 verified projects' x=12.0 y=8.0 width=107.0 height=16.0 >
+        <frame id="14:1434" name='Container' x=0.0 y=76.0 width=1104.0 height=263.0 >
+          <frame id="14:1435" name='Article' x=0.0 y=0.0 width=352.0 height=263.0 >
+            <frame id="14:1436" name='Container' x=24.0 y=24.0 width=304.0 height=40.0 >
+              <frame id="14:1437" name='Text' x=0.0 y=0.0 width=40.0 height=40.0 >
+                <frame id="14:1438" name='Icon' x=10.0 y=10.0 width=20.0 height=20.0 >
+              <frame id="14:1440" name='Text' x=183.0 y=0.0 width=121.0 height=32.0 >
+                <text id="14:1441" name='AI Audit: 92/100' x=12.0 y=8.0 width=97.0 height=16.0 >
+            <frame id="14:1443" name='Container' x=24.0 y=80.0 width=304.0 height=76.0 >
+              <frame id="14:1444" name='Heading 3' x=0.0 y=0.0 width=304.0 height=28.0 >
+                <text id="14:1445" name='Relational Database Schema' x=0.0 y=0.0 width=251.0 height=28.0 >
+              <text id="14:1448" name='A normalized commerce database with safe migration' x=0.0 y=36.0 width=304.0 height=40.0 >
+            <frame id="14:1450" name='Container' x=24.0 y=172.0 width=304.0 height=31.0 >
+              <frame id="14:1451" name='Text' x=0.0 y=0.0 width=44.0 height=31.0 >
+                <text id="14:1452" name='SQL' x=12.0 y=8.0 width=21.0 height=15.0 >
+              <frame id="14:1454" name='Text' x=52.0 y=0.0 width=81.8 height=31.0 >
+                <text id="14:1455" name='PostgreSQL' x=12.0 y=8.0 width=59.0 height=15.0 >
+              <frame id="14:1457" name='Text' x=141.7 y=0.0 width=57.8 height=31.0 >
+                <text id="14:1458" name='Prisma' x=12.0 y=8.0 width=34.0 height=15.0 >
+            <frame id="14:1460" name='Link' x=24.0 y=219.0 width=96.1 height=20.0 >
+              <text id="14:1461" name='View Code' x=0.0 y=0.0 width=74.0 height=20.0 >
+              <frame id="14:1463" name='Icon' x=82.0 y=2.5 width=15.0 height=15.0 >
+          <frame id="14:1466" name='Article' x=376.0 y=0.0 width=352.0 height=263.0 >
+            <frame id="14:1467" name='Container' x=24.0 y=24.0 width=304.0 height=40.0 >
+              <frame id="14:1468" name='Text' x=0.0 y=0.0 width=40.0 height=40.0 >
+                <frame id="14:1469" name='Icon' x=10.0 y=10.0 width=20.0 height=20.0 >
+              <frame id="14:1471" name='Text' x=183.0 y=0.0 width=121.0 height=32.0 >
+                <text id="14:1472" name='AI Audit: 89/100' x=12.0 y=8.0 width=97.0 height=16.0 >
+            <frame id="14:1474" name='Container' x=24.0 y=80.0 width=304.0 height=56.0 >
+              <frame id="14:1475" name='Heading 3' x=0.0 y=0.0 width=304.0 height=28.0 >
+                <text id="14:1476" name='Real-Time Analytics Board' x=0.0 y=0.0 width=233.0 height=28.0 >
+              <text id="14:1479" name='An event dashboard with live filters and data stre' x=0.0 y=36.0 width=305.0 height=20.0 >
+            <frame id="14:1481" name='Container' x=24.0 y=152.0 width=304.0 height=31.0 >
+              <frame id="14:1482" name='Text' x=0.0 y=0.0 width=51.9 height=31.0 >
+                <text id="14:1483" name='React' x=12.0 y=8.0 width=29.0 height=15.0 >
+              <frame id="14:1485" name='Text' x=59.9 y=0.0 width=77.5 height=31.0 >
+                <text id="14:1486" name='TypeScript' x=12.0 y=8.0 width=54.0 height=15.0 >
+              <frame id="14:1488" name='Text' x=145.4 y=0.0 width=37.7 height=31.0 >
+                <text id="14:1489" name='D3' x=12.0 y=8.0 width=14.0 height=15.0 >
+            <frame id="14:1491" name='Link' x=24.0 y=199.0 width=96.1 height=40.0 >
+              <text id="14:1492" name='View Code' x=0.0 y=20.0 width=74.0 height=20.0 >
+              <frame id="14:1494" name='Icon' x=82.0 y=22.5 width=15.0 height=15.0 >
+          <frame id="14:1498" name='Article' x=752.0 y=0.0 width=352.0 height=263.0 >
+            <frame id="14:1499" name='Container' x=24.0 y=24.0 width=304.0 height=40.0 >
+              <frame id="14:1500" name='Text' x=0.0 y=0.0 width=40.0 height=40.0 >
+                <frame id="14:1501" name='Icon' x=10.0 y=10.0 width=20.0 height=20.0 >
+              <frame id="14:1503" name='Text' x=183.0 y=0.0 width=121.0 height=32.0 >
+                <text id="14:1504" name='AI Audit: 95/100' x=12.0 y=8.0 width=97.0 height=16.0 >
+            <frame id="14:1506" name='Container' x=24.0 y=80.0 width=304.0 height=56.0 >
+              <frame id="14:1507" name='Heading 3' x=0.0 y=0.0 width=304.0 height=28.0 >
+                <text id="14:1508" name='Secure REST API' x=0.0 y=0.0 width=148.0 height=28.0 >
+              <frame id="14:1510" name='Paragraph' x=0.0 y=36.0 width=304.0 height=20.0 >
+                <text id="14:1511" name='A tested service with authentication and role acce' x=0.0 y=0.0 width=301.0 height=20.0 >
+            <frame id="14:1513" name='Container' x=24.0 y=152.0 width=304.0 height=31.0 >
+              <frame id="14:1514" name='Text' x=0.0 y=0.0 width=58.9 height=31.0 >
+                <text id="14:1515" name='Python' x=12.0 y=8.0 width=35.0 height=15.0 >
+              <frame id="14:1517" name='Text' x=66.9 y=0.0 width=61.5 height=31.0 >
+                <text id="14:1518" name='FastAPI' x=12.0 y=8.0 width=38.0 height=15.0 >
+              <frame id="14:1520" name='Text' x=136.4 y=0.0 width=55.5 height=31.0 >
+                <text id="14:1521" name='Pytest' x=12.0 y=8.0 width=32.0 height=15.0 >
+            <frame id="14:1523" name='Link' x=24.0 y=199.0 width=96.1 height=40.0 >
+              <text id="14:1524" name='View Code' x=0.0 y=20.0 width=74.0 height=20.0 >
+              <frame id="14:1526" name='Icon' x=82.0 y=22.5 width=15.0 height=15.0 >
+      <frame id="14:1530" name='Section' x=24.0 y=699.0 width=1104.0 height=237.0 >
+        <frame id="14:1531" name='Container' x=0.0 y=0.0 width=1104.0 height=60.0 >
+          <frame id="14:1532" name='Container' x=0.0 y=0.0 width=371.8 height=60.0 >
+            <text id="14:1534" name='Industry Challenges to Build Next' x=0.0 y=0.0 width=392.0 height=32.0 >
+            <frame id="14:1536" name='Paragraph' x=0.0 y=40.0 width=371.8 height=20.0 >
+              <text id="14:1537" name='Practice briefs inspired by real product teams.' x=0.0 y=0.0 width=305.0 height=20.0 >
+          <frame id="14:1539" name='Text' x=1011.4 y=44.0 width=92.6 height=16.0 >
+            <text id="14:1540" name='Scroll to explore' x=0.0 y=0.0 width=93.0 height=16.0 >
+        <frame id="14:1542" name='Industry challenges' x=0.0 y=76.0 width=1104.0 height=128.0 >
+          <frame id="14:1543" name='Article' x=0.0 y=0.0 width=288.0 height=120.0 >
+            <frame id="14:1544" name='Text' x=24.0 y=32.0 width=56.0 height=56.0 >
+              <frame id="14:1545" name='Icon' x=15.5 y=15.5 width=25.0 height=25.0 >
+            <frame id="14:1548" name='Container' x=96.0 y=24.0 width=168.0 height=72.0 >
+              <frame id="14:1549" name='Text' x=0.0 y=0.0 width=168.0 height=16.0 >
+                <text id="14:1550" name='Fintech systems · Advanced' x=0.0 y=0.0 width=162.0 height=16.0 >
+              <text id="14:1553" name='Design a payment ledger' x=0.0 y=24.0 width=168.0 height=48.0 >
+          <frame id="14:1555" name='Article' x=312.0 y=0.0 width=288.0 height=120.0 >
+            <frame id="14:1556" name='Text' x=24.0 y=32.0 width=56.0 height=56.0 >
+              <frame id="14:1557" name='Icon' x=15.5 y=15.5 width=25.0 height=25.0 >
+            <frame id="14:1560" name='Container' x=96.0 y=24.0 width=168.0 height=72.0 >
+              <frame id="14:1561" name='Text' x=0.0 y=0.0 width=168.0 height=16.0 >
+                <text id="14:1562" name='Applied AI · Intermediate' x=0.0 y=0.0 width=142.0 height=16.0 >
+              <text id="14:1565" name='Build a support copilot' x=0.0 y=24.0 width=168.0 height=48.0 >
+          <frame id="14:1567" name='Article' x=624.0 y=0.0 width=288.0 height=120.0 >
+            <frame id="14:1568" name='Text' x=24.0 y=32.0 width=56.0 height=56.0 >
+              <frame id="14:1569" name='Icon' x=15.5 y=15.5 width=25.0 height=25.0 >
+            <frame id="14:1571" name='Container' x=96.0 y=24.0 width=168.0 height=72.0 >
+              <frame id="14:1572" name='Text' x=0.0 y=0.0 width=168.0 height=16.0 >
+                <text id="14:1573" name='Cloud operations · Advanced' x=0.0 y=0.0 width=166.0 height=16.0 >
+              <text id="14:1576" name='Create an incident console' x=0.0 y=24.0 width=168.0 height=48.0 >
+          <frame id="14:1578" name='Article' x=936.0 y=0.0 width=288.0 height=120.0 >
+            <frame id="14:1579" name='Text' x=24.0 y=32.0 width=56.0 height=56.0 >
+              <frame id="14:1580" name='Icon' x=15.5 y=15.5 width=25.0 height=25.0 >
+            <frame id="14:1583" name='Container' x=96.0 y=28.0 width=168.0 height=64.0 >
+              <text id="14:1585" name='Consumer platforms · Intermediate' x=0.0 y=0.0 width=168.0 height=32.0 >
+              <frame id="14:1587" name='Heading 3' x=0.0 y=40.0 width=168.0 height=24.0 >
+                <text id="14:1588" name='Model a social graph' x=0.0 y=0.0 width=161.0 height=24.0 >

@@ -1,8 +1,16 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useLocation } from 'react-router-dom'
+import MinimizedCall, { readMinimizedCall } from '@/components/MinimizedCall'
 import NovaLogo from '@/components/NovaLogo'
 import SideNav from '@/components/SideNav'
 import type { ReactNode } from 'react'
+
+/* Renders into document.body: the shell's own columns clip, so a floating window anchored
+   inside them would be cut off (same reason Modal/Drawer/Tooltip portal out). */
+function FloatingLayer({ children }: { children: ReactNode }) {
+  return createPortal(children, document.body)
+}
 
 type RailWidth = 300 | 360
 
@@ -16,6 +24,8 @@ interface AppShellProps {
   /** Padding/gap of the rail column; defaults to 24px padding with a 24px gap. */
   railClassName?: string
   className?: string
+  /** The screen is the minimised StudyPod call itself; never show the floating window here. */
+  bare?: boolean
 }
 
 const RAIL_GRID: Record<RailWidth, string> = {
@@ -35,13 +45,24 @@ export default function AppShell({
   mainClassName = 'p-4 md:p-6',
   railClassName = 'gap-6 p-6',
   className = '',
+  bare = false,
 }: AppShellProps) {
   const [menuOpen, setMenuOpen] = useState(false)
-  const { pathname } = useLocation()
+  const [callMinimized, setCallMinimized] = useState(false)
+  const { pathname, state } = useLocation()
 
   useEffect(() => {
     setMenuOpen(false)
   }, [pathname])
+
+  /* The call resumes its floating window after a navigation or a reload while it is running.
+     The toast is only for the moment of minimising (the session page hands it over in state). */
+  const [callNotice, setCallNotice] = useState(false)
+
+  useEffect(() => {
+    setCallMinimized(readMinimizedCall())
+    setCallNotice(Boolean((state as { minimizeCall?: boolean } | null)?.minimizeCall))
+  }, [pathname, state])
 
   return (
     <div
@@ -94,6 +115,16 @@ export default function AppShell({
         >
           {rail}
         </aside>
+      )}
+
+      {!bare && callMinimized && (
+        <FloatingLayer>
+          <MinimizedCall
+            minimized
+            announce={callNotice}
+            onRestore={() => setCallMinimized(false)}
+          />
+        </FloatingLayer>
       )}
     </div>
   )

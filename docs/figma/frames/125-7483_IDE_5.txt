@@ -1,0 +1,114 @@
+<frame id="125:7483" name='IDE_5' x=2218.0 y=545.0 width=1440.0 height=960.0 >
+  <frame id="125:7484" name='Shell' x=0.0 y=0.0 width=1440.0 height=960.0 >
+    <frame id="125:7485" name='IDE' x=0.0 y=0.0 width=1440.0 height=80.0 >
+      <frame id="125:7486" name='Logo' x=32.0 y=19.5 width=154.6 height=40.0 >
+        <frame id="125:7487" name='Text' x=0.0 y=0.0 width=40.0 height=40.0 >
+          <frame id="125:7488" name='Icon' x=8.5 y=8.5 width=23.0 height=23.0 >
+        <frame id="125:7492" name='Text' x=52.0 y=6.0 width=102.6 height=28.0 >
+          <text id="125:7493" name='Novacode' x=0.0 y=0.0 width=95.0 height=28.0 >
+      <frame id="125:7494" name='Container' x=1073.0 y=17.5 width=335.0 height=44.0 >
+        <frame id="125:7495" name='Text' x=0.0 y=12.0 width=150.7 height=20.0 >
+          <text id="125:7496" name='Python · Module 3 of 8' x=0.0 y=0.0 width=151.0 height=20.0 >
+        <frame id="125:7497" name='Container' x=174.7 y=18.0 width=160.0 height=8.0 >
+          <frame id="125:7498" name='Container' x=0.0 y=0.0 width=60.8 height=8.0 >
+    <frame id="125:7499" name='IDE' x=0.0 y=80.0 width=1440.0 height=880.0 >
+      <frame id="125:7500" name='Section' x=0.0 y=0.0 width=460.0 height=880.0 >
+        <frame id="125:7501" name='Container' x=32.0 y=32.0 width=395.0 height=675.0 >
+          <instance id="125:7502" name='ContinueLater' x=0.0 y=0.0 width=164.7 height=40.0 >
+          <frame id="125:7503" name='Container' x=0.0 y=64.0 width=395.1 height=109.5 >
+            <frame id="125:7504" name='Heading 1' x=0.0 y=0.0 width=395.1 height=37.5 >
+              <text id="125:7505" name='Find the highest score' x=0.0 y=0.0 width=327.0 height=38.0 >
+            <text id="125:7506" name='Write a function that accepts a list of player sco' x=0.0 y=53.5 width=396.0 height=56.0 >
+          <frame id="125:7507" name='Container' x=0.0 y=197.5 width=395.1 height=164.0 >
+            <frame id="125:7508" name='Heading 2' x=20.0 y=20.0 width=355.1 height=24.0 >
+              <text id="125:7509" name='Your function should:' x=0.0 y=0.0 width=165.0 height=24.0 >
+            <frame id="125:7510" name='List' x=20.0 y=60.0 width=355.1 height=84.0 >
+              <frame id="125:7511" name='List Item' x=0.0 y=0.0 width=355.1 height=20.0 >
+                <frame id="125:7512" name='Text' x=0.0 y=0.0 width=12.4 height=20.0 >
+                  <text id="125:7513" name='✓' x=0.0 y=0.0 width=13.0 height=20.0 >
+                <text id="125:7514" name='Accept one list named' x=24.4 y=0.0 width=148.0 height=20.0 >
+                <frame id="125:7515" name='Code' x=184.4 y=0.0 width=50.4 height=20.0 >
+                  <text id="125:7516" name='scores' x=0.0 y=0.0 width=51.0 height=20.0 >
+              <frame id="125:7517" name='List Item' x=0.0 y=32.0 width=355.1 height=20.0 >
+                <frame id="125:7518" name='Text' x=0.0 y=0.0 width=12.4 height=20.0 >
+                  <text id="125:7519" name='✓' x=0.0 y=0.0 width=13.0 height=20.0 >
+                <text id="125:7520" name='Work with negative values' x=24.4 y=0.0 width=173.0 height=20.0 >
+              <frame id="125:7521" name='List Item' x=0.0 y=64.0 width=355.1 height=20.0 >
+                <frame id="125:7522" name='Text' x=0.0 y=0.0 width=12.4 height=20.0 >
+                  <text id="125:7523" name='✓' x=0.0 y=0.0 width=13.0 height=20.0 >
+                <text id="125:7524" name='Return one integer' x=24.4 y=0.0 width=123.0 height=20.0 >
+          <frame id="125:7525" name='Container' x=0.0 y=385.5 width=395.1 height=120.0 >
+            <frame id="125:7526" name='Paragraph' x=20.0 y=20.0 width=355.1 height=20.0 >
+              <text id="125:7527" name='Example' x=0.0 y=0.0 width=59.0 height=20.0 >
+            <frame id="125:7528" name='Paragraph' x=20.0 y=40.0 width=355.1 height=32.0 >
+              <text id="125:7529" name='highest_score([12, 46, 23])' x=0.0 y=12.0 width=227.0 height=20.0 >
+            <frame id="125:7530" name='Paragraph' x=20.0 y=72.0 width=355.1 height=28.0 >
+              <text id="125:7531" name='→ 46' x=0.0 y=8.0 width=34.0 height=20.0 >
+          <frame id="125:7532" name='Button' x=0.0 y=529.5 width=179.0 height=48.0 >
+            <frame id="125:7533" name='Icon' x=14.5 y=15.0 width=18.0 height=18.0 >
+            <text id="125:7536" name='Give Me a hint' x=44.5 y=12.0 width=109.0 height=24.0 >
+      <frame id="125:7537" name='Section' x=460.0 y=0.0 width=980.0 height=880.0 >
+        <frame id="125:7538" name='Container' x=0.0 y=0.0 width=980.0 height=56.0 >
+          <frame id="125:7539" name='Container' x=24.0 y=-0.0 width=158.4 height=55.1 >
+            <frame id="125:7540" name='Icon' x=8.0 y=17.7 width=18.0 height=18.0 >
+            <frame id="125:7544" name='Text' x=38.0 y=16.7 width=92.4 height=20.0 >
+              <text id="125:7545" name='solution.py' x=0.0 y=0.0 width=93.0 height=20.0 >
+            <frame id="125:7546" name='Text' x=142.4 y=22.7 width=8.0 height=8.0 >
+          <frame id="125:7547" name='Text' x=853.0 y=19.5 width=103.0 height=16.0 >
+            <text id="125:7548" name='All changes saved' x=0.0 y=0.0 width=103.0 height=16.0 >
+        <frame id="125:7549" name='Container' x=0.0 y=56.0 width=980.0 height=604.0 >
+          <frame id="125:7550" name='Container' x=32.0 y=32.0 width=916.0 height=36.0 >
+            <frame id="125:7551" name='Text' x=0.0 y=0.0 width=20.0 height=36.0 >
+              <text id="125:7552" name='1' x=11.0 y=0.0 width=9.0 height=36.0 >
+            <frame id="125:7553" name='Code' x=52.0 y=0.0 width=342.0 height=36.0 >
+              <text id="125:7554" name='# Return the highest score in the list' x=0.0 y=0.0 width=342.0 height=36.0 >
+          <frame id="125:7555" name='Container' x=32.0 y=68.0 width=916.0 height=36.0 >
+            <frame id="125:7556" name='Text' x=0.0 y=0.0 width=20.0 height=36.0 >
+              <text id="125:7557" name='2' x=11.0 y=0.0 width=9.0 height=36.0 >
+            <frame id="125:7558" name='Code' x=52.0 y=0.0 width=234.0 height=36.0 >
+              <text id="125:7559" name='def highest_score(scores):' x=0.0 y=0.0 width=234.0 height=36.0 >
+          <frame id="125:7560" name='Container' x=32.0 y=104.0 width=916.0 height=36.0 >
+            <frame id="125:7561" name='Text' x=0.0 y=0.0 width=20.0 height=36.0 >
+              <text id="125:7562" name='3' x=11.0 y=0.0 width=9.0 height=36.0 >
+            <frame id="125:7563" name='Code' x=52.0 y=0.0 width=171.0 height=36.0 >
+              <text id="125:7564" name='highest = scores[0]' x=0.0 y=0.0 width=171.0 height=36.0 >
+          <frame id="125:7565" name='Container' x=32.0 y=140.0 width=916.0 height=36.0 >
+            <frame id="125:7566" name='Text' x=0.0 y=0.0 width=20.0 height=36.0 >
+              <text id="125:7567" name='4' x=11.0 y=0.0 width=9.0 height=36.0 >
+            <frame id="125:7568" name='Code' x=52.0 y=0.0 width=180.0 height=36.0 >
+              <text id="125:7569" name='for score in scores:' x=0.0 y=0.0 width=180.0 height=36.0 >
+          <frame id="125:7570" name='Container' x=32.0 y=176.0 width=916.0 height=36.0 >
+            <frame id="125:7571" name='Text' x=0.0 y=0.0 width=20.0 height=36.0 >
+              <text id="125:7572" name='5' x=11.0 y=0.0 width=9.0 height=36.0 >
+            <frame id="125:7573" name='Code' x=52.0 y=0.0 width=171.0 height=36.0 >
+              <text id="125:7574" name='if score > highest:' x=0.0 y=0.0 width=171.0 height=36.0 >
+          <frame id="125:7575" name='Container' x=32.0 y=212.0 width=916.0 height=36.0 >
+            <frame id="125:7576" name='Text' x=0.0 y=0.0 width=20.0 height=36.0 >
+              <text id="125:7577" name='6' x=11.0 y=0.0 width=9.0 height=36.0 >
+            <frame id="125:7578" name='Code' x=52.0 y=0.0 width=135.0 height=36.0 >
+              <text id="125:7579" name='highest = score' x=0.0 y=0.0 width=135.0 height=36.0 >
+          <frame id="125:7580" name='Container' x=32.0 y=248.0 width=916.0 height=36.0 >
+            <frame id="125:7581" name='Text' x=0.0 y=0.0 width=20.0 height=36.0 >
+              <text id="125:7582" name='7' x=11.0 y=0.0 width=9.0 height=36.0 >
+            <frame id="125:7583" name='Code' x=52.0 y=0.0 width=126.0 height=36.0 >
+              <text id="125:7584" name='return highest' x=0.0 y=0.0 width=126.0 height=36.0 >
+          <frame id="125:7585" name='Container' x=32.0 y=284.0 width=916.0 height=36.0 >
+            <frame id="125:7586" name='Text' x=0.0 y=0.0 width=20.0 height=36.0 >
+              <text id="125:7587" name='8' x=11.0 y=0.0 width=9.0 height=36.0 >
+            <frame id="125:7588" name='Code' x=52.0 y=0.0 width=0.0 height=36.0 >
+          <frame id="125:7589" name='Container' x=32.0 y=320.0 width=916.0 height=36.0 >
+            <frame id="125:7590" name='Text' x=0.0 y=0.0 width=20.0 height=36.0 >
+              <text id="125:7591" name='9' x=11.0 y=0.0 width=9.0 height=36.0 >
+            <frame id="125:7592" name='Code' x=52.0 y=0.0 width=306.0 height=36.0 >
+              <text id="125:7593" name='print(highest_score([12, 46, 23]))' x=0.0 y=0.0 width=306.0 height=36.0 >
+        <frame id="125:7594" name='Container' x=0.0 y=660.0 width=980.0 height=220.0 >
+          <frame id="125:7595" name='Container' x=0.0 y=0.9 width=980.0 height=56.0 >
+            <frame id="125:7596" name='Container' x=24.0 y=17.5 width=88.7 height=20.0 >
+              <frame id="125:7597" name='Icon' x=0.0 y=1.0 width=18.0 height=18.0 >
+              <frame id="125:7600" name='Text' x=30.0 y=0.0 width=58.7 height=20.0 >
+                <text id="125:7601" name='Terminal' x=0.0 y=0.0 width=59.0 height=20.0 >
+            <frame id="125:7602" name='Button' x=847.0 y=10.1 width=109.0 height=35.0 >
+              <frame id="125:7603" name='Icon' x=11.0 y=9.0 width=17.0 height=17.0 >
+              <text id="125:7605" name='Run code' x=40.0 y=5.5 width=54.0 height=24.0 >
+          <frame id="125:7606" name='Paragraph' x=0.0 y=56.9 width=980.0 height=76.0 >
+            <text id="125:7607" name='[Insert Succesfull Output] You May Continue' x=24.0 y=24.0 width=219.0 height=56.0 >

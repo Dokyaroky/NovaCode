@@ -1,0 +1,65 @@
+<frame id="18:2221" name='Login' x=2235.0 y=-578.0 width=1440.0 height=960.0 >
+  <frame id="18:2225" name='Shell' x=0.0 y=0.0 width=1440.0 height=960.0 >
+    <frame id="18:2226" name='Auth' x=0.0 y=0.0 width=720.0 height=960.0 >
+      <frame id="18:2227" name='Logo' x=64.0 y=48.0 width=592.0 height=40.0 >
+        <frame id="18:2228" name='Text' x=0.0 y=0.0 width=40.0 height=40.0 >
+          <frame id="18:2229" name='Icon' x=8.5 y=8.5 width=23.0 height=23.0 >
+        <frame id="18:2233" name='Text' x=52.0 y=6.0 width=102.6 height=28.0 >
+          <text id="45:1221" name='Novacode' x=0.0 y=0.0 width=95.0 height=28.0 >
+      <frame id="18:2358" name='Container' x=64.0 y=88.0 width=592.0 height=824.0 >
+        <frame id="18:2359" name='Container' x=36.0 y=64.0 width=520.0 height=272.0 >
+          <frame id="18:2360" name='Text' x=0.0 y=0.0 width=184.0 height=34.0 >
+            <frame id="18:2361" name='Icon' x=14.0 y=9.0 width=16.0 height=16.0 >
+            <text id="18:2363" name='Start your quest' x=38.0 y=8.0 width=132.0 height=18.0 >
+          <frame id="18:2364" name='Heading 1' x=0.0 y=58.0 width=520.0 height=126.0 >
+            <text id="18:2365" name='Join the Developer Rank' x=0.0 y=0.0 width=440.0 height=126.0 >
+          <text id="18:2366" name='Level up your coding skills with AI-audited Proof-' x=0.0 y=208.0 width=480.0 height=64.0 >
+        <frame id="18:2367" name='Container:margin' x=36.0 y=432.0 width=520.0 height=264.0 >
+          <frame id="18:2368" name='Container' x=0.0 y=-96.0 width=520.0 height=360.0 >
+            <frame id="18:2369" name='AuthIllustration' x=0.0 y=0.0 width=520.0 height=360.0 >
+              <vector id="18:2370" name='Vector' x=88.0 y=296.0 width=344.0 height=44.0 >
+              <frame id="18:2371" name='Group' x=66.0 y=62.0 width=396.0 height=236.0 >
+                <vector id="18:2372" name='Vector' x=74.0 y=82.0 width=115.0 height=216.0 >
+                <vector id="18:2373" name='Vector' x=66.0 y=62.0 width=115.0 height=216.0 >
+                <vector id="18:2374" name='Vector' x=347.0 y=82.0 width=115.0 height=216.0 >
+                <vector id="18:2375" name='Vector' x=339.0 y=62.0 width=115.0 height=216.0 >
+              <frame id="18:2376" name='Group' x=160.0 y=86.0 width=200.0 height=212.0 >
+    <frame id="18:2265" name='Auth' x=720.0 y=0.0 width=720.0 height=960.0 >
+      <frame id="18:2266" name='Container' x=120.0 y=139.5 width=480.0 height=680.9 >
+        <frame id="18:2267" name='Tab List - Authentication mode' x=40.0 y=40.0 width=400.0 height=56.9 >
+          <frame id="18:2268" name='Tab' x=0.0 y=0.0 width=200.0 height=56.0 >
+            <text id="18:2269" name='Sign Up' x=70.0 y=16.0 width=60.0 height=24.0 >
+          <frame id="18:2271" name='Tab' x=200.0 y=0.0 width=200.0 height=56.0 >
+            <text id="18:2272" name='Log In' x=76.5 y=16.0 width=47.0 height=24.0 >
+            <frame id="18:2274" name='Text' x=0.0 y=53.0 width=200.0 height=4.0 >
+        <frame id="18:2275" name='Container' x=40.0 y=96.9 width=400.0 height=104.0 >
+          <frame id="18:2276" name='Heading 2' x=0.0 y=32.0 width=400.0 height=36.0 >
+            <text id="18:2277" name='Welcome back' x=0.0 y=0.0 width=216.0 height=36.0 >
+          <frame id="18:2279" name='Paragraph' x=0.0 y=80.0 width=400.0 height=24.0 >
+            <text id="18:2280" name='Continue your path to the next rank.' x=0.0 y=0.0 width=239.0 height=24.0 >
+        <frame id="18:2282" name='Form' x=40.0 y=200.9 width=400.0 height=312.0 >
+          <frame id="18:2283" name='Label' x=0.0 y=32.0 width=400.0 height=84.0 >
+            <text id="18:2284" name='Email' x=0.0 y=0.0 width=37.0 height=20.0 >
+            <frame id="18:2286" name='Email Input' x=0.0 y=28.0 width=400.0 height=56.0 >
+              <text id="18:2287" name='alex@example.com' x=16.9 y=18.0 width=366.2 height=20.0 >
+          <frame id="18:2288" name='Label' x=0.0 y=140.0 width=400.0 height=84.0 >
+            <text id="18:2289" name='Password' x=0.0 y=0.0 width=67.0 height=20.0 >
+            <frame id="18:2291" name='Password Input' x=0.0 y=28.0 width=400.0 height=56.0 >
+              <text id="18:2292" name='At least 8 characters' x=16.9 y=18.0 width=366.2 height=20.0 >
+          <frame id="18:2299" name='Button:margin' x=0.0 y=248.0 width=400.0 height=64.0 >
+            <instance id="45:1282" name='Button' x=0.0 y=8.0 width=400.0 height=56.0 >
+        <frame id="18:2300" name='Container' x=40.0 y=512.9 width=400.0 height=48.0 >
+          <frame id="18:2301" name='Text' x=0.0 y=39.5 width=137.7 height=1.0 >
+          <frame id="18:2302" name='Text' x=153.7 y=32.0 width=92.5 height=16.0 >
+            <text id="18:2303" name='or continue with' x=0.0 y=0.0 width=93.0 height=16.0 >
+          <frame id="18:2305" name='Text' x=262.3 y=39.5 width=137.7 height=1.0 >
+        <frame id="18:2322" name='Container:margin' x=40.0 y=560.9 width=400.0 height=80.0 >
+          <frame id="18:2306" name='Container' x=0.0 y=32.0 width=400.0 height=48.0 >
+            <frame id="18:2307" name='Button' x=0.0 y=0.0 width=192.0 height=48.0 >
+              <frame id="18:2308" name='Text' x=52.2 y=10.0 width=21.6 height=28.0 >
+                <text id="18:2309" name='GH' x=-0.2 y=0.0 width=22.0 height=28.0 >
+              <text id="18:2311" name='GitHub' x=85.8 y=12.0 width=54.0 height=24.0 >
+            <frame id="18:2313" name='Button' x=208.0 y=0.0 width=192.0 height=48.0 >
+              <frame id="18:2314" name='Text' x=56.3 y=10.0 width=13.4 height=28.0 >
+                <text id="18:2315" name='G' x=-0.3 y=0.0 width=14.0 height=28.0 >
+              <text id="18:2317" name='Google' x=81.7 y=12.0 width=54.0 height=24.0 >

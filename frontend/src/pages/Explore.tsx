@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import AppShell from '@/components/AppShell'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
 import StatusPill from '@/components/StatusPill'
+import { useToast } from '@/components/Toast'
 import { CATEGORIES, COURSES, COURSE_COUNT } from '@/data/explore'
 import chipCourses from '@/assets/icons/chip-courses.svg'
 import searchIcon from '@/assets/icons/search.svg'
@@ -10,7 +12,12 @@ import sparkle from '@/assets/icons/sparkle.svg'
 
 const AVATAR_TONES = ['bg-[#475569]', 'bg-accent', 'bg-success'] as const
 
-function CourseCard({ course }: { course: (typeof COURSES)[number] }) {
+/* The prototype sends every course card's button to the lesson player (`Course_Button` →
+   `Main Video Page 43:2`, 300ms EASE_OUT); the app opens the same screen and says which course
+   it enrolled. */
+const LESSON_ROUTE = '/learn/mission'
+
+function CourseCard({ course, onEnroll }: { course: (typeof COURSES)[number]; onEnroll: () => void }) {
   return (
     <Card className="flex min-h-[285px] flex-col gap-6 p-6">
       <div className="flex items-center justify-between">
@@ -40,7 +47,7 @@ function CourseCard({ course }: { course: (typeof COURSES)[number] }) {
             </span>
           ))}
         </div>
-        <Button onClick={() => undefined}>Enroll</Button>
+        <Button onClick={onEnroll}>Enroll</Button>
       </div>
     </Card>
   )
@@ -73,6 +80,8 @@ function FilterChips({ value, onChange }: { value: string; onChange: (next: stri
 }
 
 export default function Explore() {
+  const navigate = useNavigate()
+  const { push } = useToast()
   const [category, setCategory] = useState<string>('All')
   const [query, setQuery] = useState('')
 
@@ -130,7 +139,18 @@ export default function Explore() {
 
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {visible.map((course) => (
-            <CourseCard key={course.id} course={course} />
+            <CourseCard
+              key={course.id}
+              course={course}
+              onEnroll={() => {
+                push({
+                  title: 'Enrolled',
+                  description: `${course.title} — opening the first lesson.`,
+                  tone: 'success',
+                })
+                navigate(LESSON_ROUTE)
+              }}
+            />
           ))}
         </div>
       </div>

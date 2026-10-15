@@ -1,25 +1,56 @@
 import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
-import { SESSION, SESSION_CODE, SESSION_PEERS } from '@/data/studypod'
+import Modal from '@/components/Modal'
+import { clearMinimizedCall, writeMinimizedCall } from '@/components/MinimizedCall'
+import { useToast } from '@/components/Toast'
+import { CODE_TEMPLATES, END_SESSION, SESSION, SESSION_PEERS } from '@/data/studypod'
+import arrowLeft from '@/assets/icons/back-arrow.svg'
 import cameraOff from '@/assets/icons/camera-off.svg'
 import checkSm from '@/assets/icons/check-sm.svg'
+import endSession from '@/assets/icons/end-session.svg'
 import groupChallenge from '@/assets/icons/group-challenge.svg'
 import micOff from '@/assets/icons/mic-off.svg'
 import play from '@/assets/icons/play.svg'
 import terminal from '@/assets/icons/terminal.svg'
 
-const INITIAL_CODE = SESSION_CODE.join('\n')
+const TEMPLATE = CODE_TEMPLATES[SESSION.language]
+const INITIAL_CODE = TEMPLATE.code.join('\n')
 const INDENT = '    '
 
-function CallControl({ icon, label }: { icon: string; label: string }) {
+/* Pulls the literal a print/log/select call would emit, so Run Test reflects edits. */
+const STDOUT_PATTERNS = [
+  /print\(\s*["'](.+?)["']\s*\)/,
+  /console\.log\(\s*["'](.+?)["']\s*\)/,
+  /SELECT\s+["'](.+?)["']/i,
+]
+
+function CallControl({
+  icon,
+  label,
+  tone = 'muted',
+  pressed,
+  onClick,
+}: {
+  icon: string
+  label: string
+  /** `danger` is the red end-call control (frame 12:333). */
+  tone?: 'muted' | 'danger'
+  pressed?: boolean
+  onClick?: () => void
+}) {
   return (
     <div className="flex flex-col items-center gap-2">
       <button
         type="button"
-        className="grid size-12 place-items-center rounded-full bg-muted transition hover:brightness-110 active:scale-[0.98]"
+        onClick={onClick}
+        aria-label={label}
+        aria-pressed={pressed}
+        className={`grid size-12 place-items-center rounded-full transition hover:brightness-110 active:scale-[0.98] ${
+          tone === 'danger' ? 'bg-[#ef4444]' : 'bg-muted'
+        }`}
       >
         <img src={icon} alt="" width={21} height={21} />
       </button>
@@ -31,7 +62,37 @@ function CallControl({ icon, label }: { icon: string; label: string }) {
 /** Full-bleed session workspace: the frame is a 504 | 936 split with no sidebar. */
 export default function StudyPodSession() {
   const navigate = useNavigate()
+  const location = useLocation()
+  const { push } = useToast()
   const [code, setCode] = useState(INITIAL_CODE)
+  const [output, setOutput] = useState<string[]>([SESSION.outputReady])
+  const [micOn, setMicOn] = useState(true)
+  const [cameraOn, setCameraOn] = useState(true)
+  const [endCallOpen, setEndCallOpen] = useState(false)
+  const minimizeCallRef = useRef<HTMLButtonElement>(null)
+
+  /**
+   * This route means the call is no longer minimised (it is on screen again). When the minimised
+   * window's End Call sent us here (`state.endCall`) the call is parked until the user answers
+   * the dialog, so "Yes, End Call" resolves as the frame's copy implies; leaving the page with
+   * the call still running parks it again for the floating window.
+   */
+  const endedRef = useRef(false)
+
+  useEffect(() => {
+    const flagged = Boolean((location.state as { endCall?: boolean } | null)?.endCall)
+    if (flagged) writeMinimizedCall(true)
+    else clearMinimizedCall()
+    if (flagged) setEndCallOpen(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(
+    () => () => {
+      if (!endedRef.current) writeMinimizedCall(true)
+    },
+    [],
+  )
 
   const editorRef = useRef<HTMLTextAreaElement>(null)
   const gutterRef = useRef<HTMLDivElement>(null)
@@ -66,6 +127,14 @@ export default function StudyPodSession() {
     syncScroll()
   })
 
+  /* Mock run: echoes the command and prints what the buffer asks for (no backend yet). */
+  const runTest = () => {
+    const printed = STDOUT_PATTERNS.map((pattern) => pattern.exec(code)?.[1]).find(
+      (value) => value !== undefined,
+    )
+    setOutput((prev) => [...prev, `$ ${TEMPLATE.runCommand}`, printed ?? TEMPLATE.output])
+  }
+
   /* Tab indents instead of leaving the editor (4 spaces, the file is Python). */
   const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key !== 'Tab') return
@@ -75,9 +144,39 @@ export default function StudyPodSession() {
     setCode(editor.value)
   }
 
+  /* The frame's rule is that both peers must agree before submitting; without the backend
+     the button states the rule instead of faking a successful submission. */
+  const submitGroupWork = () => push({ title: SESSION.footerNote, tone: 'info' })
+
+  /* Confirming here always ends the call: the parked flag goes first, so the session page
+     un-mounting cannot leave a floating window behind. */
+  const endCall = () => {
+    endedRef.current = true
+    writeMinimizedCall(false)
+    setEndCallOpen(false)
+    push({ title: END_SESSION.endedMessage, tone: 'success' })
+    navigate('/dashboard')
+  }
+
   return (
     <div className="grid min-h-screen grid-cols-1 lg:h-screen lg:grid-rows-[100%] lg:grid-cols-[504px_minmax(0,1fr)] lg:overflow-hidden">
       <div className="no-scrollbar flex flex-col gap-6 bg-shell p-6 lg:overflow-y-auto">
+        {/* Leaving without ending the call is possible: the call minimises to a floating window. */}
+        <Button
+          variant="outline"
+          className="self-start"
+          aria-disabled={endCallOpen}
+          title={endCallOpen ? SESSION.footerNote : undefined}
+          icon={<img src={arrowLeft} alt="" width={17} height={17} />}
+          iconPosition="start"
+          onClick={() => {
+            if (endCallOpen) return
+            minimizeCallRef.current?.click()
+          }}
+        >
+          {SESSION.backToDashboard}
+        </Button>
+
         <Card className="flex flex-col overflow-clip p-6">
           <div className="flex items-center justify-between gap-4">
             <div className="flex min-w-0 flex-col gap-2">
@@ -112,8 +211,24 @@ export default function StudyPodSession() {
           </div>
 
           <div className="flex items-center justify-center gap-6 pt-6">
-            <CallControl icon={micOff} label="Mute" />
-            <CallControl icon={cameraOff} label="Turn Off Camera" />
+            <CallControl
+              icon={micOff}
+              label={micOn ? SESSION.controls.mute : 'Unmute'}
+              pressed={!micOn}
+              onClick={() => setMicOn((on) => !on)}
+            />
+            <CallControl
+              icon={cameraOff}
+              label={cameraOn ? SESSION.controls.camera : 'Turn On Camera'}
+              pressed={!cameraOn}
+              onClick={() => setCameraOn((on) => !on)}
+            />
+            <CallControl
+              icon={endSession}
+              label={SESSION.controls.end}
+              tone="danger"
+              onClick={() => setEndCallOpen(true)}
+            />
           </div>
         </Card>
 
@@ -154,7 +269,7 @@ export default function StudyPodSession() {
             <div className="flex min-w-0 flex-col gap-1">
               <h1 className="truncate text-xl font-bold text-white">{SESSION.editorTitle}</h1>
               <span className="truncate text-xs leading-4 text-ink-soft">
-                {SESSION.editorFile} · {dirty ? SESSION.unsavedLabel : SESSION.savedLabel}
+                {TEMPLATE.filename} · {dirty ? SESSION.unsavedLabel : SESSION.savedLabel}
               </span>
             </div>
           </div>
@@ -163,7 +278,7 @@ export default function StudyPodSession() {
               className={`size-2 rounded-full ${dirty ? 'bg-brand' : 'bg-success'} opacity-95`}
             />
             <span className="text-sm leading-5 font-semibold whitespace-nowrap text-ink-soft">
-              {dirty ? 'Peer is editing too…' : SESSION.peerStatus}
+              {SESSION.peerStatus}
             </span>
           </span>
         </header>
@@ -216,9 +331,26 @@ export default function StudyPodSession() {
         </div>
 
         <div className="px-6 pb-6">
-          <div className="flex h-13 items-center gap-3 overflow-clip rounded-card bg-code p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
-            <img src={terminal} alt="" width={17} height={17} />
-            <span className="font-mono text-sm leading-5 text-ink-soft">{SESSION.runStatus}</span>
+          <div className="flex flex-col overflow-hidden rounded-card bg-code shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
+            <div className="flex h-11 shrink-0 items-center gap-3 border-b-[0.9px] border-white/8 px-4">
+              <img src={terminal} alt="" width={17} height={17} />
+              <span className="text-sm font-semibold text-white">{SESSION.outputLabel}</span>
+            </div>
+            <div
+              role="log"
+              aria-live="polite"
+              aria-label={SESSION.outputLabel}
+              className="no-scrollbar h-[140px] overflow-y-auto p-4"
+            >
+              {output.map((line, index) => (
+                <p
+                  key={index}
+                  className="font-mono text-sm leading-5 break-words whitespace-pre-wrap text-ink-soft"
+                >
+                  {line}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -229,13 +361,60 @@ export default function StudyPodSession() {
               variant="outline"
               iconPosition="start"
               icon={<img src={play} alt="" width={18} height={18} />}
+              onClick={runTest}
             >
               Run Test
             </Button>
-            <Button onClick={() => navigate('/dashboard')}>Submit Group Work</Button>
+            <Button onClick={submitGroupWork}>Submit Group Work</Button>
           </div>
         </footer>
       </div>
+
+      {/* End Collaborative Session? — frame 106:3843, a centred 420px dialog. */}
+      <Modal
+        open={endCallOpen}
+        onClose={() => setEndCallOpen(false)}
+        showClose={false}
+        ariaLabel={END_SESSION.title}
+        size="sm"
+        panelClassName="max-w-[420px]!"
+        bodyClassName="flex flex-col items-center p-8 text-center"
+      >
+        <div className="grid size-14 place-items-center rounded-tile bg-[rgba(239,68,68,0.15)]">
+          <img src={endSession} alt="" width={26} height={26} />
+        </div>
+        <h2 className="pt-5 text-2xl font-bold leading-8 text-white">{END_SESSION.title}</h2>
+        <p className="w-[356px] max-w-full pt-3 text-sm leading-6 text-white/70">
+          {END_SESSION.body}
+        </p>
+        <div className="grid w-full grid-cols-2 gap-3 pt-7">
+          <button
+            type="button"
+            onClick={() => setEndCallOpen(false)}
+            className="h-12 rounded-pill border-[0.917px] border-white/30 text-base text-white/80 transition hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+          >
+            {END_SESSION.cancel}
+          </button>
+          <button
+            type="button"
+            onClick={endCall}
+            className="h-12 rounded-pill bg-[#ef4444] text-base text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+          >
+            {END_SESSION.confirm}
+          </button>
+        </div>
+      </Modal>
+
+      {/* Off-screen trigger: the header's "Back to Dashboard" parks the call and minimises it. */}
+      <button
+        ref={minimizeCallRef}
+        type="button"
+        hidden
+        onClick={() => {
+          writeMinimizedCall(true)
+          navigate('/dashboard', { state: { minimizeCall: true } })
+        }}
+      />
     </div>
   )
 }

@@ -1,0 +1,42 @@
+<frame id="81:1572" name='Explore' x=-757.0 y=2729.0 width=1440.0 height=960.0 >
+  <frame id="81:1576" name='Shell' x=0.0 y=0.0 width=1440.0 height=960.0 >
+    <instance id="81:1977" name='SideNav' x=0.0 y=0.0 width=288.0 height=960.0 >
+    <frame id="81:1640" name='Explore' x=288.0 y=0.0 width=1152.0 height=960.0 >
+      <frame id="81:1641" name='Container' x=48.0 y=40.0 width=1056.0 height=122.0 >
+        <frame id="81:1642" name='Container' x=0.0 y=0.0 width=388.5 height=122.0 >
+          <frame id="81:1643" name='Text' x=0.0 y=0.0 width=177.5 height=34.0 >
+            <frame id="81:1644" name='Icon' x=14.0 y=9.0 width=16.0 height=16.0 >
+            <text id="81:1647" name='Explore catalog' x=38.0 y=8.0 width=126.0 height=18.0 >
+          <frame id="81:1649" name='Heading 1' x=0.0 y=46.0 width=388.5 height=40.0 >
+            <text id="81:1650" name='Choose your next skill' x=0.0 y=0.0 width=389.0 height=40.0 >
+          <frame id="81:1652" name='Paragraph' x=0.0 y=98.0 width=388.5 height=24.0 >
+            <text id="81:1653" name='Practical courses built around real projects.' x=0.0 y=0.0 width=327.0 height=24.0 >
+        <frame id="81:1655" name='Container' x=908.0 y=78.0 width=148.0 height=44.0 >
+          <frame id="81:1656" name='Icon' x=20.0 y=12.0 width=20.0 height=20.0 >
+          <frame id="81:1659" name='Text' x=52.0 y=12.0 width=76.0 height=20.0 >
+            <text id="81:1660" name='42 courses' x=0.0 y=0.0 width=76.0 height=20.0 >
+      <frame id="81:1662" name='Container' x=48.0 y=162.0 width=1056.0 height=88.0 >
+        <frame id="81:1663" name='Label' x=0.0 y=32.0 width=554.0 height=56.0 >
+          <frame id="81:1664" name='Text' x=20.0 y=17.5 width=21.0 height=21.0 >
+            <frame id="81:1665" name='Icon' x=0.0 y=0.0 width=21.0 height=21.0 >
+          <frame id="81:1668" name='Text Input' x=0.0 y=0.0 width=554.0 height=56.0 >
+            <text id="81:1669" name='Search courses, skills, or topics…' x=18.0 y=16.0 width=516.0 height=24.0 >
+        <frame id="81:1670" name='Course filters' x=578.0 y=38.0 width=478.0 height=44.0 >
+          <frame id="81:1671" name='Button' x=0.0 y=0.0 width=58.8 height=44.0 >
+            <text id="81:1672" name='All' x=19.9 y=10.0 width=19.0 height=24.0 >
+          <frame id="81:1674" name='Button' x=70.8 y=0.0 width=93.2 height=44.0 >
+            <text id="81:1675" name='Python' x=19.6 y=10.0 width=54.0 height=24.0 >
+          <frame id="81:1677" name='Button' x=176.0 y=0.0 width=82.9 height=44.0 >
+            <text id="81:1678" name='React' x=19.4 y=10.0 width=44.0 height=24.0 >
+          <frame id="81:1680" name='Button' x=270.9 y=0.0 width=120.3 height=44.0 >
+            <text id="81:1681" name='JavaScript' x=20.1 y=10.0 width=80.0 height=24.0 >
+          <frame id="81:1683" name='Button' x=403.1 y=0.0 width=74.8 height=44.0 >
+            <text id="81:1684" name='Data' x=19.4 y=10.0 width=36.0 height=24.0 >
+      <frame id="81:1940" name='Container:margin' x=48.0 y=250.0 width=1056.0 height=626.0 >
+        <frame id="81:1686" name='Container' x=0.0 y=32.0 width=1056.0 height=594.0 >
+          <instance id="84:2391" name='Course_Button' x=0.0 y=0.0 width=336.0 height=285.0 >
+          <instance id="84:2479" name='Course_Button' x=360.0 y=0.0 width=336.0 height=285.0 >
+          <instance id="84:2508" name='Course_Button' x=720.0 y=0.0 width=336.0 height=285.0 >
+          <instance id="84:2537" name='Course_Button' x=0.0 y=309.0 width=336.0 height=285.0 >
+          <instance id="84:2421" name='Course_Button' x=360.0 y=309.0 width=336.0 height=285.0 >
+          <instance id="84:2450" name='Course_Button' x=720.0 y=309.0 width=336.0 height=285.0 >

@@ -1,18 +1,23 @@
 import type { ReactNode } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Placeholder from '@/pages/Placeholder'
 import Auth from '@/pages/Auth'
+import CareerPath from '@/pages/CareerPath'
 import Dashboard from '@/pages/Dashboard'
 import Explore from '@/pages/Explore'
 import Ide from '@/pages/Ide'
 import Landing from '@/pages/Landing'
-import Learn from '@/pages/Learn'
-import Projects from '@/pages/Projects'
-import UiPreview from '@/pages/dev/UiPreview'
+import MissionVideo from '@/pages/MissionVideo'
 import Profile from '@/pages/Profile'
+import ProjectReview from '@/pages/ProjectReview'
+import Projects from '@/pages/Projects'
+import Questionnaire from '@/pages/Questionnaire'
+import QuickCheck from '@/pages/QuickCheck'
 import StudyPod from '@/pages/StudyPod'
 import StudyPodMatching from '@/pages/StudyPodMatching'
 import StudyPodSession from '@/pages/StudyPodSession'
+import UiPreview from '@/pages/dev/UiPreview'
+import Interactions from '@/pages/dev/Interactions'
 import { SCREENS } from '@/app/screens'
 
 /* Screens built from Figma. Everything else still renders the Placeholder stub. */
@@ -21,9 +26,13 @@ const IMPLEMENTED: Record<string, ReactNode> = {
   '/login': <Auth mode="login" />,
   '/signup': <Auth mode="signup" />,
   '/dashboard': <Dashboard />,
-  '/learn': <Learn />,
+  '/learn': <CareerPath />,
+  '/learn/questionnaire': <Questionnaire />,
+  '/learn/mission': <MissionVideo />,
+  '/learn/quick-check': <QuickCheck />,
   '/explore': <Explore />,
   '/projects': <Projects />,
+  '/projects/review': <ProjectReview />,
   '/profile': <Profile />,
   '/studypod': <StudyPod />,
   '/studypod/matching': <StudyPodMatching />,
@@ -32,22 +41,31 @@ const IMPLEMENTED: Record<string, ReactNode> = {
 }
 
 export default function App() {
+  const { pathname } = useLocation()
+
+  /* Every screen change in the file is a SMART_ANIMATE (300 ms, EASE_OUT) — a morph between two
+     frames, which has no CSS equivalent. The stand-in is the file's own cross-fade duration and
+     easing on the incoming screen. Keying on the pathname makes the wrapper remount per route,
+     which replays the fade; a query-only change (e.g. `?stage=advanced`, `?tab=`) does not. */
   return (
-    <Routes>
-      {SCREENS.map((screen) => (
-        <Route
-          key={screen.path}
-          path={screen.path}
-          element={
-            IMPLEMENTED[screen.path] ?? (
-              <Placeholder name={screen.name} node={screen.node} path={screen.path} />
-            )
-          }
-        />
-      ))}
-      {/* Dev-only gallery of the design-system primitives. Remove once the pages exist. */}
-      <Route path="/dev/ui" element={<UiPreview />} />
-      <Route path="*" element={<Placeholder name="Not found" node="—" path="*" />} />
-    </Routes>
+    <div key={pathname} className="animate-dissolve h-full">
+      <Routes>
+        {SCREENS.map((screen) => (
+          <Route
+            key={screen.path}
+            path={screen.path}
+            element={
+              IMPLEMENTED[screen.path] ?? (
+                <Placeholder name={screen.name} node={screen.node} path={screen.path} />
+              )
+            }
+          />
+        ))}
+        {/* Dev-only galleries: the design-system primitives and the interaction overlays. */}
+        <Route path="/dev/ui" element={<UiPreview />} />
+        <Route path="/dev/interactions" element={<Interactions />} />
+        <Route path="*" element={<Placeholder name="Not found" node="—" path="*" />} />
+      </Routes>
+    </div>
   )
 }

@@ -5,7 +5,9 @@ import studypod from '@/assets/icons/studypod.svg'
 
 /**
  * Full-page matching state — the frame has no sidebar, so it renders on its own.
- * The ring's arc is static: this project bans CSS animations/keyframes.
+ * The ring spins with momentum: the accelerating 70% hands over to a coasting third
+ * (see `spin-momentum` in index.css). The global prefers-reduced-motion guard flattens it
+ * back to the frame's static arc.
  */
 export default function StudyPodMatching() {
   const navigate = useNavigate()
@@ -16,11 +18,14 @@ export default function StudyPodMatching() {
   }, [navigate])
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-shell px-6 py-12">
+    <div className="animate-dissolve flex min-h-screen items-center justify-center bg-shell px-6 py-12">
       <div className="flex w-full max-w-[337px] flex-col items-center gap-8">
         <div className="relative grid size-28 place-items-center">
           <span className="absolute inset-0 rounded-full border-[3.6px] border-accent-tint" />
-          <span className="absolute inset-0 -rotate-[84.6deg] rounded-full border-[3.6px] border-transparent border-t-accent" />
+          {/* The wrapper spins, so the arc keeps the design's own starting angle. */}
+          <span className="absolute inset-0 animate-spin-momentum">
+            <span className="absolute inset-0 -rotate-[84.6deg] rounded-full border-[3.6px] border-transparent border-t-accent" />
+          </span>
           <span className="grid size-16 place-items-center rounded-full bg-accent-tint-strong">
             <img src={studypod} alt="" width={30} height={30} />
           </span>

@@ -48,8 +48,8 @@ function Select({ label, placeholder, options, value, onChange }: SelectProps) {
 
 export default function StudyPod() {
   const navigate = useNavigate()
-  const [topic, setTopic] = useState('')
-  const [difficulty, setDifficulty] = useState('')
+  const [topic, setTopic] = useState<string>(SETUP.defaultTopic)
+  const [difficulty, setDifficulty] = useState<string>(SETUP.defaultDifficulty)
   const ready = Boolean(topic && difficulty)
 
   return (

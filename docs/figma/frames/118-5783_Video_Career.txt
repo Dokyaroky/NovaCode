@@ -1,0 +1,38 @@
+<frame id="118:5783" name='Video_Career' x=10010.0 y=-807.0 width=1440.0 height=960.0 >
+  <frame id="118:5787" name='Shell' x=0.0 y=0.0 width=1440.0 height=960.0 >
+    <frame id="118:5788" name='FocusedBriefingVideo' x=0.0 y=0.0 width=1440.0 height=71.0 >
+      <frame id="118:5797" name='Heading 1' x=628.2 y=21.5 width=183.7 height=28.0 >
+        <text id="118:5798" name='Theory: HTML & CSS' x=0.0 y=0.0 width=183.0 height=28.0 >
+      <frame id="118:6125" name='Logo' x=32.0 y=16.0 width=154.6 height=40.0 >
+        <frame id="118:6126" name='Text' x=0.0 y=0.0 width=40.0 height=40.0 >
+          <frame id="118:6127" name='Icon' x=8.5 y=8.5 width=23.0 height=23.0 >
+        <frame id="118:6131" name='Text' x=52.0 y=6.0 width=102.6 height=28.0 >
+          <text id="118:6132" name='Novacode' x=0.0 y=0.0 width=95.0 height=28.0 >
+    <frame id="118:5801" name='FocusedBriefingVideo' x=0.0 y=71.0 width=1440.0 height=889.0 >
+      <frame id="118:5802" name='Container' x=270.0 y=36.2 width=900.0 height=816.6 >
+        <frame id="118:5803" name='Section - Completed HTML and CSS theory video' x=0.0 y=0.0 width=900.0 height=506.2 >
+          <frame id="118:5804" name='Container' x=0.0 y=0.0 width=900.0 height=506.2 >
+          <frame id="118:5805" name='Button - Replay theory video' x=410.0 y=213.1 width=80.0 height=80.0 >
+            <frame id="118:5809" name='Text:transform' x=25.0 y=25.0 width=30.0 height=30.0 >
+              <frame id="118:5806" name='Text' x=2.0 y=0.0 width=30.0 height=30.0 >
+                <frame id="118:5807" name='Icon' x=0.0 y=0.0 width=30.0 height=30.0 >
+          <frame id="118:5810" name='Container' x=0.0 y=388.2 width=900.0 height=118.0 >
+            <frame id="118:5811" name='Progress Bar - Video progress' x=24.0 y=64.0 width=852.0 height=6.0 >
+              <frame id="118:5812" name='Container' x=0.0 y=0.0 width=852.0 height=6.0 >
+            <frame id="118:5813" name='Paragraph' x=24.0 y=70.0 width=852.0 height=28.0 >
+              <text id="118:5814" name='08:00 / 08:00' x=758.0 y=12.0 width=94.0 height=16.0 >
+        <frame id="118:5817" name='Article' x=0.0 y=530.2 width=900.0 height=286.4 >
+          <frame id="118:5818" name='Heading 2' x=24.0 y=24.0 width=852.0 height=32.0 >
+            <text id="118:5819" name='Quick Check: HTML Structure' x=0.0 y=0.0 width=349.0 height=32.0 >
+          <frame id="118:5821" name='Paragraph' x=24.0 y=56.0 width=852.0 height=36.0 >
+            <text id="118:5822" name='Write a basic <h1> tag with the text "Hello World"' x=0.0 y=12.0 width=534.0 height=24.0 >
+          <frame id="118:5835" name='Container' x=24.0 y=92.0 width=852.0 height=102.4 >
+            <frame id="118:5824" name='Text Area - HTML quick check code editor' x=0.0 y=20.0 width=852.0 height=80.0 >
+              <text id="118:5825" name='<h1>Hello World</h1>' x=16.0 y=16.0 width=820.0 height=24.0 >
+          <frame id="118:5826" name='Container' x=24.0 y=194.4 width=852.0 height=68.0 >
+            <instance id="118:5892" name='Button_GenerateLearningPath' x=600.0 y=20.0 width=252.0 height=56.0 >
+      <frame id="118:5789" name='Button' x=19.0 y=22.9 width=165.3 height=24.0 >
+        <frame id="118:5796" name='Text:transform' x=0.0 y=3.5 width=17.0 height=17.0 >
+          <frame id="118:5790" name='Text' x=17.0 y=17.0 width=17.0 height=17.0 >
+            <frame id="118:5791" name='Icon' x=0.0 y=0.0 width=17.0 height=17.0 >
+        <text id="118:5794" name='Back to Expedition' x=25.0 y=0.0 width=141.0 height=24.0 >

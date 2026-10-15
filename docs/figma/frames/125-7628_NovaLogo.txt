@@ -1,0 +1,5 @@
+<frame id="125:7628" name='NovaLogo' x=-2203.0 y=-951.0 width=324.0 height=98.0 >
+  <frame id="125:7629" name='Text' x=0.0 y=2.0 width=94.0 height=94.0 >
+    <frame id="125:7630" name='Icon' x=-6.0 y=-6.0 width=106.0 height=106.0 >
+  <frame id="125:7634" name='Text' x=106.0 y=35.0 width=91.1 height=28.0 >
+    <text id="125:7635" name='Novacode' x=0.0 y=0.0 width=218.0 height=28.0 >

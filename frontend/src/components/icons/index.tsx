@@ -152,3 +152,40 @@ export function IconChevronSmall({ width = 16, height = 16, ...props }: IconProp
   )
 }
 
+/** Close affordance for overlays. Not in the frames, so it follows their stroke weight. */
+export function IconClose({ width = 20, height = 20, ...props }: IconProps) {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <g id="Icon">
+      <path id="Vector" d="M5 5L15 15" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" stroke="currentColor"/>
+      <path id="Vector_2" d="M15 5L5 15" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" stroke="currentColor"/>
+      </g>
+    </svg>
+  )
+}
+
+/** Disclosure caret for menus and selects. */
+export function IconChevronDown({ width = 16, height = 16, ...props }: IconProps) {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <g id="Icon">
+      <path id="Vector" d="M4 6.66667L8 10.6667L12 6.66667" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" stroke="currentColor"/>
+      </g>
+    </svg>
+  )
+}
+

@@ -3,6 +3,8 @@ interface ProgressBarProps {
   value: number
   size?: 'md' | 'sm'
   className?: string
+  /** Accessible name, e.g. "Project progress". */
+  label?: string
 }
 
 const SIZES = {
@@ -11,12 +13,13 @@ const SIZES = {
 } as const
 
 /** Slate track with a green fill — 12px in course cards, 8px in the user blocks. */
-export default function ProgressBar({ value, size = 'md', className = '' }: ProgressBarProps) {
+export default function ProgressBar({ value, size = 'md', label, className = '' }: ProgressBarProps) {
   const clamped = Math.min(100, Math.max(0, value))
 
   return (
     <div
       role="progressbar"
+      aria-label={label}
       aria-valuenow={clamped}
       aria-valuemin={0}
       aria-valuemax={100}

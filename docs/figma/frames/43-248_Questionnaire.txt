@@ -1,0 +1,17 @@
+<frame id="43:248" name='Questionnaire' x=-733.0 y=1637.0 width=1440.0 height=960.0 >
+  <frame id="43:252" name='Shell' x=0.0 y=0.0 width=1440.0 height=960.0 >
+    <instance id="69:1225" name='SideNav' x=0.0 y=0.0 width=288.0 height=960.0 >
+    <frame id="43:316" name='Dashboard' x=288.0 y=0.0 width=1152.0 height=960.0 >
+      <frame id="43:317" name='Container' x=76.0 y=103.4 width=1000.0 height=753.2 >
+        <frame id="43:318" name='Header' x=194.0 y=0.0 width=612.1 height=138.0 >
+          <frame id="43:319" name='Text' x=197.8 y=0.0 width=216.5 height=34.0 >
+            <frame id="43:320" name='Icon' x=14.0 y=9.0 width=16.0 height=16.0 >
+            <text id="43:323" name='Career questionnaire' x=38.0 y=8.0 width=165.0 height=18.0 >
+          <frame id="43:325" name='Container' x=0.0 y=50.0 width=612.1 height=88.0 >
+            <frame id="43:326" name='Heading 1' x=0.0 y=0.0 width=612.1 height=48.0 >
+              <text id="43:327" name='What is your career goal?' x=23.5 y=0.0 width=565.0 height=48.0 >
+            <text id="43:330" name='Choose a role and we will generate a personalized ' x=0.0 y=60.0 width=613.0 height=28.0 >
+        <frame id="43:422" name='Section - Career goals:margin' x=0.0 y=138.0 width=1000.0 height=519.2 >
+          <instance id="78:1463" name='Section - Career goals' x=0.0 y=40.0 width=1000.0 height=479.2 >
+        <frame id="43:423" name='Button:margin' x=349.7 y=657.2 width=300.6 height=96.0 >
+          <instance id="78:1564" name='Button_GenerateLearningPath' x=0.0 y=40.0 width=300.6 height=56.0 >
