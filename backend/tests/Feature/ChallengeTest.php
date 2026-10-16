@@ -27,6 +27,40 @@ class ChallengeTest extends TestCase
         $this->postJson('/api/challenges/htmlcss-base/attempts', ['answer' => '<h1>Hello World</h1>'])->assertUnauthorized();
     }
 
+    public function test_starters_and_comment_only_answers_fail_while_real_answers_pass(): void
+    {
+        $fullStackUser = $this->userWithGoal('full-stack');
+        $html = Challenge::query()->where('slug', 'htmlcss-base')->firstOrFail();
+        $this->actingAs($fullStackUser)->postJson('/api/challenges/htmlcss-base/attempts', ['answer' => $html->starter_code])
+            ->assertOk()->assertJsonPath('data.passed', false)->assertJsonPath('data.title', 'Nothing to submit');
+        $this->actingAs($fullStackUser)->postJson('/api/challenges/htmlcss-base/attempts', ['answer' => '<!-- <h1>Hello World</h1> -->'])
+            ->assertOk()->assertJsonPath('data.passed', false)->assertJsonPath('data.title', 'Nothing to submit');
+        $this->actingAs($fullStackUser)->postJson('/api/challenges/htmlcss-base/attempts', ['answer' => '<h1>Hello World</h1>'])
+            ->assertOk()->assertJsonPath('data.passed', true);
+
+        $frontEndUser = $this->userWithGoal('front-end');
+        $this->actingAs($frontEndUser)->postJson('/api/challenges/htmlcss-base/attempts', ['answer' => '<h1>Hello World</h1>'])->assertOk();
+        $frontEndTrack = CareerTrack::query()->where('slug', 'front-end')->firstOrFail();
+        $javascriptMission = CareerTrackMission::query()->where('career_track_id', $frontEndTrack->id)->where('slug', 'javascript-essentials')->firstOrFail();
+        UserMissionCompletion::create(['user_id' => $frontEndUser->id, 'career_track_mission_id' => $javascriptMission->id, 'completed_at' => now()]);
+        $react = Challenge::query()->where('slug', 'react-ui')->firstOrFail();
+        $this->actingAs($frontEndUser)->postJson('/api/challenges/react-ui/attempts', ['answer' => $react->starter_code])
+            ->assertOk()->assertJsonPath('data.passed', false)->assertJsonPath('data.title', 'Nothing to submit');
+        $this->actingAs($frontEndUser)->postJson('/api/challenges/react-ui/attempts', ['answer' => '// useState count'])
+            ->assertOk()->assertJsonPath('data.passed', false)->assertJsonPath('data.title', 'Nothing to submit');
+        $this->actingAs($frontEndUser)->postJson('/api/challenges/react-ui/attempts', ['answer' => 'const [count, setCount] = useState(0)'])
+            ->assertOk()->assertJsonPath('data.passed', true);
+
+        $backEndUser = $this->userWithGoal('back-end');
+        $node = Challenge::query()->where('slug', 'nodejs-backend')->firstOrFail();
+        $this->actingAs($backEndUser)->postJson('/api/challenges/nodejs-backend/attempts', ['answer' => $node->starter_code])
+            ->assertOk()->assertJsonPath('data.passed', false)->assertJsonPath('data.title', 'Nothing to submit');
+        $this->actingAs($backEndUser)->postJson('/api/challenges/nodejs-backend/attempts', ['answer' => "// app.get('/', (req, res) => res.send('Hello API'))"])
+            ->assertOk()->assertJsonPath('data.passed', false)->assertJsonPath('data.title', 'Nothing to submit');
+        $this->actingAs($backEndUser)->postJson('/api/challenges/nodejs-backend/attempts', ['answer' => "app.get('/', (req, res) => { res.send('Hello API') })"])
+            ->assertOk()->assertJsonPath('data.passed', true);
+    }
+
     public function test_seeded_challenges_match_mission_slugs_and_are_reported_on_the_full_stack_path(): void
     {
         $missionSlugs = CareerTrackMission::query()->pluck('slug')->all();

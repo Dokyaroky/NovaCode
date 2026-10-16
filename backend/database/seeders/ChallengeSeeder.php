@@ -14,7 +14,7 @@ class ChallengeSeeder extends Seeder
             'htmlcss-base' => [
                 'title' => 'Quick Check: HTML Structure',
                 'instruction' => 'Write a basic <h1> tag with the text "Hello World" to confirm your understanding.',
-                'starter_code' => '<h1>Hello World</h1>',
+                'starter_code' => '<!-- Write your heading below -->',
                 'placeholder' => 'Write your heading here',
                 'rules' => [
                     ['all_of' => ['<h1', '</h1>'], 'failure_title' => 'Missing <h1> element', 'failure_description' => 'Wrap the heading in an opening <h1> and a closing </h1> tag.'],
@@ -26,7 +26,7 @@ class ChallengeSeeder extends Seeder
             'react-ui' => [
                 'title' => 'React UI Challenge',
                 'instruction' => 'Declare a state variable called "count"',
-                'starter_code' => 'const [count, setCount] = useState(0)',
+                'starter_code' => '// Declare your state variable below',
                 'placeholder' => 'Write your state declaration',
                 'rules' => [
                     ['all_of' => ['usestate'], 'failure_title' => 'useState not found', 'failure_description' => 'The task asks for a useState declaration. Add one and submit again.'],
@@ -38,7 +38,7 @@ class ChallengeSeeder extends Seeder
             'nodejs-backend' => [
                 'title' => 'Node.js Backend Challenge',
                 'instruction' => 'Write an Express route that handles GET requests to "/" and responds with the text "Hello API".',
-                'starter_code' => "app.get('/', (req, res) => {\n  res.send('Hello API')\n})",
+                'starter_code' => '// Write your route below',
                 'placeholder' => 'Write your Express route',
                 'rules' => [
                     ['all_of' => ['.get('], 'failure_title' => 'Missing GET route', 'failure_description' => 'Use app.get("/", ...) to handle GET requests to the root path.'],

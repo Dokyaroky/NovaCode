@@ -64,8 +64,14 @@ class ChallengeController extends Controller
 
     private function grade(Challenge $challenge, string $answer): array
     {
-        if ($answer === '') return [false, 'Nothing to submit', 'Write an answer before submitting the challenge.'];
-        $normalized = mb_strtolower($answer);
+        $withoutComments = preg_replace([
+            '/<!--.*?-->/s',
+            '/\/\*.*?\*\//s',
+            '/\/\/[^\r\n]*/',
+        ], '', trim($answer)) ?? '';
+        $withoutComments = trim($withoutComments);
+        if ($withoutComments === '') return [false, 'Nothing to submit', 'Write an answer before submitting the challenge.'];
+        $normalized = mb_strtolower($withoutComments);
         foreach ($challenge->rules as $rule) {
             $needles = array_map('mb_strtolower', $rule['all_of'] ?? $rule['any_of'] ?? []);
             $matches = array_map(fn (string $needle): bool => str_contains($normalized, $needle), $needles);

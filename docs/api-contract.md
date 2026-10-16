@@ -189,6 +189,6 @@ Request:
 { "data": { "passed": true, "title": "Quick check passed", "description": "Your heading matches the expected structure.", "missionFinished": true } }
 ```
 
-Rules are stored as an ordered JSON list. Each item has either `all_of` or `any_of`, containing lowercase substrings, plus `failure_title` and `failure_description`. Matching is case-insensitive against the trimmed answer. An empty answer fails with `Nothing to submit`. The server checks these patterns only; it never executes user code, so this is not a real test run. The answer key is never included in a response.
+Rules are stored as an ordered JSON list. Each item has either `all_of` or `any_of`, containing lowercase substrings, plus `failure_title` and `failure_description`. Before matching, the server strips HTML comments, `//` line comments, and `/* */` block comments. Matching is case-insensitive against the trimmed comment-free answer. An answer that is empty after comment stripping fails with `Nothing to submit`. The server checks these patterns only; it never executes user code, so this is not a real test run. The answer key is never included in a response.
 
 Challenges reference missions by `mission_slug`, not a foreign key. Passing a shared mission creates the authenticated user's completion for every track mission with that slug, idempotently. Attempts for locked or out-of-track missions return HTTP 403. No numeric database IDs are exposed.
