@@ -10,8 +10,6 @@
 
 export const PROFILE = {
   eyebrow: 'Profile & Settings',
-  name: 'Nova Chen',
-  initials: 'NC',
   /** The newer frames read `Career: Front-End Developer`; the older 12:568 reads `Front-End Developer`. */
   track: 'Career: Front-End Developer',
   leagueLabel: 'League',
@@ -59,7 +57,7 @@ export const ACCOUNT_LINKS: Record<AccountLinkId, AccountLink> = {
     title: 'LinkedIn profile',
     body: 'LinkedIn is not on the NovaCode integration list yet. Your certificates are already public on your NovaCode profile.',
     points: [
-      'Public profile: novacode.app/@nova-chen',
+      'Your public NovaCode profile can showcase your progress.',
       'Every certificate carries a shareable credential link.',
     ],
     cta: 'Connect LinkedIn',
@@ -80,8 +78,8 @@ export interface ProfileSocial {
 }
 
 export const PROFILE_SOCIALS: ProfileSocial[] = [
-  { label: 'GH', title: "Open Nova Chen's GitHub profile", link: 'github' },
-  { label: 'in', title: "Open Nova Chen's LinkedIn profile", link: 'linkedin' },
+  { label: 'GH', title: 'Open your GitHub profile', link: 'github' },
+  { label: 'in', title: 'Open your LinkedIn profile', link: 'linkedin' },
 ]
 
 /* ------------------------------------------------------------- certificates ---- */

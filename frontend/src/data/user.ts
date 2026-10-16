@@ -16,9 +16,9 @@ export interface User {
 }
 
 export const CURRENT_USER: User = {
-  name: 'Nova Chen',
-  firstName: 'Nova',
-  initials: 'NC',
+  name: 'Demo User',
+  firstName: 'Demo',
+  initials: 'DU',
   level: 12,
   levelLabel: 'Level 12',
   levelProgress: 75,

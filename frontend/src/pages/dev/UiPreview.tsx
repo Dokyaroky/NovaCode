@@ -133,7 +133,7 @@ export default function UiPreview() {
         <Card className="w-80 p-6">
           <p className="text-sm text-ink-soft">Card surface (ring elevation, 16px radius)</p>
         </Card>
-        <UserCard name="Nova Chen" level="Level 12" initials="N" progress={75} className="w-60" />
+        <UserCard name="Demo User" level="Level 12" initials="DU" progress={75} className="w-60" />
         <Card className="w-80 p-6">
           <NumberedList>
             <ListItem rank={1} initials="MR" name="Maya R." value="2,940 XP" />

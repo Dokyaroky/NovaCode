@@ -48,7 +48,7 @@ Windows users can run PHP and MySQL through [Laragon](https://laragon.org/).
 Clone the repository and open PowerShell in the project directory:
 
 ```powershell
-git clone <repository-url>
+git clone https://github.com/Dokyaroky/NovaCode.git
 cd NovaCode
 ```
 
@@ -74,7 +74,7 @@ npm install
 cd ..
 ```
 
-The checked-in backend example configuration uses SQLite and includes the local database file. To use MySQL instead, configure the `DB_*` values in `backend/.env` and make sure the Laragon MySQL service is running before migrating. Never commit `.env` files or credentials.
+The backend example configuration uses SQLite by default; `php artisan migrate` creates the local SQLite database when needed. To use MySQL instead, configure the `DB_*` values in `backend/.env` and make sure the Laragon MySQL service is running before migrating. Never commit `.env` files or credentials.
 
 ## Run locally
 
