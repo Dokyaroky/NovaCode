@@ -31,7 +31,13 @@ export interface LeaderRow {
   highlighted?: boolean
 }
 
-export const TODAY_LABEL = 'Tuesday, October 6'
+export function formatTodayLabel(date = new Date()): string {
+  return new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  }).format(date)
+}
 
 export const CURRENT_COURSE: Course = {
   label: 'Py',

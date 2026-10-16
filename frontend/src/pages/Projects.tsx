@@ -2,6 +2,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import AppShell from '@/components/AppShell'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
+import CourseLanguageIcon from '@/components/CourseLanguageIcon'
 import Dropdown from '@/components/Dropdown'
 import IconTile from '@/components/IconTile'
 import ProgressBar from '@/components/ProgressBar'
@@ -110,7 +111,7 @@ export default function Projects() {
             <div className="flex min-w-0 flex-1 flex-col gap-6">
               <div className="flex items-center gap-4">
                 <IconTile tone="accentStrong">
-                  <span className="font-mono text-lg font-black text-white">{activeProject.label}</span>
+                  <CourseLanguageIcon title={activeProject.title} />
                 </IconTile>
                 <div className="flex min-w-0 flex-col gap-2">
                   <span className="text-xs font-bold tracking-[0.96px] text-ink-soft uppercase">

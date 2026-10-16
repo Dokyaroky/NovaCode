@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import AppShell from '@/components/AppShell'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
+import CourseLanguageIcon from '@/components/CourseLanguageIcon'
 import IconTile from '@/components/IconTile'
 import ListItem from '@/components/ListItem'
 import NumberedList from '@/components/NumberedList'
@@ -16,7 +17,7 @@ import {
   DAILY_GOAL,
   DAILY_QUESTS,
   LEADERBOARD,
-  TODAY_LABEL,
+  formatTodayLabel,
 } from '@/data/dashboard'
 import { CURRENT_USER } from '@/data/user'
 import { useCurrentUser } from '@/lib/currentUser'
@@ -100,7 +101,7 @@ export default function Dashboard() {
       <div className="flex w-full flex-1 flex-col gap-6">
         <header className="flex h-20 items-center">
           <div className="flex flex-col gap-2">
-            <p className="text-sm font-medium text-ink-soft">{TODAY_LABEL}</p>
+            <p className="text-sm font-medium text-ink-soft">{formatTodayLabel()}</p>
             <h1 className="text-display text-ink">Welcome back, {firstName}</h1>
             {error && <p className="text-xs text-code-red" role="alert">{error}</p>}
           </div>
@@ -111,9 +112,9 @@ export default function Dashboard() {
           <div className="relative flex flex-col items-center justify-between lg:flex-row gap-6">
             <div className="flex min-w-0 flex-col gap-6">
               <div className="flex items-center gap-4">
-                <IconTile tone="accentSolid">
-                  <span className="text-lg font-black text-white">{currentEnrollment?.course.label ?? CURRENT_COURSE.label}</span>
-                </IconTile>
+                <div className="grid size-14 shrink-0 place-items-center">
+                  <CourseLanguageIcon slug={currentEnrollment?.course.slug ?? 'python-foundations'} title={currentEnrollment?.course.title ?? CURRENT_COURSE.title} />
+                </div>
                 <div className="flex flex-col gap-1">
                   <span className="text-xs font-bold tracking-[0.96px] text-ink-soft uppercase">
                     {CURRENT_COURSE.module}
@@ -150,9 +151,9 @@ export default function Dashboard() {
             {DAILY_QUESTS.map((quest) => (
               <Card key={quest.id} className="flex min-h-[160px] items-center justify-between gap-4 p-6">
                 <div className="flex items-center gap-4">
-                  <IconTile tone="accentStrong">
-                    <span className="font-mono text-base font-bold text-white">{quest.label}</span>
-                  </IconTile>
+                  <div className="grid size-12 shrink-0 place-items-center">
+                    <CourseLanguageIcon slug={quest.id} title={quest.title} />
+                  </div>
                   <div className="flex flex-col gap-2">
                     <h3 className="text-lg font-bold text-ink">{quest.title}</h3>
                     <p className="text-xs text-ink-soft">{quest.meta}</p>
