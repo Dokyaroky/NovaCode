@@ -6,13 +6,12 @@ use App\Http\Requests\EnrollCourseRequest;
 use App\Http\Resources\CourseEnrollmentResource;
 use App\Models\Course;
 use App\Models\CourseEnrollment;
-use Illuminate\Http\Response;
 
 class EnrollmentController extends Controller
 {
     public function store(EnrollCourseRequest $request, Course $course): CourseEnrollmentResource
     {
-        $enrollment = CourseEnrollment::firstOrCreate(
+        $enrollment = CourseEnrollment::createOrFirst(
             ['user_id' => $request->user()->id, 'course_id' => $course->id],
             ['status' => 'active', 'started_at' => now(), 'last_active_at' => now()],
         );

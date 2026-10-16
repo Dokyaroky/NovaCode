@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import NovaLogo from '@/components/NovaLogo'
 import UserCard from '@/components/UserCard'
+import { getInitials, useCurrentUser } from '@/lib/currentUser'
 import {
   IconDashboard,
   IconExplore,
@@ -25,6 +26,8 @@ interface SideNavProps {
 
 /** 288px sidebar: logo, six nav items, the user block pinned to the bottom. */
 export default function SideNav({ className = '' }: SideNavProps) {
+  const { user, loading } = useCurrentUser()
+  const name = user?.name ?? (loading ? 'Loading…' : 'Account unavailable')
   return (
     <nav
       className={`no-scrollbar w-72 shrink-0 flex-col overflow-y-auto border-r border-white/6 bg-rail p-6 ${className}`}
@@ -56,9 +59,9 @@ export default function SideNav({ className = '' }: SideNavProps) {
       </div>
 
       <UserCard
-        name="Nova Chen"
+        name={name}
         level="Level 12"
-        initials="N"
+        initials={user ? getInitials(user.name) : '—'}
         progress={75}
         className="mt-auto"
       />

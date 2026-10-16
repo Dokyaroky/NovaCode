@@ -48,6 +48,18 @@ class EnrollmentProgressTest extends TestCase
         $this->actingAs($other)->postJson("/api/me/lessons/{$lesson->uuid}/complete")->assertNotFound();
     }
 
+    public function test_owner_can_read_their_enrollment_and_unenrolled_course_lessons_are_hidden(): void
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user)->postJson('/api/courses/python-foundations/enroll')->assertSuccessful();
+        $this->actingAs($user)->getJson('/api/me/courses/python-foundations')->assertOk()->assertJsonPath('data.course.slug', 'python-foundations');
+
+        $otherCourse = Course::factory()->create(['slug' => 'not-enrolled']);
+        $lesson = CourseLesson::factory()->for($otherCourse)->create();
+        $this->actingAs($user)->postJson("/api/me/lessons/{$lesson->uuid}/progress", ['position_seconds' => 5])->assertNotFound();
+        $this->actingAs($user)->postJson("/api/me/lessons/{$lesson->uuid}/complete")->assertNotFound();
+    }
+
     public function test_completing_lessons_computes_progress_on_the_server(): void
     {
         $user = User::factory()->create();
@@ -60,6 +72,8 @@ class EnrollmentProgressTest extends TestCase
         $response->assertJsonPath('data.progress', 50);
         $response = $this->actingAs($user)->postJson("/api/me/lessons/{$second->uuid}/complete")->assertOk();
         $response->assertJsonPath('data.progress', 100);
+        $response->assertJsonPath('data.status', 'completed');
+        $this->assertNotNull($response->json('data.completed_at'));
         $this->assertStringNotContainsString('"id"', $response->getContent());
     }
 

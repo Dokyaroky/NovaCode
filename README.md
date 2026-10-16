@@ -3,7 +3,7 @@
 Website project scaffold: **Laravel 13 API + React 19 SPA (Vite, TypeScript, Tailwind v4)**.
 
 ```
-backend/    Laravel 13 API (SQLite, Sanctum token auth)
+backend/    Laravel 13 API (SQLite, Sanctum SPA session-cookie auth)
 frontend/   React 19 + Vite + TypeScript + Tailwind v4 SPA
 docs/       api-contract.md — single source of truth for the HTTP contract
 ```
@@ -33,4 +33,4 @@ npm test          # backend test suite, frontend lint + typecheck
   prefixes `VITE_API_URL` (empty in dev → Vite proxy `/api` → `:8000`).
 - Any new endpoint gets documented in `docs/api-contract.md` in the same commit
   that implements it.
-- Auth is Sanctum bearer tokens; the token is sent by the shared `api.ts` client.
+- Auth uses Sanctum's SPA session-cookie flow: request `/sanctum/csrf-cookie`, then send the XSRF header and session cookie to the API. See `docs/api-contract.md`.

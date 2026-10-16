@@ -48,7 +48,7 @@ import leagueIcon from '@/assets/icons/league.svg'
 import bellIcon from '@/assets/icons/settings-bell.svg'
 import streakIcon from '@/assets/icons/streak.svg'
 import verifiedSmIcon from '@/assets/icons/verified-sm.svg'
-import { useCurrentUser } from '@/lib/currentUser'
+import { getInitials, useCurrentUser } from '@/lib/currentUser'
 import { useEnrollments } from '@/lib/enrollments'
 import type { Enrollment } from '@/lib/enrollments'
 
@@ -392,12 +392,7 @@ export default function Profile() {
   const { user, loading, error } = useCurrentUser()
   const { enrollments, loading: enrollmentsLoading, error: enrollmentsError } = useEnrollments()
   const profileName = user?.name ?? (loading ? 'Loading…' : 'Account unavailable')
-  const profileInitials = user?.name
-    ?.split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase())
-    .join('') || '—'
+  const profileInitials = user ? getInitials(user.name) : '—'
 
   const tabParam = searchParams.get('tab')
   /** The tab lives in the URL so it survives a refresh and can be deep linked. */

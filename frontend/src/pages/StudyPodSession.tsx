@@ -7,6 +7,7 @@ import Modal from '@/components/Modal'
 import { clearMinimizedCall, writeMinimizedCall } from '@/components/MinimizedCall'
 import { useToast } from '@/components/Toast'
 import { CODE_TEMPLATES, END_SESSION, SESSION, SESSION_PEERS } from '@/data/studypod'
+import { getInitials, useCurrentUser } from '@/lib/currentUser'
 import arrowLeft from '@/assets/icons/back-arrow.svg'
 import cameraOff from '@/assets/icons/camera-off.svg'
 import checkSm from '@/assets/icons/check-sm.svg'
@@ -61,6 +62,7 @@ function CallControl({
 
 /** Full-bleed session workspace: the frame is a 504 | 936 split with no sidebar. */
 export default function StudyPodSession() {
+  const { user } = useCurrentUser()
   const navigate = useNavigate()
   const location = useLocation()
   const { push } = useToast()
@@ -202,9 +204,9 @@ export default function StudyPodSession() {
                 <span
                   className={`grid size-24 shrink-0 place-items-center rounded-full ${peer.gradient}`}
                 >
-                  <span className="text-2xl font-black text-white">{peer.initials}</span>
+                  <span className="text-2xl font-black text-white">{peer.id === 'you' && user ? getInitials(user.name) : peer.initials}</span>
                 </span>
-                <span className="text-sm font-semibold text-white">{peer.name}</span>
+                <span className="text-sm font-semibold text-white">{peer.id === 'you' && user ? user.name : peer.name}</span>
                 <span className="absolute top-4 right-4 size-3 rounded-full border-[1.8px] border-code bg-success" />
               </div>
             ))}

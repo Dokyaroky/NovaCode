@@ -26,8 +26,10 @@ class LessonProgressController extends Controller
     {
         $enrollment = $this->enrollment($request, $lesson);
         $progress = LessonProgress::firstOrNew(['course_enrollment_id' => $enrollment->id, 'course_lesson_id' => $lesson->id]);
-        $progress->fill(['status' => 'completed', 'completed_at' => now()]);
-        $progress->save();
+        if ($progress->status !== 'completed') {
+            $progress->fill(['status' => 'completed', 'completed_at' => now()]);
+            $progress->save();
+        }
         $enrollment->update(['last_active_at' => now()]);
         $total = $enrollment->course->lessons()->count();
         $completed = $enrollment->lessonProgress()->where('status', 'completed')->count();

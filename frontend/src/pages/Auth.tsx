@@ -11,6 +11,7 @@ import { useToast } from '@/components/Toast'
 import arrowRight from '@/assets/icons/arrow-right.svg'
 import sparkle from '@/assets/icons/sparkle.svg'
 import { api, ApiError } from '@/lib/api'
+import { resetCurrentUserCache } from '@/lib/currentUser'
 
 const TABS = [
   { id: 'signup', label: 'Sign Up' },
@@ -90,6 +91,7 @@ export default function Auth({ mode }: AuthProps) {
     if (Object.keys(next).length > 0) return
     setPending(true)
     try {
+      resetCurrentUserCache()
       if (isSignup) {
         await api.post('/api/register', {
           name: fullName.trim(),
