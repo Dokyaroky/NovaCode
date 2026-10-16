@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CourseController;
 use App\Http\Resources\UserResource;
 
 Route::get('/health', fn () => response()->json([
@@ -19,3 +20,9 @@ Route::get('/user', fn (Request $request) => UserResource::make($request->user()
 
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth:sanctum');
+
+Route::middleware('auth:sanctum')->group(function (): void {
+    Route::get('/courses', [CourseController::class, 'index']);
+    Route::get('/courses/{course:slug}', [CourseController::class, 'show']);
+    Route::get('/course-categories', [CourseController::class, 'categories']);
+});
