@@ -50,7 +50,7 @@ export default function SideNav({ className = '' }: SideNavProps) {
           >
             {({ isActive }) => (
               <>
-                <Icon className={isActive ? 'text-brand' : 'text-ink-soft'} />
+                <Icon className={`${isActive ? 'text-brand' : 'text-ink-soft'} [&_*]:stroke-current`} />
                 <span className="text-base">{label}</span>
               </>
             )}
