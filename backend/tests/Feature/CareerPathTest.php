@@ -32,6 +32,12 @@ class CareerPathTest extends TestCase
         $this->getJson('/api/me/career-path')->assertUnauthorized();
     }
 
+    public function test_career_tracks_follow_the_questionnaire_order(): void
+    {
+        $response = $this->actingAs(User::factory()->create())->getJson('/api/career-tracks')->assertOk();
+        $this->assertSame(['full-stack', 'front-end', 'back-end', 'cybersecurity', 'data-scientist', 'ai-engineer'], collect($response->json('data'))->pluck('slug')->all());
+    }
+
     public function test_goal_and_path_are_scoped_and_missing_goal_is_explicit(): void
     {
         $owner = User::factory()->create();
@@ -88,6 +94,21 @@ class CareerPathTest extends TestCase
         UserMissionCompletion::factory()->create(['user_id' => $user->id, 'career_track_mission_id' => $missions[2]->id]);
         $all = $this->actingAs($user)->getJson('/api/me/career-path')->assertOk();
         $all->assertJsonPath('data.fuelPercent', 100)->assertJsonPath('data.missions.0.status', 'finished')->assertJsonPath('data.missions.1.status', 'finished')->assertJsonPath('data.missions.2.status', 'finished')->assertJsonPath('data.boss.locked', false);
+    }
+
+    public function test_mission_completions_are_isolated_between_users_on_the_same_track(): void
+    {
+        $userA = User::factory()->create();
+        $userB = User::factory()->create();
+        $this->actingAs($userA)->putJson('/api/me/career-goal', ['track_slug' => 'full-stack'])->assertSuccessful();
+        $this->actingAs($userB)->putJson('/api/me/career-goal', ['track_slug' => 'full-stack'])->assertSuccessful();
+        $missions = CareerTrack::where('slug', 'full-stack')->first()->missions;
+        UserMissionCompletion::factory()->create(['user_id' => $userA->id, 'career_track_mission_id' => $missions[0]->id]);
+
+        $userBPath = $this->actingAs($userB)->getJson('/api/me/career-path')->assertOk();
+        $userBPath->assertJsonPath('data.fuelPercent', 0)->assertJsonPath('data.missions.0.status', 'extracting')->assertJsonPath('data.missions.1.status', 'locked')->assertJsonPath('data.missions.2.status', 'locked')->assertJsonPath('data.boss.locked', true);
+        $userAPath = $this->actingAs($userA)->getJson('/api/me/career-path')->assertOk();
+        $userAPath->assertJsonPath('data.fuelPercent', 33)->assertJsonPath('data.missions.0.status', 'finished')->assertJsonPath('data.missions.1.status', 'extracting');
     }
 
     public function test_career_responses_do_not_expose_numeric_ids(): void

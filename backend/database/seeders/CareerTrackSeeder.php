@@ -18,10 +18,12 @@ class CareerTrackSeeder extends Seeder
             'ai-engineer' => ['AI Engineer', 'Build intelligent products with machine learning and language models.', 'Final Boss: RAG Chatbot', ['Python Foundations', 'Machine Learning Basics', 'LLM Apps']],
         ];
 
+        $sortOrder = 0;
         foreach ($tracks as $slug => [$title, $description, $bossTitle, $missions]) {
             $track = CareerTrack::updateOrCreate(['slug' => $slug], [
                 'title' => $title,
                 'description' => $description,
+                'sort_order' => ++$sortOrder,
                 'boss_title' => $bossTitle,
                 'boss_reward_label' => '10,000L Rocket Fuel',
                 'active' => true,

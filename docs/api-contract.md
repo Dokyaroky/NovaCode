@@ -109,7 +109,7 @@ No request body. Marks the lesson complete and returns the updated enrollment. P
 
 ### GET /api/career-tracks
 
-Returns active career tracks:
+Returns active career tracks in questionnaire order (`full-stack`, `front-end`, `back-end`, `cybersecurity`, `data-scientist`, `ai-engineer`). The ordering is server-controlled; `sort_order` is not exposed as a database field:
 
 ```json
 { "data": [{ "slug": "full-stack", "title": "Full Stack Developer", "description": "Build complete products across modern front-end and back-end systems." }] }

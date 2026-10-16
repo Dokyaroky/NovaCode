@@ -48,6 +48,7 @@ export default function Questionnaire() {
   const [tracks, setTracks] = useState<CareerTrack[]>([])
   const [loadingTracks, setLoadingTracks] = useState(true)
   const [loadError, setLoadError] = useState<string | null>(null)
+  const [savingGoal, setSavingGoal] = useState(false)
   const [showValidation, setShowValidation] = useState(false)
   const [generating, setGenerating] = useState(false)
   const [phaseIndex, setPhaseIndex] = useState(0)
@@ -116,7 +117,7 @@ export default function Questionnaire() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    if (generating) return
+    if (generating || savingGoal) return
     if (!selected) {
       /* The CTA is aria-disabled, not inert: pressing it says what is missing and lands the
          caret on the first card. */
@@ -127,12 +128,14 @@ export default function Questionnaire() {
     setShowValidation(false)
     setProgress(0)
     setPhaseIndex(0)
+    setSavingGoal(true)
     void api.put('/api/me/career-goal', { track_slug: selected.slug })
       .then(() => setGenerating(true))
       .catch((reason: unknown) => {
         push({ title: 'Unable to save career goal', description: reason instanceof ApiError ? reason.message : 'Please try again.', tone: 'error' })
         setGenerating(false)
       })
+      .finally(() => setSavingGoal(false))
   }
 
   return (
@@ -158,7 +161,7 @@ export default function Questionnaire() {
           <form
             className="flex w-full flex-col items-center pt-10"
             onSubmit={handleSubmit}
-            aria-busy={generating}
+            aria-busy={generating || savingGoal}
           >
             <fieldset
               ref={groupRef}
@@ -229,7 +232,8 @@ export default function Questionnaire() {
                 <>
                   <button
                     type="submit"
-                    aria-disabled={!selected}
+                    aria-disabled={!selected || savingGoal}
+                    disabled={generating || savingGoal}
                     aria-describedby={HELPER_ID}
                     className={`inline-flex h-14 items-center justify-center gap-3 rounded-pill bg-brand px-8 text-base text-white ${
                       selected

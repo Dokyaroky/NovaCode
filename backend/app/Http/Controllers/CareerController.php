@@ -17,7 +17,7 @@ class CareerController extends Controller
 {
     public function tracks()
     {
-        return CareerTrackResource::collection(CareerTrack::query()->where('active', true)->orderBy('title')->get());
+        return CareerTrackResource::collection(CareerTrack::query()->where('active', true)->orderBy('sort_order')->get());
     }
 
     public function goal(Request $request): JsonResponse
