@@ -162,7 +162,7 @@ export default function QuickCheck() {
     if (!challenge || checking) return
     setVerdict(null)
     setChecking(true)
-    api.post<{ data: Verdict }>(`/api/challenges/${slug}/attempts`, { answer: code })
+    api.post<{ data: Verdict }>(`/api/challenges/${challenge.slug}/attempts`, { answer: code })
       .then((response) => {
         setVerdict(response.data)
         push({ title: response.data.title, description: response.data.description, tone: response.data.passed ? 'success' : 'error' })

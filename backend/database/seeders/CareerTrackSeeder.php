@@ -30,11 +30,7 @@ class CareerTrackSeeder extends Seeder
             ]);
 
             foreach ($missions as $index => $missionTitle) {
-                $missionSlug = match ($missionTitle) {
-                    'HTML/CSS Base' => 'html-css-base',
-                    'Node.js Backend' => 'node-js-backend',
-                    default => str($missionTitle)->slug(),
-                };
+                $missionSlug = str($missionTitle)->slug();
                 $theoryTitle = $missionTitle === 'HTML/CSS Base' ? 'Theory: HTML & CSS' : "Theory: {$missionTitle}";
                 $extractionTitle = $missionTitle === 'HTML/CSS Base' ? 'Fuel Extraction: NavBar' : "Fuel Extraction: {$missionTitle}";
                 $track->missions()->updateOrCreate(['slug' => $missionSlug], [

@@ -139,7 +139,7 @@ export default function CareerPath() {
     closeLabel: 'Close mission briefing',
     steps: [
       { id: 'theory' as const, label: `1. ${path.briefing.theoryTitle}`, meta: `Duration: ${path.briefing.theoryMinutes} Mins`, action: 'Watch', path: `/learn/missions/${path.briefing.missionSlug}/check`, disabled: !path.briefing.hasChallenge },
-      { id: 'extraction' as const, label: `2. ${path.briefing.extractionTitle}`, action: 'Code', path: '/ide' },
+      { id: 'extraction' as const, label: `2. ${path.briefing.extractionTitle}`, action: 'Code', path: '/ide', disabled: !path.briefing.hasChallenge },
     ],
     reward: `Reward upon completion: ${path.briefing.rewardLabel}`,
   } : null

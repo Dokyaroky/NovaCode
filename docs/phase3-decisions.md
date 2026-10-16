@@ -30,6 +30,6 @@ This slice implements only the authenticated, read-only course catalog: courses,
 - Each mission has at most one graded challenge. Passing it finishes the mission; the theory video remains ungraded.
 - Answers are graded on the server using stored pattern rules. User code is never executed on the server; the pattern check is not a real test run.
 - Challenge rules (the answer key) are never returned by an API endpoint.
-- Challenges are linked to missions by mission slug, not by a foreign key. A shared mission, such as `html-css-base`, counts for every track that contains it.
+- Challenges are linked to missions by mission slug, not by a foreign key. A shared mission, such as `htmlcss-base`, counts for every track that contains it.
 - The server refuses attempts to view or submit challenges for missions that are locked for the authenticated user.
 - `MissionVideo` and the Python IDE page remain static in this slice.

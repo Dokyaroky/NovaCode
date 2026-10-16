@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Challenge;
+use App\Models\ChallengeAttempt;
 use Illuminate\Database\Seeder;
 
 class ChallengeSeeder extends Seeder
@@ -10,7 +11,7 @@ class ChallengeSeeder extends Seeder
     public function run(): void
     {
         $challenges = [
-            'html-css-base' => [
+            'htmlcss-base' => [
                 'title' => 'Quick Check: HTML Structure',
                 'instruction' => 'Write a basic <h1> tag with the text "Hello World" to confirm your understanding.',
                 'starter_code' => '<h1>Hello World</h1>',
@@ -34,7 +35,7 @@ class ChallengeSeeder extends Seeder
                 'success_title' => 'Task accepted',
                 'success_description' => 'Your micro-task passed the automated check.',
             ],
-            'node-js-backend' => [
+            'nodejs-backend' => [
                 'title' => 'Node.js Backend Challenge',
                 'instruction' => 'Write an Express route that handles GET requests to "/" and responds with the text "Hello API".',
                 'starter_code' => "app.get('/', (req, res) => {\n  res.send('Hello API')\n})",
@@ -51,6 +52,21 @@ class ChallengeSeeder extends Seeder
 
         foreach ($challenges as $missionSlug => $attributes) {
             Challenge::updateOrCreate(['slug' => $missionSlug], ['mission_slug' => $missionSlug, ...$attributes]);
+        }
+
+        foreach (['html-css-base' => 'htmlcss-base', 'node-js-backend' => 'nodejs-backend'] as $legacySlug => $currentSlug) {
+            $legacy = Challenge::query()->where('slug', $legacySlug)->first();
+            $current = Challenge::query()->where('slug', $currentSlug)->first();
+
+            if (! $legacy || ! $current || $legacy->is($current)) {
+                continue;
+            }
+
+            ChallengeAttempt::query()->where('challenge_id', $legacy->id)->update(['challenge_id' => $current->id]);
+
+            if (! ChallengeAttempt::query()->where('challenge_id', $legacy->id)->exists()) {
+                $legacy->delete();
+            }
         }
     }
 }

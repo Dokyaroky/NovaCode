@@ -136,9 +136,9 @@ Returns the current track, exactly three missions, derived status and fuel, boss
   "data": {
     "track": { "slug": "full-stack", "title": "Full Stack Developer", "description": "..." },
     "missions": [
-      { "slug": "html-css-base", "title": "HTML/CSS Base", "sortOrder": 1, "status": "extracting" },
+      { "slug": "htmlcss-base", "title": "HTML/CSS Base", "sortOrder": 1, "status": "extracting" },
       { "slug": "react-ui", "title": "React UI", "sortOrder": 2, "status": "locked" },
-      { "slug": "node-js-backend", "title": "Node.js Backend", "sortOrder": 3, "status": "locked" }
+      { "slug": "nodejs-backend", "title": "Node.js Backend", "sortOrder": 3, "status": "locked" }
     ],
     "fuelPercent": 0,
     "boss": { "title": "Final Boss: E-Commerce Capstone", "rewardLabel": "10,000L Rocket Fuel", "locked": true },
@@ -162,7 +162,7 @@ Returns the challenge for a mission in the authenticated user's current career t
 ```json
 {
   "data": {
-    "slug": "html-css-base",
+    "slug": "htmlcss-base",
     "title": "Quick Check: HTML Structure",
     "instruction": "Write a basic <h1> tag with the text \"Hello World\" to confirm your understanding.",
     "starterCode": "<h1>Hello World</h1>",

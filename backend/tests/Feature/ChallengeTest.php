@@ -23,14 +23,37 @@ class ChallengeTest extends TestCase
 
     public function test_challenge_endpoints_require_authentication(): void
     {
-        $this->getJson('/api/me/missions/html-css-base/challenge')->assertUnauthorized();
-        $this->postJson('/api/challenges/html-css-base/attempts', ['answer' => '<h1>Hello World</h1>'])->assertUnauthorized();
+        $this->getJson('/api/me/missions/htmlcss-base/challenge')->assertUnauthorized();
+        $this->postJson('/api/challenges/htmlcss-base/attempts', ['answer' => '<h1>Hello World</h1>'])->assertUnauthorized();
+    }
+
+    public function test_seeded_challenges_match_mission_slugs_and_are_reported_on_the_full_stack_path(): void
+    {
+        $missionSlugs = CareerTrackMission::query()->pluck('slug')->all();
+        $this->assertEmpty(Challenge::query()->whereNotIn('mission_slug', $missionSlugs)->get());
+
+        $user = $this->userWithGoal('full-stack');
+        $path = $this->actingAs($user)->getJson('/api/me/career-path')->assertOk();
+        $path->assertJsonPath('data.missions.0.hasChallenge', true)
+            ->assertJsonPath('data.missions.1.hasChallenge', true)
+            ->assertJsonPath('data.missions.2.hasChallenge', true);
+    }
+
+    public function test_challenge_can_have_a_different_public_slug_from_its_mission_slug(): void
+    {
+        $challenge = Challenge::query()->where('slug', 'htmlcss-base')->firstOrFail();
+        $challenge->update(['slug' => 'htmlcss-base-check']);
+        $user = $this->userWithGoal('full-stack');
+
+        $this->actingAs($user)->getJson('/api/me/missions/htmlcss-base/challenge')->assertOk();
+        $this->actingAs($user)->postJson('/api/challenges/htmlcss-base-check/attempts', ['answer' => '<h1>Hello World</h1>'])
+            ->assertOk()->assertJsonPath('data.passed', true);
     }
 
     public function test_wrong_answer_fails_with_server_verdict_and_stores_attempt(): void
     {
         $user = $this->userWithGoal('full-stack');
-        $response = $this->actingAs($user)->postJson('/api/challenges/html-css-base/attempts', ['answer' => '<p>Hello World</p>'])->assertOk();
+        $response = $this->actingAs($user)->postJson('/api/challenges/htmlcss-base/attempts', ['answer' => '<p>Hello World</p>'])->assertOk();
         $response->assertJsonPath('data.passed', false)->assertJsonPath('data.title', 'Missing <h1> element')->assertJsonPath('data.missionFinished', false);
         $this->assertDatabaseHas('challenge_attempts', ['user_id' => $user->id, 'passed' => 0, 'failure_title' => 'Missing <h1> element']);
     }
@@ -38,9 +61,9 @@ class ChallengeTest extends TestCase
     public function test_correct_answer_finishes_the_mission_and_repeating_it_is_idempotent(): void
     {
         $user = $this->userWithGoal('full-stack');
-        $first = $this->actingAs($user)->postJson('/api/challenges/html-css-base/attempts', ['answer' => '<h1>Hello World</h1>'])->assertOk();
+        $first = $this->actingAs($user)->postJson('/api/challenges/htmlcss-base/attempts', ['answer' => '<h1>Hello World</h1>'])->assertOk();
         $first->assertJsonPath('data.passed', true)->assertJsonPath('data.missionFinished', true);
-        $this->actingAs($user)->postJson('/api/challenges/html-css-base/attempts', ['answer' => '<h1>Hello World</h1>'])->assertOk();
+        $this->actingAs($user)->postJson('/api/challenges/htmlcss-base/attempts', ['answer' => '<h1>Hello World</h1>'])->assertOk();
         $this->assertDatabaseCount('user_mission_completions', 2);
         $path = $this->actingAs($user)->getJson('/api/me/career-path')->assertOk();
         $path->assertJsonPath('data.fuelPercent', 33)->assertJsonPath('data.missions.0.status', 'finished')->assertJsonPath('data.missions.1.status', 'extracting');
@@ -50,7 +73,7 @@ class ChallengeTest extends TestCase
     {
         $userA = $this->userWithGoal('full-stack');
         $userB = $this->userWithGoal('front-end');
-        $this->actingAs($userA)->postJson('/api/challenges/html-css-base/attempts', ['answer' => '<h1>Hello World</h1>'])->assertOk();
+        $this->actingAs($userA)->postJson('/api/challenges/htmlcss-base/attempts', ['answer' => '<h1>Hello World</h1>'])->assertOk();
         $userBPath = $this->actingAs($userB)->getJson('/api/me/career-path')->assertOk();
         $userBPath->assertJsonPath('data.fuelPercent', 0);
 
@@ -59,7 +82,7 @@ class ChallengeTest extends TestCase
 
         $userBSecond = User::factory()->create();
         $this->actingAs($userBSecond)->putJson('/api/me/career-goal', ['track_slug' => 'front-end'])->assertSuccessful();
-        $this->actingAs($userBSecond)->postJson('/api/challenges/html-css-base/attempts', ['answer' => '<h1>Hello World</h1>'])->assertOk();
+        $this->actingAs($userBSecond)->postJson('/api/challenges/htmlcss-base/attempts', ['answer' => '<h1>Hello World</h1>'])->assertOk();
         $this->assertDatabaseCount('user_mission_completions', 4);
     }
 
@@ -70,8 +93,8 @@ class ChallengeTest extends TestCase
         $this->actingAs($user)->postJson('/api/challenges/react-ui/attempts', ['answer' => 'const [count] = useState(0)'])->assertForbidden();
 
         $otherTrackUser = $this->userWithGoal('back-end');
-        $this->actingAs($otherTrackUser)->getJson('/api/me/missions/html-css-base/challenge')->assertForbidden();
-        $this->actingAs($otherTrackUser)->postJson('/api/challenges/html-css-base/attempts', ['answer' => '<h1>Hello World</h1>'])->assertForbidden();
+        $this->actingAs($otherTrackUser)->getJson('/api/me/missions/htmlcss-base/challenge')->assertForbidden();
+        $this->actingAs($otherTrackUser)->postJson('/api/challenges/htmlcss-base/attempts', ['answer' => '<h1>Hello World</h1>'])->assertForbidden();
     }
 
     public function test_mission_without_challenge_returns_not_found_and_answer_length_is_validated(): void
@@ -83,14 +106,14 @@ class ChallengeTest extends TestCase
         $this->actingAs($user)->getJson('/api/me/missions/no-challenge-mission/challenge')->assertNotFound();
 
         $user = $this->userWithGoal('full-stack');
-        $this->actingAs($user)->postJson('/api/challenges/html-css-base/attempts', ['answer' => str_repeat('x', 5001)])->assertUnprocessable();
+        $this->actingAs($user)->postJson('/api/challenges/htmlcss-base/attempts', ['answer' => str_repeat('x', 5001)])->assertUnprocessable();
     }
 
     public function test_challenge_responses_exclude_rules_and_numeric_ids(): void
     {
         $user = $this->userWithGoal('full-stack');
-        $challenge = $this->actingAs($user)->getJson('/api/me/missions/html-css-base/challenge')->assertOk();
-        $attempt = $this->actingAs($user)->postJson('/api/challenges/html-css-base/attempts', ['answer' => ''])->assertOk();
+        $challenge = $this->actingAs($user)->getJson('/api/me/missions/htmlcss-base/challenge')->assertOk();
+        $attempt = $this->actingAs($user)->postJson('/api/challenges/htmlcss-base/attempts', ['answer' => ''])->assertOk();
         $this->assertStringNotContainsString('rules', $challenge->getContent());
         $this->assertStringNotContainsString('"id"', $challenge->getContent());
         $this->assertStringNotContainsString('"id"', $attempt->getContent());
