@@ -33,7 +33,9 @@ class LessonProgressController extends Controller
         $enrollment->update(['last_active_at' => now()]);
         $total = $enrollment->course->lessons()->count();
         $completed = $enrollment->lessonProgress()->where('status', 'completed')->count();
-        if ($total > 0 && $completed === $total) $enrollment->update(['status' => 'completed', 'completed_at' => now()]);
+        if ($total > 0 && $completed === $total && $enrollment->status !== 'completed') {
+            $enrollment->update(['status' => 'completed', 'completed_at' => now()]);
+        }
         return new CourseEnrollmentResource($enrollment->fresh()->load(['course' => fn ($query) => $query->with('categories')->withCount('lessons')])->loadCount('lessonProgress as completed_lessons_count'));
     }
 

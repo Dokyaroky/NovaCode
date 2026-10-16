@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Course;
 use App\Models\CourseLesson;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -87,5 +88,25 @@ class EnrollmentProgressTest extends TestCase
         $this->actingAs($user)->postJson("/api/me/lessons/{$lesson->uuid}/progress", ['position_seconds' => -1])->assertUnprocessable();
         $this->actingAs($user)->postJson("/api/me/lessons/{$lesson->uuid}/progress", [])->assertUnprocessable();
         $this->actingAs($user)->postJson("/api/me/lessons/{$lesson->uuid}/progress", ['position_seconds' => 42, 'percent' => 99])->assertSuccessful()->assertJsonPath('data.positionSeconds', 42);
+    }
+
+    public function test_repeating_completion_preserves_original_completion_timestamps(): void
+    {
+        $user = User::factory()->create();
+        $course = Course::factory()->create(['slug' => 'repeat-completion']);
+        $lesson = CourseLesson::factory()->for($course)->create(['sort_order' => 1]);
+        $this->actingAs($user)->postJson('/api/courses/repeat-completion/enroll')->assertSuccessful();
+
+        Carbon::setTestNow('2026-10-16 10:00:00');
+        $this->actingAs($user)->postJson("/api/me/lessons/{$lesson->uuid}/complete")->assertOk();
+        $lessonCompletedAt = $course->enrollments()->first()->lessonProgress()->first()->completed_at;
+        $enrollmentCompletedAt = $course->enrollments()->first()->completed_at;
+
+        Carbon::setTestNow('2026-10-16 11:00:00');
+        $this->actingAs($user)->postJson("/api/me/lessons/{$lesson->uuid}/complete")->assertOk();
+        $enrollment = $course->enrollments()->first()->fresh();
+        $this->assertTrue($lessonCompletedAt->equalTo($enrollment->lessonProgress()->first()->completed_at));
+        $this->assertTrue($enrollmentCompletedAt->equalTo($enrollment->completed_at));
+        Carbon::setTestNow();
     }
 }

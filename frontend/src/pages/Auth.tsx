@@ -91,7 +91,6 @@ export default function Auth({ mode }: AuthProps) {
     if (Object.keys(next).length > 0) return
     setPending(true)
     try {
-      resetCurrentUserCache()
       if (isSignup) {
         await api.post('/api/register', {
           name: fullName.trim(),
@@ -101,6 +100,8 @@ export default function Auth({ mode }: AuthProps) {
       } else {
         await api.post('/api/login', { email: email.trim(), password })
       }
+
+      resetCurrentUserCache()
 
       push({
         title: COPY.signedIn,

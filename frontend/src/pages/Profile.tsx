@@ -48,7 +48,8 @@ import leagueIcon from '@/assets/icons/league.svg'
 import bellIcon from '@/assets/icons/settings-bell.svg'
 import streakIcon from '@/assets/icons/streak.svg'
 import verifiedSmIcon from '@/assets/icons/verified-sm.svg'
-import { getInitials, useCurrentUser } from '@/lib/currentUser'
+import { getInitials, resetCurrentUserCache, useCurrentUser } from '@/lib/currentUser'
+import { api, ApiError } from '@/lib/api'
 import { useEnrollments } from '@/lib/enrollments'
 import type { Enrollment } from '@/lib/enrollments'
 
@@ -337,11 +338,15 @@ function SettingsPanel({
   toggles,
   onToggle,
   onOpenLink,
+  onLogout,
+  loggingOut,
 }: {
   empty: boolean
   toggles: Record<string, boolean>
   onToggle: (row: SettingsToggleRow) => void
   onOpenLink: (link: AccountLinkId) => void
+  onLogout: () => void
+  loggingOut: boolean
 }) {
   if (empty || SETTINGS_ROWS.length === 0) return <PanelEmpty state={PANEL_EMPTY_STATES.settings} />
 
@@ -379,6 +384,20 @@ function SettingsPanel({
           )}
         </div>
       ))}
+      <div className="flex flex-wrap items-center justify-between gap-6 border-b-[0.9px] border-white/10 pt-6 pb-6 last:border-b-0 last:pb-0">
+        <div className="flex min-w-0 items-center gap-4">
+          <IconTile tone="brand">
+            <img src={bellIcon} alt="" width={22} height={22} />
+          </IconTile>
+          <div className="flex min-w-0 flex-col gap-2">
+            <h3 className="text-lg leading-7 font-bold text-ink">Log out</h3>
+            <p className="text-sm leading-5 text-ink-soft">End your current session.</p>
+          </div>
+        </div>
+        <Button variant="outline" disabled={loggingOut} onClick={onLogout}>
+          {loggingOut ? 'Logging out…' : 'Log out'}
+        </Button>
+      </div>
     </>
   )
 }
@@ -403,6 +422,7 @@ export default function Profile() {
   const [toggles, setToggles] = useState<Record<string, boolean>>(() => ({ ...TOGGLE_DEFAULTS }))
   const [activeCertificate, setActiveCertificate] = useState<Certificate | null>(null)
   const [activeLink, setActiveLink] = useState<AccountLinkId | null>(null)
+  const [loggingOut, setLoggingOut] = useState(false)
 
   const accountLink = activeLink ? ACCOUNT_LINKS[activeLink] : null
 
@@ -426,6 +446,19 @@ export default function Profile() {
       push({ ...CERTIFICATE_MODAL_COPY.copiedToast, tone: 'success' })
     } catch {
       push({ ...CERTIFICATE_MODAL_COPY.copyFailedToast, tone: 'error' })
+    }
+  }
+
+  const logout = async () => {
+    setLoggingOut(true)
+    try {
+      await api.post('/api/logout')
+      resetCurrentUserCache()
+      navigate('/login')
+    } catch (reason: unknown) {
+      push({ title: 'Unable to log out', description: reason instanceof ApiError ? reason.message : 'Please try again.', tone: 'error' })
+    } finally {
+      setLoggingOut(false)
     }
   }
 
@@ -556,6 +589,8 @@ export default function Profile() {
                 toggles={toggles}
                 onToggle={toggleSetting}
                 onOpenLink={setActiveLink}
+                onLogout={() => void logout()}
+                loggingOut={loggingOut}
               />
             )}
           </Card>

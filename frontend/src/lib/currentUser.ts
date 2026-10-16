@@ -24,6 +24,11 @@ export function resetCurrentUserCache(): void {
   userRequest = null
 }
 
+export function refreshCurrentUser(): Promise<CurrentUser> {
+  resetCurrentUserCache()
+  return fetchCurrentUser()
+}
+
 function fetchCurrentUser(): Promise<CurrentUser> {
   if (cachedUser) return Promise.resolve(cachedUser)
   if (!userRequest) {
@@ -39,6 +44,8 @@ export function useCurrentUser() {
   const [user, setUser] = useState<CurrentUser | null>(cachedUser ?? null)
   const [loading, setLoading] = useState(cachedUser === undefined)
   const [error, setError] = useState<string | null>(null)
+  const [errorStatus, setErrorStatus] = useState<number | null>(null)
+  const [attempt, setAttempt] = useState(0)
 
   useEffect(() => {
     let cancelled = false
@@ -50,7 +57,9 @@ export function useCurrentUser() {
       .catch((reason: unknown) => {
         if (!cancelled) {
           setError(reason instanceof ApiError ? reason.message : 'Unable to load your account.')
-          cachedUser = null
+          setErrorStatus(reason instanceof ApiError ? reason.status : null)
+          cachedUser = undefined
+          userRequest = null
         }
       })
       .finally(() => {
@@ -60,7 +69,16 @@ export function useCurrentUser() {
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [attempt])
 
-  return { user, loading, error }
+  const retry = () => {
+    resetCurrentUserCache()
+    setUser(null)
+    setError(null)
+    setErrorStatus(null)
+    setLoading(true)
+    setAttempt((current) => current + 1)
+  }
+
+  return { user, loading, error, errorStatus, retry }
 }
