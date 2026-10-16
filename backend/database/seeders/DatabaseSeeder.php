@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CourseCatalogSeeder::class);
         $this->call(CareerTrackSeeder::class);
+        $this->call(ChallengeSeeder::class);
 
         // User::factory(10)->create();
 

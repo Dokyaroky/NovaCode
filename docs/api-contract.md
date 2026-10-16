@@ -147,8 +147,48 @@ Returns the current track, exactly three missions, derived status and fuel, boss
 }
 ```
 
-Mission status is `finished`, `extracting` for the first unfinished mission, or `locked`. Fuel is completed missions divided by the three missions. No public mission-completion endpoint exists yet; mission completion is server-side in a later slice. A user without a current goal receives HTTP 409.
+Mission status is `finished`, `extracting` for the first unfinished mission, or `locked`. Each mission also includes `hasChallenge`; the active briefing includes `missionSlug` and `hasChallenge`. Fuel is completed missions divided by the three missions. No public mission-completion endpoint exists yet; mission completion is server-side in the graded challenge flow. A user without a current goal receives HTTP 409.
 
 ## Identifier and ownership rules
 
 Catalog routes use slugs. User-owned enrollment and progress responses use UUIDs and never expose numeric database IDs. Enrollment and progress queries are scoped to the authenticated user; a user cannot read or modify another user's records.
+
+## Graded mission challenges
+
+### GET /api/me/missions/{missionSlug}/challenge
+
+Returns the challenge for a mission in the authenticated user's current career track:
+
+```json
+{
+  "data": {
+    "slug": "html-css-base",
+    "title": "Quick Check: HTML Structure",
+    "instruction": "Write a basic <h1> tag with the text \"Hello World\" to confirm your understanding.",
+    "starterCode": "<h1>Hello World</h1>",
+    "placeholder": "Write your HTML heading",
+    "theory": { "title": "Theory: HTML & CSS", "minutes": 8 },
+    "passed": false
+  }
+}
+```
+
+The `rules` answer key is never returned. A mission that is locked or outside the current track returns HTTP 403; a mission without a challenge returns HTTP 404.
+
+### POST /api/challenges/{slug}/attempts
+
+Request:
+
+```json
+{ "answer": "<h1>Hello World</h1>" }
+```
+
+`answer` is required, nullable after Laravel's empty-string normalization, and limited to 5000 characters. The endpoint is limited to 30 attempts per minute per authenticated user and returns:
+
+```json
+{ "data": { "passed": true, "title": "Quick check passed", "description": "Your heading matches the expected structure.", "missionFinished": true } }
+```
+
+Rules are stored as an ordered JSON list. Each item has either `all_of` or `any_of`, containing lowercase substrings, plus `failure_title` and `failure_description`. Matching is case-insensitive against the trimmed answer. An empty answer fails with `Nothing to submit`. The server checks these patterns only; it never executes user code, so this is not a real test run. The answer key is never included in a response.
+
+Challenges reference missions by `mission_slug`, not a foreign key. Passing a shared mission creates the authenticated user's completion for every track mission with that slug, idempotently. Attempts for locked or out-of-track missions return HTTP 403. No numeric database IDs are exposed.

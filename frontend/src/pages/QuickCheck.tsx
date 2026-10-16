@@ -1,17 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent, SVGProps } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Button from '@/components/Button'
 import NovaLogo from '@/components/NovaLogo'
 import { useToast } from '@/components/Toast'
-import {
-  CHECK_DELAY,
-  QUICK_CHECK,
-  QUICK_CHECK_MESSAGES,
-  formatTimestamp,
-  validateQuickCheck,
-} from '@/data/mission'
-import type { Verdict } from '@/data/mission'
+import { QUICK_CHECK, formatTimestamp } from '@/data/mission'
+import { api, ApiError } from '@/lib/api'
+
+interface Challenge {
+  slug: string
+  title: string
+  instruction: string
+  starterCode: string | null
+  placeholder: string
+  theory: { title: string; minutes: number }
+  passed: boolean
+}
+
+interface Verdict { passed: boolean; title: string; description: string }
 
 /* Page-local inline icons (17px back arrow, 30px replay/pause), tinted with currentColor. */
 
@@ -80,20 +86,39 @@ function IconArrowRight({ width = 18, height = 18, ...props }: SVGProps<SVGSVGEl
  *
  * The theory clip is complete in the design (08:00 / 08:00, full bar); Replay restarts it on
  * the same 1s ticker the mission player uses, mapped onto the 900x506.25 video section. The
- * markup check is mocked (no fetch) — see src/data/mission.ts.
+ * Challenge content is fetched from the API and graded server-side; the theory clip remains a
+ * simulated presentation from the original Figma screen.
  */
 export default function QuickCheck() {
   const navigate = useNavigate()
+  const { slug = '' } = useParams<{ slug: string }>()
   const { push } = useToast()
 
-  const [code, setCode] = useState<string>(QUICK_CHECK.editorValue)
+  const [challenge, setChallenge] = useState<Challenge | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<{ status: number | null; message: string } | null>(null)
+  const [code, setCode] = useState('')
   const [checking, setChecking] = useState(false)
-  const [verdict, setVerdict] = useState<{ ok: boolean; message: Verdict } | null>(null)
+  const [verdict, setVerdict] = useState<Verdict | null>(null)
   const [position, setPosition] = useState<number>(QUICK_CHECK.duration)
   const [replaying, setReplaying] = useState(false)
 
-  const checkTimer = useRef<number | undefined>(undefined)
   const returnTimer = useRef<number | undefined>(undefined)
+
+  useEffect(() => {
+    let cancelled = false
+    api.get<{ data: Challenge }>(`/api/me/missions/${slug}/challenge`)
+      .then((response) => {
+        if (cancelled) return
+        setChallenge(response.data)
+        setCode(response.data.starterCode ?? '')
+      })
+      .catch((reason: unknown) => {
+        if (!cancelled) setError({ status: reason instanceof ApiError ? reason.status : null, message: reason instanceof ApiError ? reason.message : 'Unable to load this challenge.' })
+      })
+      .finally(() => { if (!cancelled) setLoading(false) })
+    return () => { cancelled = true }
+  }, [slug])
 
   const finished = position >= QUICK_CHECK.duration
   /* The clip ends when the ticker reaches 08:00, so the bar and the state cannot disagree. */
@@ -111,7 +136,6 @@ export default function QuickCheck() {
 
   useEffect(
     () => () => {
-      window.clearTimeout(checkTimer.current)
       window.clearTimeout(returnTimer.current)
     },
     [],
@@ -135,23 +159,26 @@ export default function QuickCheck() {
   }
 
   const submit = () => {
+    if (!challenge || checking) return
     setVerdict(null)
-    const failure = validateQuickCheck(code)
-    if (failure) {
-      setVerdict({ ok: false, message: failure })
-      push({ ...failure, tone: 'error' })
-      return
-    }
     setChecking(true)
-    window.clearTimeout(checkTimer.current)
-    checkTimer.current = window.setTimeout(() => {
-      setChecking(false)
-      setVerdict({ ok: true, message: QUICK_CHECK_MESSAGES.success })
-      push({ ...QUICK_CHECK_MESSAGES.success, tone: 'success' })
-      /* The button reads "Done & Return to Map": the pass returns to the expedition map. */
-      returnTimer.current = window.setTimeout(() => navigate(QUICK_CHECK.submitPath), 1200)
-    }, CHECK_DELAY)
+    api.post<{ data: Verdict }>(`/api/challenges/${slug}/attempts`, { answer: code })
+      .then((response) => {
+        setVerdict(response.data)
+        push({ title: response.data.title, description: response.data.description, tone: response.data.passed ? 'success' : 'error' })
+        if (response.data.passed) returnTimer.current = window.setTimeout(() => navigate('/learn'), 1200)
+      })
+      .catch((reason: unknown) => {
+        const failure = reason instanceof ApiError ? { title: 'Unable to submit', description: reason.message } : { title: 'Unable to submit', description: 'Please try again.' }
+        setVerdict({ passed: false, ...failure })
+        push({ ...failure, tone: 'error' })
+      })
+      .finally(() => setChecking(false))
   }
+
+  if (loading) return <div className="grid min-h-screen place-items-center bg-shell text-sm text-ink-soft">Loading challenge…</div>
+  if (error) return <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-shell p-6 text-center"><p role="alert" className="text-sm text-code-red">{error.status === 403 ? 'This mission is locked or is not in your current track.' : error.status === 404 ? 'This mission does not have a challenge yet.' : error.message}</p><Link to="/learn" className="rounded-pill bg-brand px-6 py-3 text-white">Return to map</Link></div>
+  if (!challenge) return null
 
   return (
     <div className="flex min-h-screen flex-col bg-shell">
@@ -168,7 +195,7 @@ export default function QuickCheck() {
             <NovaLogo />
           </div>
         </div>
-        <h1 className="text-lg leading-7 font-bold text-white">{QUICK_CHECK.title}</h1>
+        <h1 className="text-lg leading-7 font-bold text-white">{challenge.title}</h1>
         <span aria-hidden="true" className="hidden md:block" />
       </header>
 
@@ -211,8 +238,8 @@ export default function QuickCheck() {
           </section>
 
           <article className="flex w-full flex-col overflow-clip rounded-card bg-surface p-6 shadow-card">
-            <h2 className="text-2xl leading-8 font-bold text-ink">{QUICK_CHECK.cardTitle}</h2>
-            <p className="pt-3 text-sm leading-6 text-white/70">{QUICK_CHECK.instruction}</p>
+            <h2 className="text-2xl leading-8 font-bold text-ink">{challenge.title}</h2>
+            <p className="pt-3 text-sm leading-6 text-white/70">{challenge.instruction}</p>
 
             <div className="pt-5">
               <label htmlFor="quick-check-code" className="sr-only">
@@ -224,7 +251,7 @@ export default function QuickCheck() {
                 onChange={(event) => setCode(event.target.value)}
                 onKeyDown={handleEditorKeyDown}
                 spellCheck={false}
-                placeholder={QUICK_CHECK.editorPlaceholder}
+                placeholder={challenge.placeholder}
                 className="h-20 w-full resize-none rounded-tile bg-shell p-4 font-mono text-sm leading-6 text-ink-soft outline-none transition placeholder:text-ink-soft/50 focus:shadow-[0_0_0_1px_rgba(139,92,246,0.6)]"
               />
             </div>
@@ -233,11 +260,11 @@ export default function QuickCheck() {
               <p
                 role="status"
                 aria-live="polite"
-                className={`pt-3 text-sm leading-6 ${verdict && !verdict.ok && !checking ? 'text-code-red' : 'text-success'}`}
+                className={`pt-3 text-sm leading-6 ${verdict && !verdict.passed && !checking ? 'text-code-red' : 'text-success'}`}
               >
                 {checking
                   ? QUICK_CHECK.checkingLabel
-                  : `${verdict?.message.title} — ${verdict?.message.description}`}
+                  : `${verdict?.title} — ${verdict?.description}`}
               </p>
             ) : null}
 

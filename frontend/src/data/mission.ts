@@ -146,43 +146,6 @@ export const QUICK_CHECK = {
   indent: '  ',
 } as const
 
-export const QUICK_CHECK_RULES = { open: '<h1', close: '</h1>', text: 'Hello World' } as const
-
-export const QUICK_CHECK_MESSAGES: Record<
-  'empty' | 'missingTag' | 'missingText' | 'success',
-  Verdict
-> = {
-  empty: {
-    title: 'Nothing to check',
-    description: 'Write your heading before submitting the quick check.',
-  },
-  missingTag: {
-    title: 'Missing <h1> element',
-    description: 'Wrap the heading in an opening <h1> and a closing </h1> tag.',
-  },
-  missingText: {
-    title: 'Heading text missing',
-    description: 'The <h1> has to contain the text "Hello World".',
-  },
-  success: {
-    title: 'Quick check passed',
-    description: 'Your heading matches the expected structure — returning to the map.',
-  },
-}
-
-/** `null` when the markup satisfies the task. */
-export function validateQuickCheck(value: string): Verdict | null {
-  const normalized = value.trim().toLowerCase()
-  if (!normalized) return QUICK_CHECK_MESSAGES.empty
-  if (!(normalized.includes(QUICK_CHECK_RULES.open) && normalized.includes(QUICK_CHECK_RULES.close))) {
-    return QUICK_CHECK_MESSAGES.missingTag
-  }
-  if (!normalized.includes(QUICK_CHECK_RULES.text.toLowerCase())) {
-    return QUICK_CHECK_MESSAGES.missingText
-  }
-  return null
-}
-
 export interface AssistantReply {
   id: string
   /** Lower-case substrings that route the question to this reply. */

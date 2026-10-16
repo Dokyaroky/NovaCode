@@ -24,3 +24,12 @@
 ## Slice 2 scope
 
 This slice implements only the authenticated, read-only course catalog: courses, categories, and structural lesson rows. The static Explore catalog does not contain lesson titles or explicit category assignments, so lesson titles are deterministic structural placeholders and category membership is assigned only when a visible category name occurs in the course title. Those choices should be revisited when authoritative catalog content is available.
+
+## Slice 5 decisions
+
+- Each mission has at most one graded challenge. Passing it finishes the mission; the theory video remains ungraded.
+- Answers are graded on the server using stored pattern rules. User code is never executed on the server; the pattern check is not a real test run.
+- Challenge rules (the answer key) are never returned by an API endpoint.
+- Challenges are linked to missions by mission slug, not by a foreign key. A shared mission, such as `html-css-base`, counts for every track that contains it.
+- The server refuses attempts to view or submit challenges for missions that are locked for the authenticated user.
+- `MissionVideo` and the Python IDE page remain static in this slice.

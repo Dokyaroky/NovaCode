@@ -138,7 +138,7 @@ export default function CareerPath() {
     subtitle: 'Complete the sequence to unlock the extraction zone.',
     closeLabel: 'Close mission briefing',
     steps: [
-      { id: 'theory' as const, label: `1. ${path.briefing.theoryTitle}`, meta: `Duration: ${path.briefing.theoryMinutes} Mins`, action: 'Watch', path: '/learn/quick-check' },
+      { id: 'theory' as const, label: `1. ${path.briefing.theoryTitle}`, meta: `Duration: ${path.briefing.theoryMinutes} Mins`, action: 'Watch', path: `/learn/missions/${path.briefing.missionSlug}/check`, disabled: !path.briefing.hasChallenge },
       { id: 'extraction' as const, label: `2. ${path.briefing.extractionTitle}`, action: 'Code', path: '/ide' },
     ],
     reward: `Reward upon completion: ${path.briefing.rewardLabel}`,
@@ -345,12 +345,18 @@ export default function CareerPath() {
                 <span className="text-sm leading-5 font-bold text-white">{step.label}</span>
                 {step.meta && <span className="pt-1 text-xs leading-4 text-ink-soft">{step.meta}</span>}
               </span>
-              <Link
-                to={step.path}
-                className="grid h-9 w-[108px] shrink-0 place-items-center rounded-pill bg-brand text-base text-white shadow-button transition duration-300 ease-out-back hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand active:scale-[0.98]"
-              >
-                {step.action}
-              </Link>
+              {step.disabled ? (
+                <span className="grid h-9 w-[150px] shrink-0 place-items-center rounded-pill bg-muted px-3 text-center text-xs font-semibold text-ink-soft">
+                  Challenge coming soon
+                </span>
+              ) : (
+                <Link
+                  to={step.path}
+                  className="grid h-9 w-[108px] shrink-0 place-items-center rounded-pill bg-brand text-base text-white shadow-button transition duration-300 ease-out-back hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand active:scale-[0.98]"
+                >
+                  {step.action}
+                </Link>
+              )}
             </li>
           ))}
         </ul>

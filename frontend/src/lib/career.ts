@@ -16,6 +16,7 @@ export interface CareerMission {
   title: string
   sortOrder: number
   status: 'finished' | 'extracting' | 'locked'
+  hasChallenge: boolean
 }
 
 export interface CareerPathResponse {
@@ -23,5 +24,5 @@ export interface CareerPathResponse {
   missions: CareerMission[]
   fuelPercent: number
   boss: { title: string; rewardLabel: string; locked: boolean }
-  briefing: { title: string; theoryTitle: string; theoryMinutes: number; extractionTitle: string; rewardLabel: string } | null
+  briefing: { title: string; missionSlug: string; hasChallenge: boolean; theoryTitle: string; theoryMinutes: number; extractionTitle: string; rewardLabel: string } | null
 }

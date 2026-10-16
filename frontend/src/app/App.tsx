@@ -32,7 +32,7 @@ const IMPLEMENTED: Record<string, ReactNode> = {
   '/learn': <CareerPath />,
   '/learn/questionnaire': <Questionnaire />,
   '/learn/mission': <MissionVideo />,
-  '/learn/quick-check': <QuickCheck />,
+  '/learn/quick-check': <Navigate to="/learn" replace />,
   '/explore': <Explore />,
   '/projects': <Projects />,
   '/projects/review': <ProjectReview />,
@@ -104,6 +104,7 @@ export default function App() {
             }
           />
         ))}
+        <Route path="/learn/missions/:slug/check" element={<RequireAuth><QuickCheck /></RequireAuth>} />
         {/* Dev-only galleries: the design-system primitives and the interaction overlays. */}
         <Route path="/dev/ui" element={<UiPreview />} />
         <Route path="/dev/interactions" element={<Interactions />} />
