@@ -49,6 +49,8 @@ import bellIcon from '@/assets/icons/settings-bell.svg'
 import streakIcon from '@/assets/icons/streak.svg'
 import verifiedSmIcon from '@/assets/icons/verified-sm.svg'
 import { useCurrentUser } from '@/lib/currentUser'
+import { useEnrollments } from '@/lib/enrollments'
+import type { Enrollment } from '@/lib/enrollments'
 
 /* Screens these panel actions open (see src/app/screens.ts). */
 const COURSE_ROUTE = '/learn/mission'
@@ -182,33 +184,37 @@ function CertificatesPanel({
 
 /* ---------------------------------------------------------- course history ---- */
 
-function CourseHistoryPanel({ empty, onContinue }: { empty: boolean; onContinue: () => void }) {
-  if (empty || COURSE_HISTORY.length === 0) return <PanelEmpty state={PANEL_EMPTY_STATES.history} />
+function CourseHistoryPanel({ empty, onContinue, enrollments, loading, error }: { empty: boolean; onContinue: () => void; enrollments: Enrollment[]; loading: boolean; error: string | null }) {
+  if (loading) return <p role="status" className="p-4 text-sm text-ink-soft">Loading course history…</p>
+  if (error) return <p role="alert" className="p-4 text-sm text-code-red">{error}</p>
+  if (empty || enrollments.length === 0) return <PanelEmpty state={PANEL_EMPTY_STATES.history} />
 
   return (
     <>
-      {COURSE_HISTORY.map((course) => (
-        <article key={course.id} className={`flex items-center gap-4 p-4 ${INSET_CARD}`}>
+      {enrollments.map((enrollment) => {
+        const fallback = COURSE_HISTORY.find((course) => course.id === enrollment.course.slug)
+        const lastActive = enrollment.last_active_at ? new Date(enrollment.last_active_at).toLocaleDateString() : 'Not started'
+        return <article key={enrollment.uuid} className={`flex items-center gap-4 p-4 ${INSET_CARD}`}>
           <div
             className="grid size-14 shrink-0 place-items-center rounded-tile text-base font-bold"
-            style={{ backgroundColor: course.tileColor, color: course.tileInk }}
+            style={{ backgroundColor: fallback?.tileColor ?? '#475569', color: fallback?.tileInk ?? '#fff' }}
             aria-hidden="true"
           >
-            {course.badge}
+            {enrollment.course.label}
           </div>
 
           <div className="flex min-w-0 flex-1 flex-col gap-2">
             <div className="flex items-start justify-between gap-4">
               <div className="flex min-w-0 flex-col gap-1">
-                <h3 className="truncate text-base font-bold text-ink">{course.name}</h3>
-                <p className="text-xs text-white/60">{course.lastActive}</p>
+                <h3 className="truncate text-base font-bold text-ink">{enrollment.course.title}</h3>
+                <p className="text-xs text-white/60">Last active: {lastActive}</p>
               </div>
-              <span className="shrink-0 text-xs font-semibold text-white/70">{course.progressLabel}</span>
+              <span className="shrink-0 text-xs font-semibold text-white/70">{enrollment.progress}% Completed</span>
             </div>
-            <ProgressBar value={course.progress} size="sm" className="bg-surface!" />
+            <ProgressBar value={enrollment.progress} size="sm" className="bg-surface!" />
           </div>
 
-          {course.completed ? (
+          {enrollment.status === 'completed' || enrollment.progress === 100 ? (
             <StatusPill tone="success" dense>
               {COURSE_COPY.completedLabel}
             </StatusPill>
@@ -218,7 +224,7 @@ function CourseHistoryPanel({ empty, onContinue }: { empty: boolean; onContinue:
             </PillButton>
           )}
         </article>
-      ))}
+      })}
     </>
   )
 }
@@ -384,6 +390,7 @@ export default function Profile() {
   const navigate = useNavigate()
   const { push } = useToast()
   const { user, loading, error } = useCurrentUser()
+  const { enrollments, loading: enrollmentsLoading, error: enrollmentsError } = useEnrollments()
   const profileName = user?.name ?? (loading ? 'Loading…' : 'Account unavailable')
   const profileInitials = user?.name
     ?.split(/\s+/)
@@ -539,7 +546,7 @@ export default function Profile() {
           <Card className="flex flex-1 flex-col gap-3 overflow-clip p-6">
             {tab === 'certificates' && <CertificatesPanel empty={empty} onView={setActiveCertificate} />}
             {tab === 'history' && (
-              <CourseHistoryPanel empty={empty} onContinue={() => navigate(COURSE_ROUTE)} />
+              <CourseHistoryPanel empty={empty} enrollments={enrollments} loading={enrollmentsLoading} error={enrollmentsError} onContinue={() => navigate(COURSE_ROUTE)} />
             )}
             {tab === 'projects' && (
               <ProjectsPanel

@@ -20,6 +20,7 @@ import {
 } from '@/data/dashboard'
 import { CURRENT_USER } from '@/data/user'
 import { useCurrentUser } from '@/lib/currentUser'
+import { useEnrollments } from '@/lib/enrollments'
 import auditIcon from '@/assets/icons/audit.svg'
 import checkCircle from '@/assets/icons/check-circle.svg'
 import flame from '@/assets/icons/flame.svg'
@@ -83,6 +84,8 @@ function LeagueCard() {
 export default function Dashboard() {
   const navigate = useNavigate()
   const { user, loading, error } = useCurrentUser()
+  const { enrollments, loading: enrollmentsLoading, error: enrollmentsError } = useEnrollments()
+  const currentEnrollment = enrollments[0]
   const firstName = user?.name.split(/\s+/)[0] ?? (loading ? 'Loading…' : 'your account')
 
   return (
@@ -109,26 +112,27 @@ export default function Dashboard() {
             <div className="flex min-w-0 flex-col gap-6">
               <div className="flex items-center gap-4">
                 <IconTile tone="accentSolid">
-                  <span className="text-lg font-black text-white">{CURRENT_COURSE.label}</span>
+                  <span className="text-lg font-black text-white">{currentEnrollment?.course.label ?? CURRENT_COURSE.label}</span>
                 </IconTile>
                 <div className="flex flex-col gap-1">
                   <span className="text-xs font-bold tracking-[0.96px] text-ink-soft uppercase">
                     {CURRENT_COURSE.module}
                   </span>
-                  <h2 className="text-3xl font-bold text-ink">{CURRENT_COURSE.title}</h2>
+                  <h2 className="text-3xl font-bold text-ink">{enrollmentsLoading ? 'Loading course…' : currentEnrollment?.course.title ?? 'No course enrolled'}</h2>
                 </div>
               </div>
               <p className="text-sm leading-6 text-ink-soft">{CURRENT_COURSE.description}</p>
               <div className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-semibold text-ink">Course progress</span>
-                  <span className="text-sm font-bold text-ink-soft">{CURRENT_COURSE.progress}%</span>
+                  <span className="text-sm font-bold text-ink-soft">{currentEnrollment?.progress ?? 0}%</span>
                 </div>
-                <ProgressBar value={CURRENT_COURSE.progress} />
+                <ProgressBar value={currentEnrollment?.progress ?? 0} />
               </div>
             </div>
-            <Button icon={<IconChevronRight />} onClick={() => navigate('/learn')} className="w-full md:w-fit">
-              Continue Module
+            {enrollmentsError && <p className="text-xs text-code-red" role="alert">{enrollmentsError}</p>}
+            <Button icon={<IconChevronRight />} disabled={!currentEnrollment} onClick={() => navigate(currentEnrollment ? '/learn' : '/explore')} className="w-full md:w-fit">
+              {currentEnrollment ? 'Continue Module' : 'Explore Courses'}
             </Button>
           </div>
         </Card>

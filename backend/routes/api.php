@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\LessonProgressController;
 use App\Http\Resources\UserResource;
 
 Route::get('/health', fn () => response()->json([
@@ -25,4 +27,9 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('/courses', [CourseController::class, 'index']);
     Route::get('/courses/{course:slug}', [CourseController::class, 'show']);
     Route::get('/course-categories', [CourseController::class, 'categories']);
+    Route::post('/courses/{course:slug}/enroll', [EnrollmentController::class, 'store']);
+    Route::get('/me/enrollments', [EnrollmentController::class, 'index']);
+    Route::get('/me/courses/{course:slug}', [EnrollmentController::class, 'show']);
+    Route::post('/me/lessons/{lesson:uuid}/progress', [LessonProgressController::class, 'store']);
+    Route::post('/me/lessons/{lesson:uuid}/complete', [LessonProgressController::class, 'complete']);
 });

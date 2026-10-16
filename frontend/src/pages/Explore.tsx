@@ -18,7 +18,7 @@ const AVATAR_TONES = ['bg-[#475569]', 'bg-accent', 'bg-success'] as const
    it enrolled. */
 const LESSON_ROUTE = '/learn/mission'
 
-function CourseCard({ course, onEnroll }: { course: CatalogCourse; onEnroll: () => void }) {
+function CourseCard({ course, onEnroll, disabled }: { course: CatalogCourse; onEnroll: () => void; disabled?: boolean }) {
   return (
     <Card className="flex min-h-[285px] flex-col gap-6 p-6">
       <div className="flex items-center justify-between">
@@ -48,7 +48,7 @@ function CourseCard({ course, onEnroll }: { course: CatalogCourse; onEnroll: () 
             </span>
           ))}
         </div>
-        <Button onClick={onEnroll}>Enroll</Button>
+        <Button onClick={onEnroll} disabled={disabled}>{disabled ? 'Enrolling…' : 'Enroll'}</Button>
       </div>
     </Card>
   )
@@ -94,6 +94,18 @@ export default function Explore() {
   const [courseCount, setCourseCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [enrollingSlug, setEnrollingSlug] = useState<string | null>(null)
+
+  const enroll = async (course: CatalogCourse) => {
+    setEnrollingSlug(course.slug)
+    try {
+      await api.post(`/api/courses/${course.slug}/enroll`)
+      push({ title: 'Enrolled', description: `${course.title} — opening the first lesson.`, tone: 'success' })
+      navigate(LESSON_ROUTE)
+    } catch (reason: unknown) {
+      push({ title: 'Unable to enroll', description: reason instanceof ApiError ? reason.message : 'Please try again.', tone: 'error' })
+    } finally { setEnrollingSlug(null) }
+  }
 
   useEffect(() => {
     let cancelled = false
@@ -197,14 +209,8 @@ export default function Explore() {
             <CourseCard
               key={course.slug}
               course={course}
-              onEnroll={() => {
-                push({
-                  title: 'Enrolled',
-                  description: `${course.title} — opening the first lesson.`,
-                  tone: 'success',
-                })
-                navigate(LESSON_ROUTE)
-              }}
+              onEnroll={() => void enroll(course)}
+              disabled={enrollingSlug === course.slug}
             />
           ))}
         </div>
