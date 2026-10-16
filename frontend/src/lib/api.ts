@@ -2,6 +2,23 @@ const BASE_URL = import.meta.env.VITE_API_URL ?? ''
 
 type Json = Record<string, unknown>
 
+function readXsrfToken() {
+  if (typeof document === 'undefined') return undefined
+
+  const cookie = document.cookie
+    .split('; ')
+    .find((value) => value.startsWith('XSRF-TOKEN='))
+
+  return cookie ? decodeURIComponent(cookie.slice('XSRF-TOKEN='.length)) : undefined
+}
+
+async function ensureCsrfCookie() {
+  await fetch(`${BASE_URL}/sanctum/csrf-cookie`, {
+    headers: { Accept: 'application/json' },
+    credentials: 'include',
+  })
+}
+
 export class ApiError extends Error {
   readonly status: number
 
@@ -13,11 +30,18 @@ export class ApiError extends Error {
 }
 
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
+  const method = (init.method ?? 'GET').toUpperCase()
+  const mutating = !['GET', 'HEAD', 'OPTIONS'].includes(method)
+
+  if (mutating) await ensureCsrfCookie()
+
+  const xsrfToken = mutating ? readXsrfToken() : undefined
   const res = await fetch(`${BASE_URL}${path}`, {
     ...init,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      ...(xsrfToken ? { 'X-XSRF-TOKEN': xsrfToken } : {}),
       ...init.headers,
     },
     credentials: 'include',

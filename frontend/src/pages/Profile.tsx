@@ -48,6 +48,7 @@ import leagueIcon from '@/assets/icons/league.svg'
 import bellIcon from '@/assets/icons/settings-bell.svg'
 import streakIcon from '@/assets/icons/streak.svg'
 import verifiedSmIcon from '@/assets/icons/verified-sm.svg'
+import { useCurrentUser } from '@/lib/currentUser'
 
 /* Screens these panel actions open (see src/app/screens.ts). */
 const COURSE_ROUTE = '/learn/mission'
@@ -382,6 +383,14 @@ export default function Profile() {
   const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
   const { push } = useToast()
+  const { user, loading, error } = useCurrentUser()
+  const profileName = user?.name ?? (loading ? 'Loading…' : 'Account unavailable')
+  const profileInitials = user?.name
+    ?.split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join('') || '—'
 
   const tabParam = searchParams.get('tab')
   /** The tab lives in the URL so it survives a refresh and can be deep linked. */
@@ -425,7 +434,7 @@ export default function Profile() {
           <div className="flex min-w-0 items-center gap-6">
             <div className="relative size-28 shrink-0">
               <div className="grid size-28 place-items-center rounded-full bg-[linear-gradient(135deg,#8b5cf6_0%,#3b82f6_100%)] shadow-[0_0_0_4px_rgba(255,255,255,0.1)]">
-                <span className="text-3xl font-black text-white">{PROFILE.initials}</span>
+                <span className="text-3xl font-black text-white">{profileInitials}</span>
               </div>
               <div className="absolute top-20 left-20 grid size-7 place-items-center rounded-full border-[3.6px] border-surface bg-success">
                 <img src={verifiedSmIcon} alt="" width={13} height={13} />
@@ -437,8 +446,9 @@ export default function Profile() {
                 <span className="text-xs leading-4 font-bold tracking-[0.96px] text-ink-soft uppercase">
                   {PROFILE.eyebrow}
                 </span>
-                <h1 className="text-display text-ink">{PROFILE.name}</h1>
+                <h1 className="text-display text-ink">{profileName}</h1>
                 <p className="text-base font-medium text-ink-soft">{PROFILE.track}</p>
+                {error && <p className="text-xs text-code-red" role="alert">{error}</p>}
               </div>
               <div className="flex items-center gap-3">
                 {PROFILE_SOCIALS.map((social) => (

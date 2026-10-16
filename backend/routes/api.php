@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Resources\UserResource;
 
 Route::get('/health', fn () => response()->json([
     'status' => 'ok',
@@ -9,5 +11,11 @@ Route::get('/health', fn () => response()->json([
     'time' => now()->toIso8601String(),
 ]));
 
-Route::get('/user', fn (Request $request) => $request->user())
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/user', fn (Request $request) => UserResource::make($request->user()))
+    ->middleware('auth:sanctum');
+
+Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth:sanctum');

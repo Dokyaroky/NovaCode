@@ -19,6 +19,7 @@ import {
   TODAY_LABEL,
 } from '@/data/dashboard'
 import { CURRENT_USER } from '@/data/user'
+import { useCurrentUser } from '@/lib/currentUser'
 import auditIcon from '@/assets/icons/audit.svg'
 import checkCircle from '@/assets/icons/check-circle.svg'
 import flame from '@/assets/icons/flame.svg'
@@ -81,6 +82,8 @@ function LeagueCard() {
 
 export default function Dashboard() {
   const navigate = useNavigate()
+  const { user, loading, error } = useCurrentUser()
+  const firstName = user?.name.split(/\s+/)[0] ?? (loading ? 'Loading…' : 'your account')
 
   return (
     <AppShell
@@ -95,7 +98,8 @@ export default function Dashboard() {
         <header className="flex h-20 items-center">
           <div className="flex flex-col gap-2">
             <p className="text-sm font-medium text-ink-soft">{TODAY_LABEL}</p>
-            <h1 className="text-display text-ink">Welcome back, {CURRENT_USER.firstName}</h1>
+            <h1 className="text-display text-ink">Welcome back, {firstName}</h1>
+            {error && <p className="text-xs text-code-red" role="alert">{error}</p>}
           </div>
         </header>
 

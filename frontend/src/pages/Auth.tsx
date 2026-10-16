@@ -10,6 +10,7 @@ import Tabs from '@/components/Tabs'
 import { useToast } from '@/components/Toast'
 import arrowRight from '@/assets/icons/arrow-right.svg'
 import sparkle from '@/assets/icons/sparkle.svg'
+import { api, ApiError } from '@/lib/api'
 
 const TABS = [
   { id: 'signup', label: 'Sign Up' },
@@ -27,10 +28,8 @@ const COPY = {
     subtitle: 'Continue your path to the next rank.',
     submit: 'Log In',
   },
-  /** The account check is a local simulation: no auth service is connected in this build. */
   check: 'Checking your credentials…',
   signedIn: 'Signed in',
-  signedInBody: (email: string) => `${email} — demo session, no account service is connected yet.`,
   oauthTitle: (provider: string) => `${provider} sign-in is not connected`,
   oauthBody: 'This build only accepts the email form on this screen.',
   errors: {
@@ -39,9 +38,6 @@ const COPY = {
     password: 'Use at least 8 characters.',
   },
 } as const
-
-/** Simulated account check; there is no auth service in this build. */
-const AUTH_CHECK_MS = 900
 
 function Marketing() {
   return (
@@ -83,10 +79,7 @@ export default function Auth({ mode }: AuthProps) {
   const isSignup = mode === 'signup'
   const copy = COPY[mode]
 
-  /* Validation first, then the simulated account check — the frame's own button leads to the
-     Dashboard (`Button 45:1276 / 45:1282` → `4:577`), and the check is what stands between the
-     two. Nothing succeeds without a well-formed form. */
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (pending) return
     const next: typeof errors = {}
@@ -96,14 +89,32 @@ export default function Auth({ mode }: AuthProps) {
     setErrors(next)
     if (Object.keys(next).length > 0) return
     setPending(true)
-    window.setTimeout(() => {
+    try {
+      if (isSignup) {
+        await api.post('/api/register', {
+          name: fullName.trim(),
+          email: email.trim(),
+          password,
+        })
+      } else {
+        await api.post('/api/login', { email: email.trim(), password })
+      }
+
       push({
         title: COPY.signedIn,
-        description: COPY.signedInBody(email.trim()),
+        description: 'Your session is ready.',
         tone: 'success',
       })
       navigate('/dashboard')
-    }, AUTH_CHECK_MS)
+    } catch (error) {
+      push({
+        title: 'Unable to sign in',
+        description: error instanceof ApiError ? error.message : 'Please try again.',
+        tone: 'error',
+      })
+    } finally {
+      setPending(false)
+    }
   }
 
   return (
