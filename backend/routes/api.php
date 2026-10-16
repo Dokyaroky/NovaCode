@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\LessonProgressController;
+use App\Http\Controllers\CareerController;
 use App\Http\Resources\UserResource;
 
 Route::get('/health', fn () => response()->json([
@@ -27,6 +28,10 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('/courses', [CourseController::class, 'index']);
     Route::get('/courses/{course:slug}', [CourseController::class, 'show']);
     Route::get('/course-categories', [CourseController::class, 'categories']);
+    Route::get('/career-tracks', [CareerController::class, 'tracks']);
+    Route::get('/me/career-goal', [CareerController::class, 'goal']);
+    Route::put('/me/career-goal', [CareerController::class, 'updateGoal']);
+    Route::get('/me/career-path', [CareerController::class, 'path']);
     Route::post('/courses/{course:slug}/enroll', [EnrollmentController::class, 'store']);
     Route::get('/me/enrollments', [EnrollmentController::class, 'index']);
     Route::get('/me/courses/{course:slug}', [EnrollmentController::class, 'show']);

@@ -105,6 +105,50 @@ The lesson must belong to a course in the authenticated user's enrollments. `pos
 
 No request body. Marks the lesson complete and returns the updated enrollment. Progress is computed as completed lessons divided by total lessons. When all lessons are complete, enrollment `status` becomes `completed` and `completed_at` is populated.
 
+## Career goal and path endpoints
+
+### GET /api/career-tracks
+
+Returns active career tracks:
+
+```json
+{ "data": [{ "slug": "full-stack", "title": "Full Stack Developer", "description": "Build complete products across modern front-end and back-end systems." }] }
+```
+
+### GET /api/me/career-goal
+
+Returns the current goal, or `{ "data": null }` when none is selected:
+
+```json
+{ "data": { "uuid": "...", "isCurrent": true, "selectedAt": "...", "track": { "slug": "full-stack", "title": "Full Stack Developer", "description": "..." } } }
+```
+
+### PUT /api/me/career-goal
+
+Request: `{ "track_slug": "full-stack" }`. The slug must identify an active track. The previous goal is retained as history and marked non-current; selecting the current track again is idempotent. Returns the goal shape above.
+
+### GET /api/me/career-path
+
+Returns the current track, exactly three missions, derived status and fuel, boss state, and the active mission briefing:
+
+```json
+{
+  "data": {
+    "track": { "slug": "full-stack", "title": "Full Stack Developer", "description": "..." },
+    "missions": [
+      { "slug": "html-css-base", "title": "HTML/CSS Base", "sortOrder": 1, "status": "extracting" },
+      { "slug": "react-ui", "title": "React UI", "sortOrder": 2, "status": "locked" },
+      { "slug": "node-js-backend", "title": "Node.js Backend", "sortOrder": 3, "status": "locked" }
+    ],
+    "fuelPercent": 0,
+    "boss": { "title": "Final Boss: E-Commerce Capstone", "rewardLabel": "10,000L Rocket Fuel", "locked": true },
+    "briefing": { "title": "HTML/CSS Base", "theoryTitle": "Theory: HTML & CSS", "theoryMinutes": 8, "extractionTitle": "Fuel Extraction: NavBar", "rewardLabel": "+500 XP and 200L Plasma Fuel" }
+  }
+}
+```
+
+Mission status is `finished`, `extracting` for the first unfinished mission, or `locked`. Fuel is completed missions divided by the three missions. No public mission-completion endpoint exists yet; mission completion is server-side in a later slice. A user without a current goal receives HTTP 409.
+
 ## Identifier and ownership rules
 
 Catalog routes use slugs. User-owned enrollment and progress responses use UUIDs and never expose numeric database IDs. Enrollment and progress queries are scoped to the authenticated user; a user cannot read or modify another user's records.

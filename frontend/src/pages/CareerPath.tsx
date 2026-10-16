@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Link, Navigate, useSearchParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, Navigate } from 'react-router-dom'
 import AppShell from '@/components/AppShell'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
@@ -7,13 +7,11 @@ import IconTile from '@/components/IconTile'
 import Modal from '@/components/Modal'
 import ProgressBar from '@/components/ProgressBar'
 import { IconClose } from '@/components/icons'
-import { hasCompletedQuestionnaire } from '@/lib/onboarding'
+import { api, ApiError } from '@/lib/api'
+import type { CareerPathResponse } from '@/lib/career'
 import {
   EXPEDITION,
   EXPEDITION_SIDEBAR,
-  EXPEDITION_STAGES,
-  MISSION_BRIEFING,
-  activeMission,
 } from '@/data/careerPath'
 import type { BriefingStep, ExpeditionStage, Mission, MissionStatus } from '@/data/careerPath'
 
@@ -100,14 +98,51 @@ function curve(from: { x: number; y: number }, to: { x: number; y: number }): st
 }
 
 export default function CareerPath() {
-  const [params] = useSearchParams()
   const [crashOpen, setCrashOpen] = useState(false)
   /* The briefing card both the primary CTA and the unlocked map pins open (frame 118:6053). */
   const [briefingOpen, setBriefingOpen] = useState(false)
-  const stage: ExpeditionStage = EXPEDITION_STAGES[params.get('stage') ?? ''] ?? EXPEDITION
-  const current = activeMission(stage)
+  const [path, setPath] = useState<CareerPathResponse | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [noGoal, setNoGoal] = useState(false)
+  useEffect(() => {
+    let cancelled = false
+    api.get<{ data: CareerPathResponse }>('/api/me/career-path')
+      .then((response) => { if (!cancelled) setPath(response.data) })
+      .catch((reason: unknown) => {
+        if (cancelled) return
+        if (reason instanceof ApiError && reason.status === 409) setNoGoal(true)
+        else setError(reason instanceof ApiError ? reason.message : 'Unable to load your career path.')
+      })
+      .finally(() => { if (!cancelled) setLoading(false) })
+    return () => { cancelled = true }
+  }, [])
+
+  if (loading) return <AppShell mainClassName="p-6"><p role="status" className="text-sm text-ink-soft">Loading career path…</p></AppShell>
+  if (noGoal) return <Navigate to={QUESTIONNAIRE_ROUTE} replace />
+  if (error || !path) return <AppShell mainClassName="p-6"><div className="flex flex-col gap-4"><p role="alert" className="text-sm text-code-red">{error ?? 'Career path unavailable.'}</p><Button variant="outline" onClick={() => window.location.reload()}>Retry</Button></div></AppShell>
+
+  const stage: ExpeditionStage = {
+    id: 'extracting',
+    badge: EXPEDITION.badge,
+    title: `Expedition: ${path.track.title}`,
+    subtitle: EXPEDITION.subtitle,
+    fuelPercent: path.fuelPercent,
+    missions: path.missions.map((mission) => ({ id: mission.slug, title: mission.title, status: mission.status, order: String(mission.sortOrder) })),
+    boss: { label: 'Boss Lair', title: path.boss.title, reward: `Reward: ${path.boss.rewardLabel}`, locked: path.boss.locked, action: path.boss.locked ? 'Locked' : 'Fight' },
+  }
+  const current = stage.missions.find((mission) => mission.status === 'extracting') ?? stage.missions[stage.missions.length - 1]
   const sidebar = EXPEDITION_SIDEBAR
-  const briefing = MISSION_BRIEFING
+  const briefing = path.briefing ? {
+    title: path.briefing.title,
+    subtitle: 'Complete the sequence to unlock the extraction zone.',
+    closeLabel: 'Close mission briefing',
+    steps: [
+      { id: 'theory' as const, label: `1. ${path.briefing.theoryTitle}`, meta: `Duration: ${path.briefing.theoryMinutes} Mins`, action: 'Watch', path: '/learn/quick-check' },
+      { id: 'extraction' as const, label: `2. ${path.briefing.extractionTitle}`, action: 'Code', path: '/ide' },
+    ],
+    reward: `Reward upon completion: ${path.briefing.rewardLabel}`,
+  } : null
 
   const { column, gap, ring, unit } = MISSION_ROUTE
   const routeHeight = (stage.missions.length - 1) * gap + unit
@@ -116,12 +151,7 @@ export default function CareerPath() {
     y: index * gap + ring / 2,
   }))
 
-  /* First run: the expedition is what the questionnaire unlocks, so a browser that has never
-     finished it gets the questions instead. `?stage=` is the preview of the design's second
-     state and stays reachable without answering. */
-  if (!params.get('stage') && !hasCompletedQuestionnaire()) {
-    return <Navigate to={QUESTIONNAIRE_ROUTE} replace />
-  }
+  if (!briefing) return <AppShell mainClassName="p-6"><p role="alert" className="text-sm text-code-red">No active mission is available.</p></AppShell>
 
   return (
     <AppShell mainClassName="p-0">

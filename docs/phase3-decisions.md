@@ -12,6 +12,15 @@
 - The leaderboard shows first name, last initial, and XP to authenticated users only.
 - Protected frontend pages will redirect unauthenticated users; backend authorization remains authoritative.
 
+## Slice 4 decisions
+
+- Each user has one current career goal, with history. Changing it keeps enrollments and progress.
+- Fuel percent is finished missions divided by total missions in the user's track, computed on the server. The Figma 15% and 30% values were preview states.
+- There is no public endpoint to complete a mission. Missions are completed server-side by Slice 5; this slice's tests and factories may write completions.
+- Reward strings (`+500 XP`, `200L Plasma Fuel`, and boss reward) are display text only. There is no XP or fuel ledger yet.
+- Every track has exactly three missions because the UI lays out three pins.
+- The questionnaire-completed state moves from localStorage to the backend.
+
 ## Slice 2 scope
 
 This slice implements only the authenticated, read-only course catalog: courses, categories, and structural lesson rows. The static Explore catalog does not contain lesson titles or explicit category assignments, so lesson titles are deterministic structural placeholders and category membership is assigned only when a visible category name occurs in the course title. Those choices should be revisited when authoritative catalog content is available.

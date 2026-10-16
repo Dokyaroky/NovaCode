@@ -5,7 +5,8 @@ import AppShell from '@/components/AppShell'
 import IconTile from '@/components/IconTile'
 import ProgressBar from '@/components/ProgressBar'
 import { useToast } from '@/components/Toast'
-import { markQuestionnaireCompleted } from '@/lib/onboarding'
+import { api, ApiError } from '@/lib/api'
+import type { CareerTrack, CareerGoalResponse } from '@/lib/career'
 import { CAREER_GOALS, CAREER_QUESTIONNAIRE } from '@/data/careerGoals'
 import type { CareerGoalId } from '@/data/careerGoals'
 import arrowRight from '@/assets/icons/arrow-right.svg'
@@ -44,19 +45,40 @@ export default function Questionnaire() {
   const navigate = useNavigate()
   const { push } = useToast()
   const [selectedId, setSelectedId] = useState<CareerGoalId | null>(null)
+  const [tracks, setTracks] = useState<CareerTrack[]>([])
+  const [loadingTracks, setLoadingTracks] = useState(true)
+  const [loadError, setLoadError] = useState<string | null>(null)
   const [showValidation, setShowValidation] = useState(false)
   const [generating, setGenerating] = useState(false)
   const [phaseIndex, setPhaseIndex] = useState(0)
   const [progress, setProgress] = useState(0)
   const groupRef = useRef<HTMLFieldSetElement>(null)
 
-  const selected = CAREER_GOALS.find((goal) => goal.id === selectedId) ?? null
+  const goals = tracks.map((track) => ({ ...track, icon: CAREER_GOALS.find((goal) => goal.id === track.slug)?.icon ?? '' }))
+  const selected = goals.find((goal) => goal.slug === selectedId) ?? null
   const steps = CAREER_QUESTIONNAIRE.generating.steps
   const step = steps[Math.min(steps.length - 1, Math.floor((progress / 100) * steps.length))]
   const phase = PHASES[Math.min(phaseIndex, PHASES.length - 1)]
   const lastPhase = phaseIndex === PHASES.length - 1
 
   /* Progress runs across the whole corridor, so the bar reflects the reference's 3s + 13s. */
+  useEffect(() => {
+    let cancelled = false
+    Promise.all([
+      api.get<{ data: CareerTrack[] }>('/api/career-tracks'),
+      api.get<{ data: CareerGoalResponse | null }>('/api/me/career-goal'),
+    ]).then(([trackResponse, goalResponse]) => {
+      if (cancelled) return
+      setTracks(trackResponse.data)
+      setSelectedId((goalResponse.data?.track.slug as CareerGoalId | undefined) ?? null)
+    }).catch((reason: unknown) => {
+      if (!cancelled) setLoadError(reason instanceof ApiError ? reason.message : 'Unable to load career goals.')
+    }).finally(() => {
+      if (!cancelled) setLoadingTracks(false)
+    })
+    return () => { cancelled = true }
+  }, [])
+
   useEffect(() => {
     if (!generating) return
     const start = Date.now()
@@ -82,9 +104,6 @@ export default function Questionnaire() {
           tone: 'success',
         })
       }
-      /* The Career Path only shows itself once this flag is set, so it has to land before the
-         navigation — otherwise the expedition would bounce the user straight back here. */
-      markQuestionnaireCompleted()
       navigate('/learn')
     }, phase.hold)
     return () => window.clearTimeout(timer)
@@ -108,7 +127,12 @@ export default function Questionnaire() {
     setShowValidation(false)
     setProgress(0)
     setPhaseIndex(0)
-    setGenerating(true)
+    void api.put('/api/me/career-goal', { track_slug: selected.slug })
+      .then(() => setGenerating(true))
+      .catch((reason: unknown) => {
+        push({ title: 'Unable to save career goal', description: reason instanceof ApiError ? reason.message : 'Please try again.', tone: 'error' })
+        setGenerating(false)
+      })
   }
 
   return (
@@ -146,16 +170,16 @@ export default function Questionnaire() {
             >
               <legend className="sr-only">{CAREER_QUESTIONNAIRE.legend}</legend>
               <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {CAREER_GOALS.map((goal) => (
-                  <label key={goal.id} className="relative flex cursor-pointer">
+                {goals.map((goal) => (
+                  <label key={goal.slug} className="relative flex cursor-pointer">
                     {/* Native radios: one tab stop, arrow keys move and pick, the whole card is
                         the label. The ring and the violet border are peer state, not JS state. */}
                     <input
                       type="radio"
                       name="career-goal"
-                      value={goal.id}
-                      checked={goal.id === selectedId}
-                      onChange={() => choose(goal.id)}
+                      value={goal.slug}
+                      checked={goal.slug === selectedId}
+                      onChange={() => choose(goal.slug as CareerGoalId)}
                       aria-invalid={showValidation || undefined}
                       className="peer sr-only"
                     />
@@ -164,7 +188,7 @@ export default function Questionnaire() {
                         <IconTile size="md" tone="accentStrong">
                           <img src={goal.icon} alt="" width={24} height={24} />
                         </IconTile>
-                        {goal.id === selectedId && (
+                        {goal.slug === selectedId && (
                           <span
                             aria-hidden="true"
                             className="flex h-8 shrink-0 items-center gap-2 rounded-pill bg-accent px-3 text-xs leading-4 font-bold text-ink"
@@ -186,7 +210,7 @@ export default function Questionnaire() {
 
             {/* CTA — frame 43:423: a 56px brand pill, 40px below the section. */}
             <div className="flex w-full flex-col items-center gap-3 pt-10">
-              {generating ? (
+              {loadingTracks ? <p role="status" className="text-sm text-ink-soft">Loading career goals…</p> : loadError ? <p role="alert" className="text-sm text-code-red">{loadError}</p> : generating ? (
                 /* Keyed by state, so entering state 3 replays the file's DISSOLVE (100ms) and
                    entering state 2 the 300ms ease-out the smart animate would use. */
                 <div

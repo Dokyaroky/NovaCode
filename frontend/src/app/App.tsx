@@ -85,7 +85,7 @@ export default function App() {
   /* Every screen change in the file is a SMART_ANIMATE (300 ms, EASE_OUT) — a morph between two
      frames, which has no CSS equivalent. The stand-in is the file's own cross-fade duration and
      easing on the incoming screen. Keying on the pathname makes the wrapper remount per route,
-     which replays the fade; a query-only change (e.g. `?stage=advanced`, `?tab=`) does not. */
+     which replays the fade; a query-only change (e.g. `?tab=`) does not. */
   return (
     <div key={pathname} className="animate-dissolve h-full">
       <Routes>
